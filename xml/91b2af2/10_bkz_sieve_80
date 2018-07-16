@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>16384</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>297</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>72</sigma>
+			<bound>662</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>891</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>89976835572853732012479585572610459847437635876722205597436324024693261252874406147226414821537587673503852067144498377432994687456105691253431790498747738202264063987534931030966272</sigma>
+			<bound>823764362406146461622986122743181082620482707520168086261707875648245610327566482625576693415552280750655015593619151077343762419431351226528192097329567567152501610267481437540188160</bound>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>92</estimated_secu_level>
+		<n>8192</n>
+		<alpha>7.10912671496313e-88</alpha>
+		<q>254629497041810760783555711051172270131433549208242031329517556169297662470417088272924672</q>
+		<gen_method>bitsizeinc</gen_method>
+		<bkz_reduction_cost_model>BKZ.sieve</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

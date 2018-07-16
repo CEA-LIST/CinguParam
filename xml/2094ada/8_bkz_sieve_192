@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>32768</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>261</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>102</sigma>
+			<bound>936</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>783</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>38106672109944934810475114901336981651148243359005140447994186515378505818934795767414532675635964867705485268499152930486301690153024833192743635142217564160000</sigma>
+			<bound>348877777865968902487211940285997513463941873494525158772923805207072710272045663801719402204047281368979362560913770634107934266971996221450130892989346409873408</bound>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>230</estimated_secu_level>
+		<n>16384</n>
+		<alpha>6.90893484407556e-77</alpha>
+		<q>3705346855594118253554271520278013051304639509300498049262642688253220148477952</q>
+		<gen_method>bitsizeinc</gen_method>
+		<bkz_reduction_cost_model>BKZ.sieve</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>8192</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>76</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>51</sigma>
+			<bound>468</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>228</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>3961344713879496920055992856588500897586216960000</sigma>
+			<bound>36267274590443849964102832171782111898433432322048</bound>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>191</estimated_secu_level>
+		<n>4096</n>
+		<q>75557863725914323419136</q>
+		<gen_method>bitsizeinc</gen_method>
+	</extra>
+</fhe_params>

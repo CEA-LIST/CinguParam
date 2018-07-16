@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>16384</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>189</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>72</sigma>
+			<bound>662</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>567</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>854381137731122782270435224906103356865127565812649000735339440053440188556679795149061743321504445824831187375357952</sigma>
+			<bound>7822110309770190061502391480791732977175082675236718884016377130927663733281529343563499492206729662817719063999938560</bound>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>282</estimated_secu_level>
+		<n>8192</n>
+		<alpha>2.30704351931432e-55</alpha>
+		<q>784637716923335095479473677900958302012794430558004314112</q>
+		<gen_method>bitsizeinc</gen_method>
+		<bkz_reduction_cost_model>BKZ.enum</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>
