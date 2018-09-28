@@ -9,6 +9,14 @@
 #include <float.h>
 #include "pugixml.hpp"
 #include <string>
+
+/** 
+ * Goal:
+ * compute estimated secu of parameters in xml files .
+ * Usage : 
+ * commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+ * g++ -fopenmp  -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
+**/
  
 using namespace std;
 using namespace boost::filesystem;
@@ -38,7 +46,7 @@ int main()
 {
         /** Read content of the directory named [commit-id], the HEAD of the lwe-estimator **/
         string output_dir;
-        string commit_id=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
+        string commit_id=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
         output_dir.append("../xml/").append(commit_id);
         char *real_path = realpath(output_dir.c_str(), NULL);
         DIR *dir;

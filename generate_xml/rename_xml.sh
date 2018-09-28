@@ -4,16 +4,16 @@
 # lb_estimated_secu is the highest multiple of 64 lower than estimated secu
 # example : 128 is the minimum required, 203 is estimated with lwe-estimator, 192 is a lower bound on estimated secu in xml filename
 
-min_secu=$1
-commit_id=$2
-
 if [ $# -eq 0 ]
 then
         echo -e "Usage: `basename $0` [min_secu] [commit_id]"" \nTo replace [min_secu] by [lb_estimated_secu] in xml filename." 
         exit 0
 fi
 
-  
+min_secu=$1
+commit_id=$2
+
+echo "rename_xml"  
 cd ../xml/$commit_id/
 for file in *$min_secu*
 do

@@ -4,7 +4,7 @@ It proposes to generate and store parameter sets for homomorphic encryption.
 
 It also propose to estimate the security level of a parameter set.
 
-Parameter sets are store in xml files.
+Parameter sets are stored in xml files.
 
 
 

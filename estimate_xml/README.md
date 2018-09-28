@@ -1,3 +1,11 @@
+# Tools:
+
+* checkSecu
+* sortAttack
+
+These tools makes use of the xml database contained in the directory runtime/fhe_fv/xml. 
+
+
 ## checkSecu
 
 Goal: It serves to check estimated security level of parameters contained in xml files. Security is estimated against primal_uSVP, dual_scale, primal_decode attacks. It is used to check generated parameters are still secure.
@@ -7,8 +15,8 @@ Output directory: security_estimation
 Usage:
 
 ```sh
-$ commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py HEAD | awk '{print $1}'  | cut -c-7 )
-$ g++ -fopenmp -lboost_system -lboost_filesystem -lpugixml -o checkSecu checkSecu.cpp && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
+commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+g++ -fopenmp  -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../xml/check/${commit_id}_estimate_lwe
 ```
 
 ## sortAttack
@@ -21,7 +29,7 @@ Usage:
 
 * 
 ```sh
-$ bash sortAttack.sh
+bash sortAttack.sh
 ```
 
 

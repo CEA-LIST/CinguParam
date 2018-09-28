@@ -81,7 +81,7 @@ from mpmath import mpf
 from xml.dom import minidom
 import numpy as np
 
-    
+
 #######
 # Read config file with name=value pairs, ConfigParse module
 
@@ -136,7 +136,7 @@ class _ParametersGenerator:
                         print ('\t{0}: {1}'.format(key, val))
 
         def write(self):
-                print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT  
+                print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT  
                 order = ['model', '_lambda_p', 'L','n', 'log2_q' , 'sigma', 'nb_64_bit_words_q'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                 for flag in order:
                         for key,val in self.__dict__.items():
@@ -493,7 +493,7 @@ def MinModulus(n,error_gwp, mult_depth=10,cryptosystem="FV",is_binary_secret="Tr
 
 
 # selection of BKZ (lattice reduction) cost model 
-bkz_enum = BKZ.enum    #https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py   In April 2018, BKZ.enum is reduction_default_cost in lwe-estimator.
+bkz_enum = BKZ.enum    #https://bitbucket.org/malb/lwe-estimator.git   In April 2018, BKZ.enum is reduction_default_cost in lwe-estimator.
 bkz_sieve=BKZ.sieve 
 core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.292*beta)   #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="classical"
 q_core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.265*beta) #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="quantum"

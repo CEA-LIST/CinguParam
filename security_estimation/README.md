@@ -1,37 +1,39 @@
-# File A: <commit-id>_sorted_attack_cost
+# File A:  <commit-id>_estimate_lwe
 
 ## Description
-
-File A contains the attack cost
--sorted by number of bits of security, into ascending order
--for each parameter set in the directory xml/<commit-id>.
-
-## How to get it?
-* 
-```sh
-$ cd ../estimate_xml
-$ bash sortAttack.sh
-```
-
-# File B:  <commit-id>_estimate_lwe
-
-## Description
-File B contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory xml/<commit-id>.
+File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory xml/<commit-id>.
 
 More precisely, the results concern three attacks : 
 -primal_usvp
 -dual_scale
 -primal_decode
 
-It is in raw format and we use it to obtain File A.
+It is in raw format and we use it to obtain File B.
 
 ## How to get it?
 * 
 ```sh
-$ cd ../estimate_xml
-$ commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py HEAD | awk '{print $1}'  | cut -c-7 )
-$ g++ -fopenmp -lboost_system -lboost_filesystem -lpugixml -o checkSecu checkSecu.cpp && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
+cd ../estimate_xml
+commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+g++ -fopenmp -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
 ```
+
+# File B: <commit-id>_sorted_attack_cost
+
+## Description
+
+File B contains the attack cost
+-sorted by number of bits of security, into ascending order
+-for each parameter set in the directory xml/<commit-id>.
+
+## How to get it?
+* 
+```sh
+cd ../estimate_xml
+bash sortAttack.sh
+```
+
+
 
 
 # Comment [june 2018]
@@ -45,9 +47,8 @@ They permit to check if our heuristic is valid when new parameter set are genera
 
 * To see parameter sets for which primal_usvp is not the unique best attack, in terms of estimated bits of security with lwe-estimator tool.
 ```sh
-$ commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py HEAD | awk '{print $1}'  | cut -c-7 )
-$cat ${commit_id}_sorted_attack_cost | \grep -v ^usvp
-
+commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+cat ${commit_id}_sorted_attack_cost | \grep -v ^usvp
 ```
 
 Other approaches can be adopted to generate secure paramters and there is no argument to consider only primal_usvp attack, in the general case.

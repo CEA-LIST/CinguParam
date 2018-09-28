@@ -1,6 +1,6 @@
  #!/bin/bash
  
- commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py HEAD | awk '{print $1}'  | cut -c-7 )
+ commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
  number_file=$(ls ../xml/$commit_id | wc -l)
  input_file="../security_estimation/${commit_id}_estimate_lwe"
  output_file="../security_estimation/${commit_id}_sorted_attack_cost"
