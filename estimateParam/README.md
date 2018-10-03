@@ -1,36 +1,39 @@
-# How to read filename?
+# Tools:
 
-Filename contain four input parameters.
+* checkSecu
+* sortAttack
 
-## Generic:
-
-* Multiplicative depth 
-* Approximated security level   
-* BKZ reduction model cost 
-* HEAD commit ID 
-* Pathname is in the directory xml/<commit_id>/
-* Filename is <mult_depth>_<bkz_cost_model>_<approx_secu>.xml
-
-## Example:
-
-* Multiplicative depth = 7
-* Approximated security level = 128 
-* BKZ reduction model cost = bkz_enum
-* HEAD commit ID = 0b16750 
-* Generation method = bitsizeinc
-* Pathname is in the directory xml/0b16750/
-* Filename is 7_bkz_enum_128.xml
+These tools makes use of the xml database contained in the directory databaseParam. 
 
 
-# Notes 
+## checkSecu
 
-* Approximated security level is the highest value among 80 and multiples of 64 (128, 192, 256...) which is lower than estimated security level. 
-* Estimated security level against primal uSVP attack is indicated in the xml file. 
-* Other input parameters have default value given in the script genParams.sage. 
+Goal: It serves to check estimated security level of parameters contained in xml files. Security is estimated against primal_uSVP, dual_scale, primal_decode attacks. It is used to check generated parameters are still secure.
+
+Output directory: securityEstimation
+
+Usage:
+
+```sh
+commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+g++ -fopenmp  -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../databaseParam/check/${commit_id}_estimate_lwe
+```
+
+## sortAttack
+
+Goal: It permits to determine the best estimated attack against a parameter set according lwe-estimator (HEAD commit). It is used to check primal_uSVP is the best attack against generated parameter by our algorithm  as we notice experimentally.
+
+Output directory: securityEstimation
+
+Usage:
+
+* 
+```sh
+bash sortAttack.sh
+```
 
 
-
-
+    
     ....................................................................................................
     .................................................M..NMMNMMMMMMMOMMMMM.... ..........................
     ............................................+MMMMMMI?IMOOODZOOOM?+??MMNNMM..........................

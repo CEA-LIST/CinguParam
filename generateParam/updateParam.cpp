@@ -10,7 +10,7 @@
  * Goal:
  * generate xml files containing parameter set when HEAD of lwe-estimator is updated.
  * Usage : 
- * g++ -fopenmp -o updateParams updateParams.cpp -lboost_filesystem -lboost_system && ./updateParams 
+ * g++ -fopenmp -o updateParam updateParam.cpp -lboost_filesystem -lboost_system && ./updateParam 
 **/
  
 using namespace std;
@@ -41,16 +41,16 @@ int main()
         /** Creation of the directory named [commit-id], the HEAD of the lwe-estimator **/
         string output_dir;
         string commit_id=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
-        output_dir.append("../xml/").append(commit_id);
+        output_dir.append("../databaseParam/").append(commit_id);
         create_directories(output_dir);
 
 
         /** Estimation of secure parameter against primal-uSVP using lwe-estimator HEAD
-        * These parameters are stored in xml files store in the directory xml
+        * These parameters are stored in xml files stored in the directory databaseParam
         * The filename is determined by input parameters : <multiplicative depth>, <BKZ reduction model cost>, <minimal security>, <generation method>
         **/
 
-        string gen_param_script="../generate_xml/genParams.sage";
+        string gen_param_script="../generateParam/genParam.sage";
         int max_mult_depth=20;        
         vector <int> min_secu;
         min_secu.push_back(80);
@@ -101,7 +101,7 @@ int main()
         for (int num_min_secu=0;num_min_secu<min_secu.size();num_min_secu++)
         {
                 memset(rename_xml, 0, sizeof rename_xml);        
-                sprintf(rename_xml,"bash rename_xml.sh %i %s",min_secu[num_min_secu],commit_id.c_str());
+                sprintf(rename_xml,"bash renameParam.sh %i %s",min_secu[num_min_secu],commit_id.c_str());
                 system((char *)rename_xml);
         }
         return 0;

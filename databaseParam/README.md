@@ -1,60 +1,32 @@
-# File A:  <commit-id>_estimate_lwe
+# How to read filename?
 
-## Description
-File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory xml/<commit-id>.
+Filename contain four input parameters.
 
-More precisely, the results concern three attacks : 
--primal_usvp
--dual_scale
--primal_decode
+## Generic:
 
-It is in raw format and we use it to obtain File B.
+* Multiplicative depth 
+* Approximated security level   
+* BKZ reduction model cost 
+* HEAD commit ID 
+* Pathname is in the directory databaseParam/<commit_id>
+* Filename is <mult_depth>_<bkz_cost_model>_<approx_secu>.xml
 
-## How to get it?
-* 
-```sh
-cd ../estimate_xml
-commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-g++ -fopenmp -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
-```
+## Example:
 
-# File B: <commit-id>_sorted_attack_cost
-
-## Description
-
-File B contains the attack cost
--sorted by number of bits of security, into ascending order
--for each parameter set in the directory xml/<commit-id>.
-
-## How to get it?
-* 
-```sh
-cd ../estimate_xml
-bash sortAttack.sh
-```
+* Multiplicative depth = 7
+* Approximated security level = 128 
+* BKZ reduction model cost = bkz_enum
+* HEAD commit ID = 0b16750 
+* Generation method = bitsizeinc
+* Pathname is in the directory databaseParam/0b16750/
+* Filename is 7_bkz_enum_128.xml
 
 
+# Notes 
 
-
-# Comment [june 2018]
-
-Current results indicate primal_usvp is the best attack against all parameter set obtained by our script genParams.sage, according to lwe-estimator tool. 
-In the generation script, we only consider primal_usvp attack to estimate security.
-This is only heuristic .
- 
-We added two programs in "../script" directory : checkSecu.cpp and sortAttack.sh.
-They permit to check if our heuristic is valid when new parameter set are generated.
-
-* To see parameter sets for which primal_usvp is not the unique best attack, in terms of estimated bits of security with lwe-estimator tool.
-```sh
-commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-cat ${commit_id}_sorted_attack_cost | \grep -v ^usvp
-```
-
-Other approaches can be adopted to generate secure paramters and there is no argument to consider only primal_usvp attack, in the general case.
-
-
-
+* Approximated security level is the highest value among 80 and multiples of 64 (128, 192, 256...) which is lower than estimated security level. 
+* Estimated security level against primal uSVP attack is indicated in the xml file. 
+* Other input parameters have default value given in the script genParam.sage. 
 
 
 
@@ -99,3 +71,4 @@ Other approaches can be adopted to generate secure paramters and there is no arg
     .........................................................MMM........................................
     .........................................................MD.........................................
     ....................................................................................................
+    

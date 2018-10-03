@@ -20,7 +20,7 @@
 #
 
   
-"""@package genParams
+"""@package genParam
 
 [Disclaimer]
 This script generates parameters for the Fan-Vercauteren cryptosystem following our variant of an algorithm described in G. Bonnoron PhD Thesis (algorithm 5.9, page 76). It employs HEAD commit of lwe-estimator (https://bitbucket.org/malb/lwe-estimator) . It is provided on an AS IS basis. If you need up-to-date security levels you should consider more recent complexity estimates for known attacks on RLWE.
@@ -30,13 +30,13 @@ This script is used to generate parameters for Fan-Vercauteren (FV for short) le
 
 [First use] 
 To use this script properly, type:
-sage genParams.sage -h
+sage genParam.sage -h
 
 This command describes input parameters and how to use them. It also gives default parameters
 
 [Toy example] 
 To use this script with default values, type:
-sage genParams.sage
+sage genParam.sage
 
 [Input/Output]
 Input parameters are displayed on the standard output.
