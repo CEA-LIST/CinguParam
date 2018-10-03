@@ -2,8 +2,8 @@
  
  commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
  number_file=$(ls ../databaseParam/$commit_id | wc -l)
- input_file="../securityEstimation/${commit_id}_estimate_lwe"
- output_file="../securityEstimation/${commit_id}_sorted_attack_cost"
+ input_file="${commit_id}_estimate_lwe"
+ output_file="${commit_id}_sorted_attack_cost"
  
 #empty output file
 cp /dev/null $output_file
