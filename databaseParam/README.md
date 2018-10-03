@@ -1,13 +1,12 @@
 # How to read filename?
 
-Filename contain four input parameters.
+Filename contain three input parameters.
 
 ## Generic:
 
 * Multiplicative depth 
 * Approximated security level   
 * BKZ reduction model cost 
-* HEAD commit ID 
 * Pathname is in the directory databaseParam/<commit_id>
 * Filename is <mult_depth>_<bkz_cost_model>_<approx_secu>.xml
 
@@ -16,7 +15,7 @@ Filename contain four input parameters.
 * Multiplicative depth = 7
 * Approximated security level = 128 
 * BKZ reduction model cost = bkz_enum
-* HEAD commit ID = 0b16750 
+* commit ID = 0b16750 
 * Generation method = bitsizeinc
 * Pathname is in the directory databaseParam/0b16750/
 * Filename is 7_bkz_enum_128.xml

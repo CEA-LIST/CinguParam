@@ -10,20 +10,16 @@ These tools makes use of the xml database contained in the directory databasePar
 
 Goal: It serves to check estimated security level of parameters contained in xml files. Security is estimated against primal_uSVP, dual_scale, primal_decode attacks. It is used to check generated parameters are still secure.
 
-Output directory: securityEstimation
-
 Usage:
 
 ```sh
 commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-g++ -fopenmp  -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../databaseParam/check/${commit_id}_estimate_lwe
+g++ -fopenmp  -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ${commit_id}_estimate_lwe
 ```
 
 ## sortAttack
 
 Goal: It permits to determine the best estimated attack against a parameter set according lwe-estimator (HEAD commit). It is used to check primal_uSVP is the best attack against generated parameter by our algorithm  as we notice experimentally.
-
-Output directory: securityEstimation
 
 Usage:
 
@@ -31,6 +27,63 @@ Usage:
 ```sh
 bash sortAttack.sh
 ```
+
+
+# File A:  <commit-id>_estimate_lwe
+
+## Description
+File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory xml/<commit-id>.
+
+More precisely, the results concern three attacks : 
+-primal_usvp
+-dual_scale
+-primal_decode
+
+It is in raw format and we use it to obtain File B.
+
+## How to get it?
+* 
+```sh
+cd ../estimateParam
+commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+g++ -fopenmp -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
+```
+
+# File B: <commit-id>_sorted_attack_cost
+
+## Description
+
+File B contains the attack cost
+-sorted by number of bits of security, into ascending order
+-for each parameter set in the directory xml/<commit-id>.
+
+## How to get it?
+* 
+```sh
+cd ../estimateParam
+bash sortAttack.sh
+```
+
+
+
+
+# Comment [june 2018]
+
+Current results indicate primal_usvp is the best attack against all parameter set obtained by our script genParams.sage, according to lwe-estimator tool. 
+In the generation script, we only consider primal_usvp attack to estimate security.
+This is only heuristic .
+ 
+We added two programs in "../script" directory : checkSecu.cpp and sortAttack.sh.
+They permit to check if our heuristic is valid when new parameter set are generated.
+
+* To see parameter sets for which primal_usvp is not the unique best attack, in terms of estimated bits of security with lwe-estimator tool.
+```sh
+commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
+cat ${commit_id}_sorted_attack_cost | \grep -v ^usvp
+```
+
+Other approaches can be adopted to generate secure paramters and there is no argument to consider only primal_usvp attack, in the general case.
+
 
 
     
