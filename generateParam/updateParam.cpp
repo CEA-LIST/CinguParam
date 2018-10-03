@@ -41,12 +41,12 @@ int main()
         /** Creation of the directory named [commit-id], the HEAD of the lwe-estimator **/
         string output_dir;
         string commit_id=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
-        output_dir.append("../databaseParam/").append(commit_id);
+        output_dir.append("../storeParam/").append(commit_id);
         create_directories(output_dir);
 
 
         /** Estimation of secure parameter against primal-uSVP using lwe-estimator HEAD
-        * These parameters are stored in xml files stored in the directory databaseParam
+        * These parameters are stored in xml files stored in the directory storeParam
         * The filename is determined by input parameters : <multiplicative depth>, <BKZ reduction model cost>, <minimal security>, <generation method>
         **/
 

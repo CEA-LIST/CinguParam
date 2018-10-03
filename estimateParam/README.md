@@ -3,7 +3,7 @@
 * checkSecu
 * sortAttack
 
-These tools makes use of the xml database contained in the directory databaseParam. 
+These tools makes use of the xml database contained in the directory storeParam. 
 
 
 ## checkSecu

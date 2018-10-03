@@ -7,7 +7,7 @@ Filename contain three input parameters.
 * Multiplicative depth 
 * Approximated security level   
 * BKZ reduction model cost 
-* Pathname is in the directory databaseParam/<commit_id>
+* Pathname is in the directory storeParam/<commit_id>
 * Filename is <mult_depth>_<bkz_cost_model>_<approx_secu>.xml
 
 ## Example:
@@ -17,7 +17,7 @@ Filename contain three input parameters.
 * BKZ reduction model cost = bkz_enum
 * commit ID = 0b16750 
 * Generation method = bitsizeinc
-* Pathname is in the directory databaseParam/0b16750/
+* Pathname is in the directory storeParam/0b16750/
 * Filename is 7_bkz_enum_128.xml
 
 

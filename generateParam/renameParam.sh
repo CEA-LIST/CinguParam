@@ -14,7 +14,7 @@ min_secu=$1
 commit_id=$2
 
 echo "renameParam"  
-cd ../databaseParam/$commit_id/
+cd ../storeParam/$commit_id/
 for file in *$min_secu*
 do
         estimated_secu=$(xmllint --xpath 'fhe_params/extra/estimated_secu_level/text()' $file)

@@ -12,9 +12,9 @@
 HEAD_COMMIT=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 BASEDIR=$(dirname "$0")
 cd $BASEDIR
-if [ ! -d ../databaseParam/$HEAD_COMMIT ]
+if [ ! -d ../storeParam/$HEAD_COMMIT ]
 then 
-        echo $HEAD_COMMIT $(date) >> ../databaseParam/update_history
+        echo $HEAD_COMMIT $(date) >> ../storeParam/update_history
         g++ -fopenmp -o updateParam updateParam.cpp -lboost_system -lboost_filesystem && ./updateParam 
 fi
 
