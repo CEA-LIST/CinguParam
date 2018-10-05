@@ -14,7 +14,7 @@ Usage:
 
 ```sh
 commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-g++ -fopenmp  -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ${commit_id}_estimate_lwe
+g++ -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml&& ./checkSecu 2>&1 | tee -a ${commit_id}_estimate_lwe
 ```
 
 ## sortAttack
@@ -46,7 +46,7 @@ It is in raw format and we use it to obtain File B.
 ```sh
 cd ../estimateParam
 commit_id=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-g++ -fopenmp -lpugixml -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
+g++ -fopenmp -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml && ./checkSecu 2>&1 | tee -a ../security_estimation/${commit_id}_estimate_lwe
 ```
 
 # File B: <commit-id>_sorted_attack_cost

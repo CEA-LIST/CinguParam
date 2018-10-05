@@ -94,7 +94,7 @@ int main()
         }
         
         /** 
-         * modify filename by replacing required minimal security by lower bound on estimated security (80,128,192,256)
+         * modify filename by replacing required minimal security by approximated security (80,128,192,256)
          * currently, it is necessary because a gap can exist between required minimum security and estimated minimum security.
         **/
         char rename_xml[512];

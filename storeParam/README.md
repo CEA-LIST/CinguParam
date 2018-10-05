@@ -23,7 +23,7 @@ Filename contain three input parameters.
 
 # Notes 
 
-* Approximated security level is the highest value among 80 and multiples of 64 (128, 192, 256...) which is lower than estimated security level. 
+* Approximated security level is 80 for estimation in \[80 120\], 128 for \[120 184\], 192 for \[184 248\], 256 for \[248 312\].
 * Estimated security level against primal uSVP attack is indicated in the xml file. 
 * Other input parameters have default value given in the script genParam.sage. 
 

@@ -15,7 +15,7 @@ Output directory: storeParam
 Usage:
 
 ```sh
-g++ -fopenmp -o updateParam updateParam.cpp && ./updateParam -lboost_system -lboost_filesystem
+g++ -fopenmp -o updateParam updateParam.cpp -lboost_system -lboost_filesystem && ./updateParam 
 ```
 
 
