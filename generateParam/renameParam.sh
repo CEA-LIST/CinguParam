@@ -37,4 +37,4 @@ then
 fi
 
 # to remove unrelevant parameter set
-rm -f  *320* *384* *448* *512* *704*
+rm -f  *320* *384* *448* *512* *576* *640* *704* *768*
