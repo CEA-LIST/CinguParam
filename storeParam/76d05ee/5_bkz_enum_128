@@ -9,7 +9,7 @@
 		<coeff_modulo>2</coeff_modulo>
 	</plaintext>
 	<ciphertext>
-		<coeff_modulo_log2>181</coeff_modulo_log2>
+		<coeff_modulo_log2>151</coeff_modulo_log2>
 		<normal_distribution>
 			<sigma>51</sigma>
 			<bound>468</bound>
@@ -17,21 +17,21 @@
 	</ciphertext>
 	<linearization>
 		<version>2</version>
-		<coeff_modulo_log2>543</coeff_modulo_log2>
+		<coeff_modulo_log2>453</coeff_modulo_log2>
 		<normal_distribution>
-			<sigma>6518410779808981187976342963455988745585801841408194599012643192544267086070061917417612039735731530277847040000</sigma>
-			<bound>59677965620194931499499446722349036996043700411926009658721488638041989356011140651619686186314609690183206961152</bound>
+			<sigma>5653820102897462788312263826329119539836240636132727067052070040381837779932800850371543040000</sigma>
+			<bound>51762383979944470973037987384474317879189554310956017430940437893916232985773388668524352765952</bound>
 		</normal_distribution>
 	</linearization>
 	<secret_key>
 		<hamming_weight>63</hamming_weight>
 	</secret_key>
 	<extra>
-		<estimated_secu_level>88</estimated_secu_level>
+		<estimated_secu_level>121</estimated_secu_level>
 		<n>4096</n>
-		<alpha>4.17619485951906e-53</alpha>
-		<q>3064991081731777716716694054300618367237478244367204352</q>
-		<gen_method>wordsizeinc</gen_method>
+		<alpha>4.48415508583941e-44</alpha>
+		<q>2854495385411919762116571938898990272765493248</q>
+		<gen_method>bitsizeinc</gen_method>
 		<bkz_reduction_cost_model>BKZ.enum</bkz_reduction_cost_model>
 	</extra>
 </fhe_params>

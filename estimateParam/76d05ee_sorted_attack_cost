@@ -70,7 +70,6 @@ usvp:183  dual:184  dec:193   10_bkz_sieve_128
 usvp:313  dual:325  dec:335   10_q_core_sieve_256
 usvp:92   dual:93   dec:96    10_bkz_sieve_80
 dual:85   usvp:85   dec:88    11_bkz_sieve_80
-usvp:106  dual:107  dec:113   11_bkz_enum_80
 usvp:119  dual:120  dec:126   11_core_sieve_80
 usvp:119  dual:121  dec:126   11_q_core_sieve_80
 usvp:132  dual:133  dec:139   11_core_sieve_128
