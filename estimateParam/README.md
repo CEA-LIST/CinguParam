@@ -32,7 +32,7 @@ bash sortAttack.sh
 # File A:  <commit-id>_estimate_lwe
 
 ## Description
-File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory xml/<commit-id>.
+File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory estimateParam/<commit-id>.
 
 More precisely, the results concern three attacks : 
 -primal_usvp
@@ -55,7 +55,7 @@ g++ -fopenmp -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugi
 
 File B contains the attack cost
 -sorted by number of bits of security, into ascending order
--for each parameter set in the directory xml/<commit-id>.
+-for each parameter set in the directory estimateParam/<commit-id>.
 
 ## How to get it?
 * 
