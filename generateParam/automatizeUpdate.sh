@@ -35,7 +35,7 @@ BASEDIR=$(dirname "$0")
 cd $BASEDIR
 if [ ! -d ../storeParam/$HEAD_COMMIT ]
 then 
-        echo $HEAD_COMMIT $(date) >> ../storeParam/update_history
+        echo $HEAD_COMMIT $(date) >> ../storeParam/commit.log
         g++ -fopenmp -o updateParam updateParam.cpp -lboost_system -lboost_filesystem && ./updateParam 
 fi
 
