@@ -32,10 +32,10 @@
 
 HEAD_COMMIT=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 BASEDIR=$(dirname "$0")
-cd $BASEDIR
-if [ ! -d ../storeParam/$HEAD_COMMIT ]
+cd "$BASEDIR" || exit
+if [ ! -d "../storeParam/$HEAD_COMMIT" ]
 then 
-        echo $HEAD_COMMIT $(date) >> ../storeParam/commit.log
+        echo "$HEAD_COMMIT" "$(date)" >> ../storeParam/commit.log
         g++ -fopenmp -o updateParam updateParam.cpp -lboost_system -lboost_filesystem && ./updateParam 
 fi
 

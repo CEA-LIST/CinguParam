@@ -1,12 +1,12 @@
-# Project Cinguparam
+# Project CinguParam
 
 It proposes to generate and store parameter sets for homomorphic encryption.
 
-It also permits to estimate the security level of a parameter set.
+It also permits to estimate the security level of a parameter set against [LWE](https://cims.nyu.edu/~regev/papers/lwesurvey.pdf) attacks using the [LWE-Estimator](https://bitbucket.org/malb/lwe-estimator).
 
-Parameter sets are stored in xml files. 
+Parameter sets are usable with [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques.  
 
-
+More information is available on [CinguParam wiki](https://github.com/CEA-LIST/CinguParam/wiki).
 
     ....................................................................................................
     .................................................M..NMMNMMMMMMMOMMMMM.... ..........................
