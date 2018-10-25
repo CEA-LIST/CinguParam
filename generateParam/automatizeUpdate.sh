@@ -36,7 +36,7 @@ cd "$BASEDIR" || exit
 if [ ! -d "../storeParam/$HEAD_COMMIT" ]
 then 
         echo "$HEAD_COMMIT" "$(date)" >> ../storeParam/commit.log
-        g++ -fopenmp -o updateParam updateParam.cpp -lboost_system -lboost_filesystem && ./updateParam 
+        parallel  --header : --results ../storeParam/$HEAD_COMMIT bash updateParam.sh {1} {2} {3} {4} $HEAD_COMMIT ::: mult_depth $(seq 20) ::: min_secu 80 128 192 ::: model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: gen_method "wordsizeinc" "bitsizeinc" 
 fi
 
 
