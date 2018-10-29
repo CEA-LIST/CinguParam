@@ -37,19 +37,20 @@ for file in *"$REQUIRED_SECU"*
 do
         ESTIMATED_SECU=$(xmllint --xpath 'fhe_params/extra/estimated_secu_level/text()' "$file")
         APPROXIMATED_SECU=$(((ESTIMATED_SECU+TOLERANCE)/64*64)) 
-        echo $APPROXIMATED_SECU
-        mv "$file" "${file/$REQUIRED_SECU/$APPROXIMATED_SECU}"
+        #echo $APPROXIMATED_SECU
+        mv   "$file" "${file/$REQUIRED_SECU/$APPROXIMATED_SECU}" 2>&1 >/dev/null
 done
     
-    
+
+
 # to remove gen_method from xml filename
-mmv -d \*_wordsizeinc "#1"
-mmv -d \*_bitsizeinc "#1" # the flag -d serves to force overwrite. Indeed, we do not favour a generation method.
+mmv   \*_wordsizeinc "#1"
+mmv -d \*_bitsizeinc "#1" # the flag -d serves to force overwrite. 
 
 # to replace approximated secu 64 by 80 in filename when it is relevant
 if [ "$REQUIRED_SECU" -ge 80 ] && [ "$REQUIRED_SECU" -lt $((128-TOLERANCE)) ]
 then
-        mmv -d \*_64 "#1_80"
+        mmv \*_64 "#1_80"
 fi
 
 # to remove most unpractical parameter sets
