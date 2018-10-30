@@ -34,7 +34,7 @@ cp /dev/null "$output_file"
  do
         ranking=$(sed -n $((4*i-2)),$((4*i))p "$input_file" | tr '^' ':' | tr '.'  ':' | cut -f 1,4 -d: | sort  -n -t: -k2,2)
         filename=$(sed -n $((4*i-3))p "$input_file")
-        echo "$ranking" "$filename"   >>  "$output_file"        
+        echo $ranking $filename   >>  "$output_file"        
 done
 
 #think to human reader :-)

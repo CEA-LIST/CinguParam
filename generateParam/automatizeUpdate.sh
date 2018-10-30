@@ -37,7 +37,7 @@ if [ ! -d "../storeParam/$HEAD_COMMIT" ]
 then 
         echo "$HEAD_COMMIT" "$(date)" >> ../storeParam/commit.log
         parallel  --header : --results ../storeParam/$HEAD_COMMIT bash updateParam.sh {1} {2} {3} {4} $HEAD_COMMIT ::: mult_depth $(seq 20) ::: min_secu 80 128 192 ::: model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: gen_method "wordsizeinc" "bitsizeinc" 
-        parallel  --header :  bash renameParam.sh ../storeParam/$HEAD_COMMIT {1}  ::: min_secu 80 128 192
+        parallel  -j 1 --header :  bash renameParam.sh ../storeParam/$HEAD_COMMIT {1}  ::: min_secu 80 128 192
 fi
 
 
