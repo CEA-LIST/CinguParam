@@ -15,7 +15,7 @@ Filename contain three input parameters.
 * Multiplicative depth = 7
 * Approximated security level = 128 
 * BKZ reduction model cost = bkz_enum
-* commit ID = 0b16750 
+* commit_ID = 0b16750 
 * Generation method = bitsizeinc
 * Pathname is in the directory storeParam/0b16750/
 * Filename is 7_bkz_enum_128.xml

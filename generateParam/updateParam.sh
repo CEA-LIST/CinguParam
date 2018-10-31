@@ -28,6 +28,6 @@ COST_MODEL=$3
 GEN_METHOD=$4 
 DIR_NAME=$5
 
-PARAM_SET="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${GEN_METHOD}"
-sage ../generateParam/genParam.sage --output_xml "${PARAM_SET}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --model "$COST_MODEL"  --gen_method "$GEN_METHOD"
+FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${GEN_METHOD}"
+sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --model "$COST_MODEL"  --gen_method "$GEN_METHOD"
 

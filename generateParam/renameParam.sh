@@ -19,26 +19,24 @@
     #knowledge of the CeCILL-C license and that you accept its terms.
     
 
-#From now, we modify filename by replacing required minimal security by approximated security (80,128,192,256).
-#It is preferable because a gap exist between required minimum security and estimated minimum security.
+# From now, we modify filename by replacing required minimal security by approximated security (80,128,192,256).
+# It is preferable because a gap exist between required minimum security and estimated minimum security.
 # estimated secu can be much greater than required minimal security.
 # approximated_secu is the highest multiple of 64 lower than (estimated secu + 8)
 # example : 128 is the minimum required, 203 is estimated with lwe-estimator, 192 is the approximation on estimated secu in xml filename
 # approximation 64 for estimation in interval [56 120], 128 for [120 184], 192 for [184 248], 256 for [248 312]
 
 DIR_NAME=$1
-REQUIRED_SECU=$2
-
-
+REQUIRED_SECU="${@:2}"
 TOLERANCE=8 # example: if the security estimation is 120 bits (resp. 119) and the tolerance is 8 bits, then our approximation is 128 bits (resp. 80).
 
-cd "../storeParam/$DIR_NAME/" || exit
-for file in *"$REQUIRED_SECU"*
+cd "${DIR_NAME}/" || exit
+for FILE in *"${REQUIRED_SECU}"*
 do
-        ESTIMATED_SECU=$(xmllint --xpath 'fhe_params/extra/estimated_secu_level/text()' "$file")
+        ESTIMATED_SECU=$(xmllint --xpath 'fhe_params/extra/estimated_secu_level/text()' "${FILE}")
         APPROXIMATED_SECU=$(((ESTIMATED_SECU+TOLERANCE)/64*64)) 
-        #echo $APPROXIMATED_SECU
-        mv   "$file" "${file/$REQUIRED_SECU/$APPROXIMATED_SECU}" 2>&1 >/dev/null
+        #echo ${APPROXIMATED_SECU}
+        mv   "${FILE}" "${FILE/${REQUIRED_SECU}/${APPROXIMATED_SECU}}" 2>&1 >/dev/null
 done
     
 
@@ -48,7 +46,7 @@ mmv   \*_wordsizeinc "#1"
 mmv -d \*_bitsizeinc "#1" # the flag -d serves to force overwrite. 
 
 # to replace approximated secu 64 by 80 in filename when it is relevant
-if [ "$REQUIRED_SECU" -ge 80 ] && [ "$REQUIRED_SECU" -lt $((128-TOLERANCE)) ]
+if [ "${REQUIRED_SECU}" -ge 80 ] && [ "${REQUIRED_SECU}" -lt $((128-TOLERANCE)) ]
 then
         mmv \*_64 "#1_80"
 fi
