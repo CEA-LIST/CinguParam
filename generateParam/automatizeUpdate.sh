@@ -28,7 +28,7 @@
 #crontab -e
 
 #add the following line to execute the following script each Saturday at 6am.
-#0 10 * * 6 bash [APSOLUTE PATH]/generateParam/automatizeUpdate.sh
+#0 10 * * 6 bash [ABSOLUTE PATH]/generateParam/automatizeUpdate.sh
 
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 
@@ -36,8 +36,11 @@ HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk 
 SCRIPT=$(readlink -f "$0")
 # Absolute path this script is in
 SCRIPT_PATH=$(dirname "$SCRIPT")
+# CinguParam base directory
+BASE_DIR=$(dirname ${SCRIPT_PATH})
+# Database directory
+PARAM_DIR="${BASE_DIR}/storeParam"
 
-PARAM_DIR="${SCRIPTPATH}/storeParam"
 cd ${SCRIPT_PATH} || exit
 
 if [ ! -d "${PARAM_DIR}/${HEAD_ID}" ]

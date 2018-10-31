@@ -22,7 +22,17 @@
 #
 
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-BASE_DIR=$(dirname $(pwd))
+
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in
+SCRIPT_PATH=$(dirname "${SCRIPT}")
+#CinguParam base directory
+BASE_DIR=$(dirname ${SCRIPT_PATH})
+ 
+
+echo $BASE_DIR $SCRIPT_PATH
+exit 666
 PARAM_DIR="${BASE_DIR}/storeParam"
 LAST_ID="$(awk '{w=$1} END{print w}' ${PARAM_DIR}/commit.log)" # to determine last commit ID in database
 
