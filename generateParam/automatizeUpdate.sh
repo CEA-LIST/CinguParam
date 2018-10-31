@@ -28,11 +28,18 @@
 #crontab -e
 
 #add the following line to execute the following script each Saturday at 6am.
-#0 10 * * 6 bash [PUT THE RIGHT DIRECTORY]/generateParam/automatizeUpdate.sh
+#0 10 * * 6 bash [APSOLUTE PATH]/generateParam/automatizeUpdate.sh
 
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
-PARAM_DIR="../storeParam"
-cd $BASE_DIR || exit
+
+# Absolute path to this script
+SCRIPT=$(readlink -f "$0")
+# Absolute path this script is in
+SCRIPT_PATH=$(dirname "$SCRIPT")
+
+PARAM_DIR="${SCRIPTPATH}/storeParam"
+cd ${SCRIPT_PATH} || exit
+
 if [ ! -d "${PARAM_DIR}/${HEAD_ID}" ]
 then 
         echo "${HEAD_ID}" "$(date)" >> ${PARAM_DIR}/commit.log

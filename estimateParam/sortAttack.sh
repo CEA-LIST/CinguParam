@@ -37,6 +37,7 @@ INPUT_FILE="${HEAD_ID}_estimate_lwe"
 OUTPUT_FILE="${HEAD_ID}_sorted_attack_cost"    
    
 if [ ! -d "${PARAM_DIR}/${HEAD_ID}" ]
+then
         echo -e "${CYAN_WARNING}The parameters with lwe-estimator commit ${HEAD_ID} are not in the database.${DEFAULT_ZEN}" 
         PS3='Please enter your choice: '
                         options=("Sort LWE attacks (last commit=${LAST_ID})" "Update the database (dependency: sagemath)" "Quit")
