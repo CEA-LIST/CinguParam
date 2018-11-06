@@ -22,9 +22,8 @@
 # From now, we modify filename by replacing required minimal security by approximated security (80,128,192,256).
 # It is preferable because a gap exist between required minimum security and estimated minimum security.
 # estimated secu can be much greater than required minimal security.
-# approximated_secu is the highest multiple of 64 lower than (estimated secu + 8)
 # example : 128 is the minimum required, 203 is estimated with lwe-estimator, 192 is the approximation on estimated secu in xml filename
-# approximation 64 for estimation in interval [56 120], 128 for [120 184], 192 for [184 248], 256 for [248 312]
+# approximation 80 for estimation in interval [80 120], 128 for [120 184], 192 for [184 248], 256 for [248 312]
 
 DIR_NAME=$1
 LIST_SECU="${@:2}"
