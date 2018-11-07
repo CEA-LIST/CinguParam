@@ -27,11 +27,11 @@
 		<hamming_weight>63</hamming_weight>
 	</secret_key>
 	<extra>
-		<estimated_secu_level>187</estimated_secu_level>
+		<estimated_secu_level>242</estimated_secu_level>
 		<n>32768</n>
 		<alpha>5.53002551993329e-149</alpha>
 		<q>6546781215792283740026379393655198304433284092086129578966582736192267592809349109766540184651808314301773368255120142018434513091770786106657055178752</q>
 		<gen_method>wordsizeinc</gen_method>
-		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.265*beta)</bkz_reduction_cost_model>
+		<bkz_reduction_cost_model>BKZ.sieve</bkz_reduction_cost_model>
 	</extra>
 </fhe_params>
