@@ -13,13 +13,13 @@ Goal: It serves to check estimated security level of parameters contained in xml
 Usage:
 
 ```sh
-HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-g++ -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml&& ./checkSecu 2>&1 | tee -a ${HEAD_ID}_estimate_lwe
+COMMIT_ID=$(awk '{w=$1} END{print w}' ../storeParam/commit.log ) # to determine last commit ID in database
+g++ -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml&& ./checkSecu 2>&1 | tee -a ${COMMIT_ID}_estimate_lwe
 ```
 
 ## sortAttack
 
-Goal: It permits to determine the best estimated attack against a parameter set according lwe-estimator (HEAD commit). It is used to check primal_uSVP is the best attack against generated parameter by our algorithm  as we notice experimentally.
+Goal: It permits to determine the best estimated attack against a parameter set according lwe-estimator. It is used to check primal_uSVP is the best attack against generated parameter by our algorithm  as we notice experimentally.
 
 Usage:
 
@@ -44,9 +44,8 @@ It is in raw format and we use it to obtain File B.
 ## How to get it?
 * 
 ```sh
-cd ../estimateParam
-HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-g++ -fopenmp -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml && ./checkSecu 2>&1 | tee -a ${HEAD_ID}_estimate_lwe
+COMMIT_ID=$(awk '{w=$1} END{print w}' ../storeParam/commit.log ) # to determine last commit ID in database
+g++ -fopenmp -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml && ./checkSecu 2>&1 | tee -a ${COMMIT_ID}_estimate_lwe
 ```
 
 # File B: <commit-id>_sorted_attack_cost
@@ -78,8 +77,7 @@ They permit to check if our heuristic is valid when new parameter set are genera
 
 * To see parameter sets for which primal_usvp is not the unique best attack, in terms of estimated bits of security with lwe-estimator tool.
 ```sh
-HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}'  | cut -c-7 )
-cat ${HEAD_ID}_sorted_attack_cost | \grep -v ^usvp
+cat ${COMMIT_ID}_sorted_attack_cost | \grep -v ^usvp
 ```
 
 Other approaches can be adopted to generate secure paramters and there is no argument to consider only primal_usvp attack, in the general case.

@@ -59,8 +59,8 @@ int main()
 {
         /** Read content of the directory named [commit-id], the HEAD of the lwe-estimator **/
         string output_dir;
-        string HEAD_ID=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
-        output_dir.append("../storeParam/").append(HEAD_ID);
+        string COMMIT_ID=exec("awk '{w=$1} END{print w}' ../storeParam/commit.log"); // to determine last commit ID in database
+        output_dir.append("../storeParam/").append(COMMIT_ID);
         char *real_path = realpath(output_dir.c_str(), NULL);
         DIR *dir;
         struct dirent *ent;
@@ -109,8 +109,8 @@ int main()
         }
         else
         {
-          perror ("The directory with given commit-id does not exist. You could generate parameter set first.");
-          return EXIT_FAILURE;               
+                fprintf(stderr, "The path %s does not exist.\n" , output_dir.c_str());
+                return EXIT_FAILURE;               
         }
         return 0;
 }
