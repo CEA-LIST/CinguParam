@@ -59,7 +59,7 @@ int main()
 {
         /** Read content of the directory named [commit-id], the HEAD of the lwe-estimator **/
         string output_dir;
-        string COMMIT_ID=exec("awk '{w=$1} END{print w}' ../storeParam/commit.log"); // to determine last commit ID in database
+        string COMMIT_ID=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
         output_dir.append("../storeParam/").append(COMMIT_ID);
         char *real_path = realpath(output_dir.c_str(), NULL);
         DIR *dir;
