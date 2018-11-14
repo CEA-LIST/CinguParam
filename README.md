@@ -8,6 +8,16 @@ Parameter sets are usable with [Cingulata](https://github.com/CEA-LIST/Cingulata
 
 More information is available on [CinguParam wiki](https://github.com/CEA-LIST/CinguParam/wiki).
 
+
+# Disclaimer
+
+CinguParam is to be used for Research Purposes only and for no other purpose. 
+
+It should not be regarded as a substitute for the recommendations given by accredited certification bodies.
+
+The LWE-estimator ([commit HEAD](https://bitbucket.org/malb/lwe-estimator/commits/HEAD)) is used AS IS in CinguParam by CEA.
+
+
     ....................................................................................................
     .................................................M..NMMNMMMMMMMOMMMMM.... ..........................
     ............................................+MMMMMMI?IMOOODZOOOM?+??MMNNMM..........................
