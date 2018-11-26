@@ -23,41 +23,42 @@ Goal: It permits to determine the best estimated attack against a parameter set 
 
 Usage:
 
-* 
 ```sh
 bash sortAttack.sh
 ```
 
 
-# File A:  <commit-id>_estimate_lwe
+# File A:  `<lwe_estimator_commit_id>_estimate_lwe`
 
 ## Description
-File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory estimateParam/<commit-id>.
+File A contains the estimation cost by lwe-estimator (source: https://bitbucket.org/malb/lwe-estimator) for different attacks against each parameter set in the directory `estimateParam/<lwe_estimator_commit_id>`.
 
-More precisely, the results concern three attacks : 
--primal_usvp
--dual_scale
--primal_decode
+More precisely, the results concern three attacks:
+
+* primal_usvp
+* dual_scale
+* primal_decode
 
 It is in raw format and we use it to obtain File B.
 
 ## How to get it?
-* 
+
 ```sh
 COMMIT_ID=$(awk '{w=$1} END{print w}' ../storeParam/commit.log ) # to determine last commit ID in database
 g++ -fopenmp -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml && ./checkSecu 2>&1 | tee -a ${COMMIT_ID}_estimate_lwe
 ```
 
-# File B: <commit-id>_sorted_attack_cost
+# File B: `<lwe_estimator_commit_id>_sorted_attack_cost`
 
 ## Description
 
-File B contains the attack cost
--sorted by number of bits of security, into ascending order
--for each parameter set in the directory estimateParam/<commit-id>.
+File B contains the attack cost:
+
+* sorted by number of bits of security, into ascending order
+* for each parameter set in the directory `estimateParam/<lwe_estimator_commit_id>`.
 
 ## How to get it?
-* 
+
 ```sh
 cd ../estimateParam
 bash sortAttack.sh
@@ -77,7 +78,7 @@ They permit to check if our heuristic is valid when new parameter set are genera
 
 * To see parameter sets for which primal_usvp is not the unique best attack, in terms of estimated bits of security with lwe-estimator tool.
 ```sh
-cat ${COMMIT_ID}_sorted_attack_cost | \grep -v ^usvp
+cat ${COMMIT_ID}_sorted_attack_cost | grep -v ^usvp
 ```
 
 Other approaches can be adopted to generate secure paramters and there is no argument to consider only primal_usvp attack, in the general case.
