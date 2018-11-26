@@ -1,23 +1,21 @@
-# Project CinguParam
+# CinguParam -- HE parameters for all
 
-It proposes to generate and store parameter sets for homomorphic encryption.
-
+The goal of **CinguParam** project is to generate and store parameter sets for homomorphic encryption.
 It also permits to estimate the security level of a parameter set against [LWE](https://cims.nyu.edu/~regev/papers/lwesurvey.pdf) attacks using the [LWE-Estimator](https://bitbucket.org/malb/lwe-estimator).
 
-Parameter sets are usable with [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques.  
+Parameter sets are usable within [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques.
 
 More information is available on [CinguParam wiki](https://github.com/CEA-LIST/CinguParam/wiki).
 
-
 # Disclaimer
 
-CinguParam is to be used for Research Purposes only and for no other purpose. 
+CinguParam is to be used for Research Purposes ONLY.
+It should not substitute recommendations given by accredited certification bodies.
+<!-- It should not be regarded as a substitute for the recommendations given by accredited certification bodies. -->
 
-It should not be regarded as a substitute for the recommendations given by accredited certification bodies.
+The LWE-estimator ([commit a2296b8](https://bitbucket.org/malb/lwe-estimator/commits/a2296b8)) is used AS IS in CinguParam.
 
-The LWE-estimator ([commit HEAD](https://bitbucket.org/malb/lwe-estimator/commits/HEAD)) is used AS IS in CinguParam by CEA.
-
-
+```
     ....................................................................................................
     .................................................M..NMMNMMMMMMMOMMMMM.... ..........................
     ............................................+MMMMMMI?IMOOODZOOOM?+??MMNNMM..........................
@@ -58,3 +56,4 @@ The LWE-estimator ([commit HEAD](https://bitbucket.org/malb/lwe-estimator/commit
     .........................................................MMM........................................
     .........................................................MD.........................................
     ....................................................................................................
+```

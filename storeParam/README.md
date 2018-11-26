@@ -1,35 +1,39 @@
-# How to read filename?
+# How to read the filename?
 
-Filename contain three input parameters.
+Filename format is `<mult_depth>_<bkz_cost_model>_<approx_secu>`.
 
-## Generic:
+Filename contains three input parameters:
 
-* Multiplicative depth 
-* Approximated security level   
-* BKZ reduction model cost 
-* Pathname is in the directory storeParam/<commit_id>
-* Filename is <mult_depth>_<bkz_cost_model>_<approx_secu>.xml
+* Multiplicative depth
+* BKZ reduction model cost
+* Approximated security level
+
+Parameter files are stored in the directory `storeParam/<lwe_estimator_commit_id>`.
 
 ## Example:
 
-* Multiplicative depth = 7
-* Approximated security level = 128 
-* BKZ reduction model cost = bkz_enum
-* commit_ID = 0b16750 
-* Generation method = bitsizeinc
-* Pathname is in the directory storeParam/0b16750/
-* Filename is 7_bkz_enum_128.xml
+| Parameter                     | Value                 |
+|---                            | ---                   |
+| Multiplicative depth          | `7`                   |
+| Approximated security level   | `128`                 |
+| BKZ reduction model cost      | `bkz_enum`            |
+| Commit id                     | `0b16750`             |
+| Parameter file directory      | `storeParam/0b16750/` |
+| Filename                      | `7_bkz_enum_128`      |
 
 
-# Notes 
+# Notes
 
-* Approximated security level is 80 for estimation in \[80 120\], 128 for \[120 184\], 192 for \[184 248\], 256 for \[248 312\].
-* Estimated security level against primal uSVP attack is indicated in the xml file. 
-* Other input parameters have default value given in the script genParam.sage. 
+* Approximated security level &rArr; estimated security range:
+    * &nbsp;&nbsp;`80`  &rArr; `[80;120]`
+    * `128` &rArr; `[120;184]`
+    * `192` &rArr; `[184;248]`
+    * `256` &rArr; `[248;312]`
+
+* Estimated security level against primal uSVP attack is indicated in the parameter file (xml format).
 
 
-
-
+```
     ....................................................................................................
     .................................................M..NMMNMMMMMMMOMMMMM.... ..........................
     ............................................+MMMMMMI?IMOOODZOOOM?+??MMNNMM..........................
@@ -70,4 +74,4 @@ Filename contain three input parameters.
     .........................................................MMM........................................
     .........................................................MD.........................................
     ....................................................................................................
-    
+```
