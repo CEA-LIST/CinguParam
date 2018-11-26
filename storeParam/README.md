@@ -24,11 +24,13 @@ Parameter files are stored in the directory `storeParam/<lwe_estimator_commit_id
 
 # Notes
 
-* Approximated security level &rArr; estimated security range:
-    * &nbsp;&nbsp;`80`  &rArr; `[80;120]`
-    * `128` &rArr; `[120;184]`
-    * `192` &rArr; `[184;248]`
-    * `256` &rArr; `[248;312]`
+
+| Approximated security level                     | Estimated security range  |
+|---                                              | ---                       |
+|  `80`                                           | `⟦80,120⟧`                |
+| `128`                                           | `⟦120,184⟧`               |
+| `192`                                           | `⟦184,248⟧`               |
+| `256`                                           | `⟦248,312⟧`               |
 
 * Estimated security level against primal uSVP attack is indicated in the parameter file (xml format).
 
