@@ -180,11 +180,10 @@ class _ParametersGenerator:
     
         def comp_params(self): 
                 n=int(2 * 2 ** self.poly_degree_log2) # ciphertext polynomial degree
+                t=self.t # plaintext modulus
                 min_security_level=self._lambda_p
                 mult_depth=self.L
-                #time param_set=ChooseParam(n,min_security_level,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
-                param_set=ChooseParam(n,min_security_level,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
-
+                param_set=ChooseParam(n,t,min_security_level,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
                 self.n=param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
@@ -454,19 +453,14 @@ def lb_log2_q(mult_depth,omega=32):
         else: 
                 raise NotImplementedError      
 
-def MinModulus(n,error_gwp, mult_depth=10,cryptosystem="FV",is_binary_secret="True",omega=32,word_size=64,gen_method="bitsizeinc"):  
+   
+def MinModulus(n,t,error_gwp, mult_depth=10,cryptosystem="FV",omega=32,word_size=64,gen_method="bitsizeinc"):  
 #omega: basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64 
-#print ("mult_depth=",mult_depth)
-#print ("lb_log2_q(mult_depth,omega)",lb_log2_q(mult_depth,omega))
+# max_evaluation_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
+# max_decryption_noise is an upper bound on the noise to guarantee correct decryption
         q_min=2**(lb_log2_q(mult_depth,omega)-1)   
         first_pass = True
-                                                                                                               
-        if (is_binary_secret):
-                t=2
-                B_key=1
-        else:
-                raise NotImplementedError
-        
+        B_key=1
         if (gen_method=="bitsizeinc"):  
                 scale_factor=2
         elif (gen_method=="wordsizeinc"): 
@@ -474,22 +468,19 @@ def MinModulus(n,error_gwp, mult_depth=10,cryptosystem="FV",is_binary_secret="Tr
                 scale_factor=basis
         else:
                 raise NotImplementedError   
-                     
-        while first_pass or  (left_member>=right_member):
+        while first_pass or  (max_evaluation_noise>=max_decryption_noise): 
                 first_pass = False      
                 q_min=q_min*scale_factor
                 Delta=floor(q_min/t)
                 l=ceil(log(q_min)/log(omega), bits=1000)
                 B_error=10*error_gwp                                                               
-                B_0=B_error*(1+2*n*B_key)
+                max_encryption_noise=B_error*(1+2*n*B_key)
                 C=2*n*(4+n*B_key) 
                 D=n^2*B_key*(B_key+4)+n*omega*l*B_error
-                left_member= C^mult_depth*B_0+mult_depth*C^(mult_depth-1)*D
-                right_member=(Delta*(1+t)-q_min)/2
+                max_evaluation_noise= C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D 
+                max_decryption_noise=(Delta*(1+t)-q_min)/2
           
         return q_min
-    
-
 
 
 # selection of BKZ (lattice reduction) cost model 
@@ -506,7 +497,7 @@ q_core_sieve.__name__="lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 
 # variant of Algorithm 5.9 in [B18] where n is an input param, n has to be not too small for lwe-estimator, n is a power of two 
                                                                    
-def ChooseParam(n,min_security_level,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
+def ChooseParam(n,t,min_security_level,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
         first_pass=True
         nb_pass=1
         max_security_level=64*ceil(min_security_level/64)
@@ -515,7 +506,7 @@ def ChooseParam(n,min_security_level,mult_depth=10,cryptosystem="FV",model=core_
                 nb_pass+=1    
                 error_gwp=RR(2*sqrt(n))                                  # Regev reduction, see [P16,pages 3,18]  
                 error_sd=RR(error_gwp/sqrt(2*pi))
-                q=MinModulus(n,error_gwp,mult_depth,cryptosystem,"True",omega,word_size,gen_method)  #for fixed n, log2_q is minimized
+                q=MinModulus(n,t,error_gwp,mult_depth,cryptosystem,omega,word_size,gen_method)  #for fixed n, log2_q is minimized
                 noise_rate = error_gwp/RR(q) #noise rate, denoted alpha in literature
                 estimated_security_level=SecurityLevel(n,noise_rate,q,current_model=model)
                 n=2*n
