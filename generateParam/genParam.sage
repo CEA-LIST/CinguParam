@@ -104,46 +104,35 @@ class _Parameters:
                 xmldoc = minidom.parseString(xmlStr)
                 for key in self._params_defaults.keys():
                         self._parse_param(xmldoc, key)
-    
-        def write(self):
-                print ("FHE scheme parameters:")
-                for key,val in self.__dict__.items():
-                        print ('\t{0}: {1}'.format(key, val))
 
 class _ParametersGenerator:
         def __init__(self, params):
                 self._eps_exp = params['eps_exp'] # Exponent of adversary's advantage (i.e. success probability) in distinguishing attack on decision-LWE described in [LP11].
-                self._h = params['sk_hamm'] # Hamming weight of the secret key
+                self.private_key_distribution = params['private_key_distribution'] 
                 self._lambda_p = params['lambda_p'] # Security level
                 # Estimated security _lambda_p is greater than desired/minimal/required security level given in CLI.   
-                self.t = params['pt_base'] # Maximum plaintext coefficient
+                self.t = params['plaintext_modulus'] 
                 self.L = params['mult_depth'] # Circuit multiplicative depth
                 self.k = params['relin_k']
                 self.cyclotomic_poly_index = params['cyclotomic_poly_index']  # Is equal to 2*n where n is the polynomial degree, a power of two.
                 self.poly_degree_log2 = int(np.log2(self.cyclotomic_poly_index)) - 1 
                 self.omega=params['omega']
                 self.word_size=params['word_size']
-                self.model=params['model']
-                self.gen_method=params['gen_method']
+                self.model=params['model'] #BKZ reduction cost model
+                self.gen_method=params['gen_method'] # scale factor to determine coefficient size q
 
                 mpm.mp.prec = 128
                 self.comp_init_params()
 
-
-        def write_all(self):
-                print ("FHE scheme parameters:")
-                for key,val in self.__dict__.items():
-                        print ('\t{0}: {1}'.format(key, val))
-
         def write(self):
-                print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT  
-                order = ['model', '_lambda_p', 'L','n', 'log2_q' , 'sigma', 'nb_64_bit_words_q'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
+                print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT 
+                order = ['model', '_lambda_p', 'L','n', 'log2_q' ,'nb_64_bit_words_q', 'sigma', 't','private_key_distribution'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                 for flag in order:
                         for key,val in self.__dict__.items():
                                 if (flag == key):        
                                         if (key in ['model','nb_64_bit_words_q','_lambda_p','L','sigma','log2_q']): #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                                                 print ('\t{0} = {1}'.format(Describe(key), val))  
-                                        elif (key in ['n','L']):
+                                        elif (key in ['n','L','t','private_key_distribution']):
                                                 print ('\t{0} = {1}'.format(key, val))
         
         def comp_init_params(self):
@@ -183,7 +172,8 @@ class _ParametersGenerator:
                 t=self.t # plaintext modulus
                 min_security_level=self._lambda_p
                 mult_depth=self.L
-                param_set=ChooseParam(n,t,min_security_level,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
+                private_key_distribution=self.private_key_distribution
+                param_set=ChooseParam(n,t,min_security_level,private_key_distribution,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
                 self.n=param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
@@ -192,26 +182,12 @@ class _ParametersGenerator:
                 self.nb_lwe_estimator_calls=param_set[2]
                 self.nb_64_bit_words_q= param_set[3]*64/self.word_size
                 self.q=param_set[4]
-                self.sigma=mpf(2*sqrt(self.n)/sqrt(2*pi)) #error/noise standard deviation = width/sqrt(2*pi)            width aka Gaussian width parameter
+                self.alpha=param_set[5] #Gaussian width parameter
+                self.sigma=mpf(self.alpha*RR(self.q)) #error/noise standard deviation = width/sqrt(2*pi)            
                 self.error_bound = self._comp_error_bound(self._beta, self.sigma)
                 self._comp_relin_v2_params()
-                self.alpha=param_set[5]
-
-
-        def out_mpf_C_str(self, mpf):
-                prec = int(mpm.nstr(mpf, 0).split('e')[-1]) + 1
-                mpf_str = mpm.nstr(mpf, prec)
-                mpf_int_str = mpf_str.split('.')[0]
-
-                r = range(0, len(mpf_int_str), 76) + [len(mpf_int_str)]
-                res = '  "'
-
-                for i in xrange(0, len(mpf_int_str), 76):
-                        res += mpf_int_str[i:(i+76)]
-                        if i+78 < len(mpf_int_str):
-                                res += '\\\n  '
-                res += '"'
-                return res
+                
+                
 
         def _comp_relin_v2_params(self):
                 self.log2_p = int(self.log2_q) * (self.k-1)
@@ -220,25 +196,6 @@ class _ParametersGenerator:
                 self.sigma_k = mpf(self._comp_sigma_k(self.sigma, q, self.k))
                 self.log2_sigma_k=ceil(log(self.sigma_k)/log(2))
                 self.B_k = self._comp_error_bound(self._beta, self.sigma_k)
-    
-    
-
-        def substitute_params(self, tempStr):
-                tempStr = tempStr.replace("@FHE_PARAM_T@", "{0}".format(int(self.t)))
-                tempStr = tempStr.replace("@FHE_PARAM_SIZE_T@", "{0}".format(int(self.size_t)))
-                tempStr = tempStr.replace("@FHE_PARAM_LOG2_Q@", "{0}".format(int(self.log2_q)))
-                tempStr = tempStr.replace("@FHE_PARAM_LOG2_P@", "{0}".format(int(self.log2_p)))
-                tempStr = tempStr.replace("@FHE_PARAM_LOG2_PQ@", "{0}".format(int(self.log2_pq)))
-                tempStr = tempStr.replace("@FHE_PARAM_LOG2_D@", "{0}".format(int(self.poly_degree_log2)))
-                tempStr = tempStr.replace("@FHE_PARAM_D@", "{0}".format(int(2 ** self.poly_degree_log2)))
-                tempStr = tempStr.replace("@FHE_PARAM_SIGMA_STR@", "{0}".format(self.out_mpf_C_str(self.sigma)))
-                tempStr = tempStr.replace("@FHE_PARAM_B_STR@", "{0}".format(self.out_mpf_C_str(self.error_bound)))
-                tempStr = tempStr.replace("@FHE_PARAM_SIGMA_K_STR@", "{0}".format(self.out_mpf_C_str(self.sigma_k)))
-                tempStr = tempStr.replace("@FHE_PARAM_B_K_STR@", "{0}".format(self.out_mpf_C_str(self.B_k)))
-                tempStr = tempStr.replace("@FHE_PARAM_SK_H@", "{0}".format(int(self._h)))
-                tempStr = tempStr.replace("@FHE_PARAM_L@", "{0}".format(int(self.L)))
-
-                return tempStr
 
 
         def mpf2str(self, mpf):
@@ -268,30 +225,6 @@ class _ParametersGenerator:
                         for degree, coeff in poly.dict().items():
                                 cfs.appendChild(createCoeffNode(doc, coeff, degree))
                         return cfs    
-
-                def createFactorsNode(doc, poly_factors):
-                        fsn = doc.createElement("factors")
-              
-                        for order in xrange(len(poly_factors)):        
-                                factor, exponent = poly_factors[order]
-                                assert(exponent == 1)
-
-                                fn = doc.createElement("factor")
-
-                                #fn.setAttribute("order", str(order))
-                                on = doc.createElement("order")
-                                on.appendChild(doc.createTextNode(str(order)))
-                                fn.appendChild(on)       
-
-                                #fn.setAttribute("exponent", str(exponent))
-                                on = doc.createElement("exponent")
-                                on.appendChild(doc.createTextNode(str(exponent)))
-                                fn.appendChild(on)       
-
-                                fn.appendChild(createPolyNode(doc, factor))
-
-                                fsn.appendChild(fn)
-                        return fsn
     
                 pr = doc.createElement("polynomial_ring")
                 mp = doc.createElement("cyclotomic_polynomial")
@@ -360,13 +293,13 @@ class _ParametersGenerator:
 
                 return ln
 
-        def createSecretKeyNode(self, doc):
-                skn = doc.createElement("secret_key")
+        def createPrivateKeyNode(self, doc):
+                skn = doc.createElement("private_key")
 
-                n = doc.createElement("hamming_weight")
+
+                n = doc.createElement("private_key_distribution")
                 skn.appendChild(n)
-
-                n.appendChild(doc.createTextNode(str(int(self._h))))
+                n.appendChild(doc.createTextNode(str(self.private_key_distribution)))
 
                 return skn
     
@@ -408,7 +341,7 @@ class _ParametersGenerator:
                 params.appendChild(self.createPlaintextNode(doc))    
                 params.appendChild(self.createCiphertextNode(doc))    
                 params.appendChild(self.createLinearizationNode(doc))    
-                params.appendChild(self.createSecretKeyNode(doc))    
+                params.appendChild(self.createPrivateKeyNode(doc))    
                 params.appendChild(self.createExtraNode(doc))
 
                 doc.appendChild(params)    
@@ -456,8 +389,8 @@ def lb_log2_q(mult_depth,omega=32):
    
 def MinModulus(n,t,error_gwp, mult_depth=10,cryptosystem="FV",omega=32,word_size=64,gen_method="bitsizeinc"):  
 #omega: basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64 
-# max_evaluation_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
-# max_decryption_noise is an upper bound on the noise to guarantee correct decryption
+# max_circuit_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
+# max_correctness_noise is an upper bound on the noise to guarantee correct decryption
         q_min=2**(lb_log2_q(mult_depth,omega)-1)   
         first_pass = True
         B_key=1
@@ -468,7 +401,7 @@ def MinModulus(n,t,error_gwp, mult_depth=10,cryptosystem="FV",omega=32,word_size
                 scale_factor=basis
         else:
                 raise NotImplementedError   
-        while first_pass or  (max_evaluation_noise>=max_decryption_noise): 
+        while first_pass or  (max_circuit_noise>=max_correctness_noise): 
                 first_pass = False      
                 q_min=q_min*scale_factor
                 Delta=floor(q_min/t)
@@ -477,8 +410,8 @@ def MinModulus(n,t,error_gwp, mult_depth=10,cryptosystem="FV",omega=32,word_size
                 max_encryption_noise=B_error*(1+2*n*B_key)
                 C=2*n*(4+n*B_key) 
                 D=n^2*B_key*(B_key+4)+n*omega*l*B_error
-                max_evaluation_noise= C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D 
-                max_decryption_noise=(Delta*(1+t)-q_min)/2
+                max_circuit_noise= C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D 
+                max_correctness_noise=(Delta*(1+t)-q_min)/2
           
         return q_min
 
@@ -497,7 +430,7 @@ q_core_sieve.__name__="lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 
 # variant of Algorithm 5.9 in [B18] where n is an input param, n has to be not too small for lwe-estimator, n is a power of two 
                                                                    
-def ChooseParam(n,t,min_security_level,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
+def ChooseParam(n,t,min_security_level,private_key_distribution,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
         first_pass=True
         nb_pass=1
         max_security_level=64*ceil(min_security_level/64)
@@ -508,7 +441,7 @@ def ChooseParam(n,t,min_security_level,mult_depth=10,cryptosystem="FV",model=cor
                 error_sd=RR(error_gwp/sqrt(2*pi))
                 q=MinModulus(n,t,error_gwp,mult_depth,cryptosystem,omega,word_size,gen_method)  #for fixed n, log2_q is minimized
                 noise_rate = error_gwp/RR(q) #noise rate, denoted alpha in literature
-                estimated_security_level=SecurityLevel(n,noise_rate,q,current_model=model)
+                estimated_security_level=SecurityLevel(n,noise_rate,q,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
                 n=2*n
         return n/2,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,floor(log(q)/log(2**word_size), bits=1000),q, noise_rate 
 
@@ -532,10 +465,22 @@ def Describe(x):
         }.get(x, "42")   # default value
 
 
-def SecurityLevel(n,alpha,q,current_model):
-        ring_operations=primal_usvp(n, alpha, q, secret_distribution=secret_distribution, m=n, success_probability=success_probability, reduction_cost_model=eval(current_model))["rop"] 
+def SecurityLevel(n,alpha,q,current_model,private_key_distribution):
+        ring_operations=primal_usvp(n, alpha, q, private_key_distribution, m=n, success_probability=0.99, reduction_cost_model=eval(current_model))["rop"] 
+        #success_probability for the primal uSVP attack  
         security_level= floor(log(ring_operations)/log(2))
         return security_level    
+
+def DistributionInfo(s):
+    try: 
+        minimum, maximum,Hamming_weight= map(int, s.split(','))
+        return (minimum, maximum),Hamming_weight
+    except:
+            try:
+                minimum, maximum=map(int, s.split(','))
+                return minimum, maximum
+            except:
+                raise argparse.ArgumentTypeError("Distribution must be under the form:  Minimum,Maximum,(optionally Hamming weight of private key)")
 
 #######
 # Parse command line arguments
@@ -547,10 +492,11 @@ parser = argparse.ArgumentParser(
 groupFile = parser.add_argument_group("configuration file input")
 groupFile.add_argument('-c', '--config_file', help='Configuration file (XML)', type=argparse.FileType('r'))
 
+        
 groupArgs = parser.add_argument_group("command line input", "has priority over configuration file")
-groupArgs.add_argument('--sk_hamm', help='Secret key hamming weight', default = 63, type = int)
+groupArgs.add_argument('--private_key_distribution', help='Private key distribution', default = ((0,1),63), type = DistributionInfo)
 groupArgs.add_argument('--lambda_p', help='Security level', default = 128, type = int)
-groupArgs.add_argument('--pt_base', help='Plaintext base', default = 2, type = int)
+groupArgs.add_argument('--plaintext_modulus', help='Plaintext base', default = 2, type = int)
 groupArgs.add_argument('--mult_depth', help='Multiplicative depth', default = 5, type = int)
 groupArgs.add_argument('--relin_k', help='Parameter k for the relinearization', default = 4, type = int, choices=[4,5])
 groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type = int)
@@ -580,8 +526,6 @@ params.updateParams(values.__dict__)
 
 #Generate homomorphic encryption scheme parameters
 paramsGen = _ParametersGenerator(params)
-secret_distribution = ((0,1),paramsGen._h)
-success_probability = 0.99  # for the primal uSVP attack  
 
 param_set=paramsGen.comp_params()
 
