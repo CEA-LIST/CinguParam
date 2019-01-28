@@ -168,12 +168,12 @@ class _ParametersGenerator:
                 return self.__dict__[key]
     
         def comp_params(self): 
-                n=int(2 * 2 ** self.poly_degree_log2) # ciphertext polynomial degree
+                n_min=int(2 * 2 ** self.poly_degree_log2) 
                 t=self.t # plaintext modulus
                 min_security_level=self._lambda_p
                 mult_depth=self.L
                 private_key_distribution=self.private_key_distribution
-                param_set=ChooseParam(n,t,min_security_level,private_key_distribution,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
+                param_set=ChooseParam(n_min,t,min_security_level,private_key_distribution,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
                 self.n=param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
@@ -183,7 +183,7 @@ class _ParametersGenerator:
                 self.nb_64_bit_words_q= param_set[3]*64/self.word_size
                 self.q=param_set[4]
                 self.alpha=param_set[5] #Gaussian width parameter
-                self.sigma=mpf(self.alpha*RR(self.q)) #error/noise standard deviation = width/sqrt(2*pi)            
+                self.sigma=mpf(self.alpha/sqrt(2*pi)) #error/noise standard deviation = width/sqrt(2*pi)            
                 self.error_bound = self._comp_error_bound(self._beta, self.sigma)
                 self._comp_relin_v2_params()
                 
