@@ -114,6 +114,8 @@ class _ParametersGenerator:
         def __init__(self, params):
                 self._eps_exp = params['eps_exp'] # Exponent of adversary's advantage (i.e. success probability) in distinguishing attack on decision-LWE described in [LP11].
                 self.private_key_distribution = params['private_key_distribution'] 
+                self._h = params['private_key_distribution'][1] # Hamming weight of the secret key
+                print(self._h)
                 self._lambda_p = params['lambda_p'] # Security level
                 # Estimated security _lambda_p is greater than desired/minimal/required security level given in CLI.   
                 self.t = params['plaintext_modulus'] 
@@ -301,13 +303,11 @@ class _ParametersGenerator:
                 return ln
 
         def createPrivateKeyNode(self, doc):
-                skn = doc.createElement("private_key")
-
-
-                n = doc.createElement("private_key_distribution")
+                skn = doc.createElement("secret_key")
+                n = doc.createElement("hamming_weight")
                 skn.appendChild(n)
-                n.appendChild(doc.createTextNode(str(self.private_key_distribution)))
 
+                n.appendChild(doc.createTextNode(str(int(self._h))))
                 return skn
     
         def createExtraNode(self,doc):
@@ -320,6 +320,10 @@ class _ParametersGenerator:
                 n = doc.createElement("security_reduction")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(self.security_reduction))
+                
+                n = doc.createElement("private_key_distribution")
+                en.appendChild(n)
+                n.appendChild(doc.createTextNode(str(self.private_key_distribution)))
                 
                 n = doc.createElement("n")
                 en.appendChild(n)
