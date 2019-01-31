@@ -61,10 +61,15 @@ Sources (chronological order):
 
         [P16] PEIKERT, Chris. How (not) to instantiate ring-lwe. In : International Conference on Security and Cryptography for Networks. Springer, Cham, 2016. p. 411-430.
 
+        [CCDG17] Melissa Chase, Hao Chen, Jintai Ding, Shafi Goldwasser, Sergey Gorbunov, Jeffrey Hoffstein, Kristin Lauter, Satya Lokam, Dustin Moody, Travis Morrison, Amit Sahai, Vinod Vaikuntanathan
+        Security of Homomorphic Encryption (white paper)
+        
         [B18] G Bonnoron A journey towards practical Fully Homomorphic Encryption (PhD thesis, 2018)
 
         [AC+18] Martin R. Albrecht and Benjamin R. Curtis and Amit Deo and Alex Davidson and Rachel Player and Eamonn W. Postlethwaite and Fernando Virdia and Thomas Wunderer
         Estimate all the {LWE, NTRU} schemes!
+        
+
 
 
 \author CEA-List, Embedded Real-Time System foundations Lab (DACLE/LaSTRE)
@@ -120,19 +125,19 @@ class _ParametersGenerator:
                 self.word_size=params['word_size']
                 self.model=params['model'] #BKZ reduction cost model
                 self.gen_method=params['gen_method'] # scale factor to determine coefficient size q
-
+                self.security_reduction=params['security_reduction'] 
                 mpm.mp.prec = 128
                 self.comp_init_params()
 
         def write(self):
                 print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT 
-                order = ['model', '_lambda_p', 'L','n', 'log2_q' ,'nb_64_bit_words_q', 'sigma', 't','private_key_distribution'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
+                order = ['model', '_lambda_p','security_reduction' ,'L','n', 'log2_q' , 'sigma', 't','private_key_distribution'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                 for flag in order:
                         for key,val in self.__dict__.items():
                                 if (flag == key):        
-                                        if (key in ['model','nb_64_bit_words_q','_lambda_p','L','sigma','log2_q']): #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
+                                        if (key in ['model','_lambda_p','L','sigma','log2_q']): #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                                                 print ('\t{0} = {1}'.format(Describe(key), val))  
-                                        elif (key in ['n','L','t','private_key_distribution']):
+                                        elif (key in ['security_reduction','n','L','t','private_key_distribution']):
                                                 print ('\t{0} = {1}'.format(key, val))
         
         def comp_init_params(self):
@@ -168,22 +173,23 @@ class _ParametersGenerator:
                 return self.__dict__[key]
     
         def comp_params(self): 
-                n_min=int(2 * 2 ** self.poly_degree_log2) 
+                n_init=int(2 * 2 ** self.poly_degree_log2) # ciphertext polynomial degree
                 t=self.t # plaintext modulus
                 min_security_level=self._lambda_p
                 mult_depth=self.L
                 private_key_distribution=self.private_key_distribution
-                param_set=ChooseParam(n_min,t,min_security_level,private_key_distribution,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
+                beta=self._beta # defined on page 3 in [FV12]
+                security_reduction=self.security_reduction
+                param_set=ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method ) 
                 self.n=param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
                 self._lambda_p=param_set[1][0]   
                 self.log2_q= param_set[1][1]
                 self.nb_lwe_estimator_calls=param_set[2]
-                self.nb_64_bit_words_q= param_set[3]*64/self.word_size
-                self.q=param_set[4]
-                self.alpha=param_set[5] #Gaussian width parameter
-                self.sigma=mpf(self.alpha/sqrt(2*pi)) #error/noise standard deviation = width/sqrt(2*pi)            
+                self.q=param_set[3]
+                self.alpha=param_set[4] # noise rate
+                self.sigma=mpf(self.alpha*self.q) # noise Gaussian width
                 self.error_bound = self._comp_error_bound(self._beta, self.sigma)
                 self._comp_relin_v2_params()
                 
@@ -259,6 +265,7 @@ class _ParametersGenerator:
                 nd.appendChild(bn)
 
                 bn.appendChild(doc.createTextNode(bound))    
+                               
 
                 return nd
   
@@ -310,6 +317,10 @@ class _ParametersGenerator:
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(int(self._lambda_p))))
 
+                n = doc.createElement("security_reduction")
+                en.appendChild(n)
+                n.appendChild(doc.createTextNode(self.security_reduction))
+                
                 n = doc.createElement("n")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(int(self.n))))                
@@ -387,8 +398,8 @@ def lb_log2_q(mult_depth,omega=32):
                 raise NotImplementedError      
 
    
-def MinModulus(n,t,error_gwp, mult_depth=10,cryptosystem="FV",omega=32,word_size=64,gen_method="bitsizeinc"):  
-#omega: basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64 
+def MinModulus(n,t,noise_Gaussian_width, beta, mult_depth=10,cryptosystem="FV",omega=32,word_size=64,gen_method="bitsizeinc"):  
+# omega: basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64 
 # max_circuit_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
 # max_correctness_noise is an upper bound on the noise to guarantee correct decryption
         q_min=2**(lb_log2_q(mult_depth,omega)-1)   
@@ -406,7 +417,7 @@ def MinModulus(n,t,error_gwp, mult_depth=10,cryptosystem="FV",omega=32,word_size
                 q_min=q_min*scale_factor
                 Delta=floor(q_min/t)
                 l=ceil(log(q_min)/log(omega), bits=1000)
-                B_error=10*error_gwp                                                               
+                B_error=ceil(beta * noise_Gaussian_width)                                                             
                 max_encryption_noise=B_error*(1+2*n*B_key)
                 C=2*n*(4+n*B_key) 
                 D=n^2*B_key*(B_key+4)+n*omega*l*B_error
@@ -430,20 +441,24 @@ q_core_sieve.__name__="lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 
 # variant of Algorithm 5.9 in [B18] where n is an input param, n has to be not too small for lwe-estimator, n is a power of two 
                                                                    
-def ChooseParam(n,t,min_security_level,private_key_distribution,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
+def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
         first_pass=True
         nb_pass=1
         max_security_level=64*ceil(min_security_level/64)
         while first_pass or (estimated_security_level< min_security_level):
                 first_pass = False
-                nb_pass+=1    
-                error_gwp=RR(2*sqrt(n))                                  # Regev reduction, see [P16,pages 3,18]  
-                error_sd=RR(error_gwp/sqrt(2*pi))
-                q=MinModulus(n,t,error_gwp,mult_depth,cryptosystem,omega,word_size,gen_method)  #for fixed n, log2_q is minimized
-                noise_rate = error_gwp/RR(q) #noise rate, denoted alpha in literature
-                estimated_security_level=SecurityLevel(n,noise_rate,q,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
+                nb_pass+=1
+                if (security_reduction == "yes"):    
+                        noise_Gaussian_width=RR(2*sqrt(n))                                  # Regev reduction, see [P16,pages 3,18]
+                elif (security_reduction == "no"):
+                        noise_Gaussian_width=8/sqrt(2*pi)                                   # [CCDG17, page 16], practical choice
+                else:
+                        raise NotImplementedError
+                q = MinModulus(n,t,noise_Gaussian_width,beta,mult_depth,cryptosystem,omega,word_size,gen_method)  # for fixed n, log2_q is minimized
+                noise_rate = noise_Gaussian_width/RR(q) 
+                estimated_security_level = SecurityLevel(n,noise_rate,q,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
                 n=2*n
-        return n/2,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,floor(log(q)/log(2**word_size), bits=1000),q, noise_rate 
+        return n/2,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,q, noise_rate 
 
   
 
@@ -455,13 +470,12 @@ def Describe(x):
                 q_core_sieve:"Q-Core-Sieve",  # aka BKZ.ADPS16, quantum mode   
                 '_lambda_p':"security level",
                 'L':"multiplicative depth",
-                'sigma':"noise SD", 
-                'sigma_k':"relin. v2 SD",
-                'log2_sigma_k':"log_2(relin. v2 SD)", 
+                'sigma':"noise Gaussian width", 
+                'sigma_k':"relin. v2 noise Gaussian width",
+                'log2_sigma_k':"log_2(relin. v2 noise Gaussian width)", 
                 'model':"BKZ cost model", 
                 'log2_q':"log_2(q)",  
                 'nb_lwe_estimator_calls':"# security estimations",
-                'nb_64_bit_words_q':"# 64-bit words(q)",
         }.get(x, "42")   # default value
 
 
@@ -503,9 +517,10 @@ groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type
 groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
 groupArgs.add_argument('--word_size', help='Machine word size', default = 64, type = int)
 groupArgs.add_argument('--model',help='BKZ cost model',default="bkz_sieve", type=str)
-groupArgs.add_argument('--gen_method',help='Method to generate secure parameters',default="bitsizeinc", type=str) # values in ["wordsizeinc","bitsizeinc"]. Impacts time to estimate secure param and time to execute homomorphic computation. 
-
-
+groupArgs.add_argument('--gen_method',help='Method to generate secure parameters',default="bitsizeinc", type=str) # values in ["wordsizeinc","bitsizeinc"].  
+ #Impacts time to estimate secure param and time to execute homomorphic computation. 
+groupArgs.add_argument('--security_reduction',help='Parameters compatibility with security reduction', default="yes", type=str) 
+# Either "no", in this case, Gaussian width is fixed, or "yes" for compatibility with Regev quantum security reduction proof. 
 groupPoly = parser.add_argument_group("polynomial ring quotient", "cyclotomic polynomial Phi_m(x) parameters, for the moment only m=2^n polynomials are supported")
 groupPoly.add_argument('--cyclotomic_poly_index', help='Cyclotomic polynomial index, m', default = 4096, type = int)
 
