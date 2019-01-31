@@ -332,6 +332,10 @@ class _ParametersGenerator:
                 n = doc.createElement("q")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(int(self.q))))
+                
+                n = doc.createElement("t")
+                en.appendChild(n)
+                n.appendChild(doc.createTextNode(str(int(self.t))))                
 
                 n = doc.createElement("gen_method")
                 en.appendChild(n)
