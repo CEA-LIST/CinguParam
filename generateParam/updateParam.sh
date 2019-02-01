@@ -27,15 +27,14 @@ REQUIRED_SECU=$2
 COST_MODEL=$3
 GEN_METHOD=$4 
 DIR_NAME=$5
-
-PLAINTEXT_MODULUS=2
-PRIVATE_KEY_DISTRIB=0,1,63 
+PLAINTEXT_MODULUS=$6
+PRIVATE_KEY_DISTRIB=$7
 # Two possible forms: a,b or a,b,h -- Private key coefficients are in the interval [a,b]. The integer h indicates the Hamming weight (number of non-zero coefficient) of the private key. 
 # Example: the ternary distribution (,1,0,1) is obtained with PRIVATE_KEY_DISTRIB=" -1",1
-SECURITY_REDUCTION="yes" 
+SECURITY_REDUCTION=$8 
 # Either "yes", Gaussian width depends on the polynomial degree, as in Regev quantum security-reduction proof or "no", Gaussian width is fixed, it is often estimated sufficient and it improves performance.
 
 FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${GEN_METHOD}"
 sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --model "$COST_MODEL"  --gen_method "$GEN_METHOD" \
-                                    --plaintext_modulus ${PLAINTEXT_MODULUS} --private_key_distribution ${PRIVATE_KEY_DISTRIB} --security_reduction ${SECURITY_REDUCTION}
+                                    --plaintext_modulus ${PLAINTEXT_MODULUS} --private_key_distribution "${PRIVATE_KEY_DISTRIB}" --security_reduction ${SECURITY_REDUCTION}
 
