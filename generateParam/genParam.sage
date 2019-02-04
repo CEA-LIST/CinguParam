@@ -113,8 +113,8 @@ class _Parameters:
 class _ParametersGenerator:
         def __init__(self, params):
                 self._eps_exp = params['eps_exp'] # Exponent of adversary's advantage (i.e. success probability) in distinguishing attack on decision-LWE described in [LP11].
-                self.private_key_distribution = params['private_key_distribution'] 
-                self._h = params['private_key_distribution'][1] # Hamming weight of the secret key
+                self.private_key_distribution = params['private_key_distribution'] # Distribution is described by bounds and optionally Hamming weight of the private key
+                self._h = params['private_key_distribution'][1] if isinstance(params['private_key_distribution'][0],tuple) else -1 # Hamming weight of the private key. -1 means weight is not indicated in private_key_distribution.
                 self._lambda_p = params['lambda_p'] # Security level
                 # Estimated security _lambda_p is greater than desired/minimal/required security level given in CLI.   
                 self.t = params['plaintext_modulus'] 
