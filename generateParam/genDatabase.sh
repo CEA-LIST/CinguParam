@@ -21,8 +21,8 @@
     
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 PARAM_DIR="../storeParam"
-PLAINTEXT_MODULUS=${1:-2} # Binary plaintext by default
-CONF=${2:-Cingulata_BFV} # Possible values: Cingulata_BGV, SEAL_BFV. More info in defaultParam.sh file.
+PLAINTEXT_MODULUS=2 
+CONF=Cingulata_BFV # More info on possible values (Cingulata_BGV, SEAL_BFV) in defaultParam.sh.
 
 source defaultParam.sh
 
