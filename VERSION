@@ -1,0 +1,31 @@
+# Modifications on version 2
+
+## High-level
+A shell script is now used to launch parameter generation. 
+
+It considers the following high-level parameters:
+* plaintext modulus
+* politics (discussed below)
+* circuit multiplicative depth
+* desired security level
+* BKZ reduction cost model
+
+## Politics
+They describe different approaches to define default parameters in different implementations.
+Different implementations adopt different strategies, priorities, default behaviors.
+There are currently two possible values : Cingulata_BFV and SEAL_BFV.
+Details are given in the file defaultParam.sh
+
+
+## Low-level
+New parameters are considered during parameter generation:
+* plaintext modulus t (default value: 2)
+* private key distribution D_SK (default value: ((0,1),63))
+* parameters compatible with Regev security-reduction or not (default value: "yes")
+
+During database generation, each of these parameters impacts different objectives: 
+* Correction(t,noise_Gaussian_width)
+* Security(D_SK,noise_Gaussian_witdh)
+
+
+

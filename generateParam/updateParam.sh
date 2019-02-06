@@ -35,7 +35,7 @@ PRIVATE_KEY_DISTRIB=$7
 SECURITY_REDUCTION=$8 
 # Either "yes", Gaussian width depends on the polynomial degree, as required in Regev quantum security-reduction proof or "no", Gaussian width is set at  aproximately 8/sqrt(2*Pi), it is estimated sufficient by a large part of the community, in 2019, and it improves performance.
 
-FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${GEN_METHOD}"
+FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MODULUS}_${GEN_METHOD}"
 sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --model "$COST_MODEL"  --gen_method "$GEN_METHOD" \
                                     --plaintext_modulus ${PLAINTEXT_MODULUS} --private_key_distribution "${PRIVATE_KEY_DISTRIB}" --security_reduction ${SECURITY_REDUCTION}
 

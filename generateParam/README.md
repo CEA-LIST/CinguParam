@@ -5,6 +5,33 @@
 
 These tools makes use of the xml database contained in the directory storeParam. 
 
+## Politics
+
+This parameter defines a politic to define parameter. Different implementations adopt different strategies, priorities, default behaviors.
+For instance, the parameter can be chosen to be compliant with Regev security-reduction or not, the distribution of the noise can be binary or ternary.
+Currently, we take into account two politics:  "Cingulata_BFV" "SEAL_BFV".
+It is not question to discuss here, advantages/drawbacks of each choice but to ease comparison between different choices.
+
+
+* Interactive choice:
+
+```sh
+PS3='Please enter your choice: '
+options=("Cingulata_BFV" "SEAL_BFV")
+select POLITIC in "${options[@]}"
+do
+    case $POLITIC in
+        "Cingulata_BFV")
+            break
+            ;;
+        "SEAL_BFV")
+            break   
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+```
+
 
 ## updateParam
 
@@ -17,30 +44,8 @@ Usage:
 ```sh
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 PARAM_DIR="../storeParam"
-parallel  --header : --results ${PARAM_DIR}/${HEAD_ID} bash updateParam.sh {1} {2} {3} {4} ${HEAD_ID} ::: mult_depth $(seq 20) ::: min_secu 80 128 192 ::: model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: gen_method "wordsizeinc" "bitsizeinc" && bash renameParam.sh ${PARAM_DIR}/${HEAD_ID} 80 128 192
+parallel  --header : --results ${PARAM_DIR}/${HEAD_ID}/${POLITIC} bash updateParam.sh {1} {2} {3} {4} ${HEAD_ID} ::: mult_depth $(seq 20) ::: min_secu 80 128 192 ::: model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: gen_method "wordsizeinc" "bitsizeinc" && bash renameParam.sh ${PARAM_DIR}/${HEAD_ID}/${POLITIC} 80 128 192
 echo "${HEAD_ID}" "$(date)" >> "${PARAM_DIR}/commit.log"
-```
-
-
-## automatizeUpdate
-
-Goal: It is written to permit automatic regular update of parameter sets if the LWE-Estimator HEAD has been updated.
-
-Requirement : activate and enable cron service, edit crontab 
-
-Usage:
-
-```sh
-sudo systemctl enable --now cronie # (on ArchLinux)
-sudo systemctl enable --now cron # (on Debian, Ubuntu)
-crontab -e # This command permits to edit crontab. An example is given below.
-```
-
-Example:
-To execute automatizeUpdate each Saturday at 6am, add this line.
-Note that cron requires that each entry in a crontab end in a newline character.
-```cron
-0 10 * * 6 bash [REPOSITORY DIRECTORY]/generateParam/automatizeUpdate.sh
 ```
 
     

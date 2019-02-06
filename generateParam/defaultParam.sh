@@ -20,18 +20,18 @@
 
 default_param()
 {
-        conf=$1
-        if [ ${conf} = "Cingulata_BFV" ]
+        POLITIC=$1
+        if [ ${POLITIC} = "Cingulata_BFV" ]
         then
                PRIVATE_KEY_DISTRIB='0,1,63' 
                SECURITY_REDUCTION="yes"
                 
-        elif  [ ${conf} = "SEAL_BFV" ]
+        elif  [ ${POLITIC} = "SEAL_BFV" ]
         then
                 PRIVATE_KEY_DISTRIB='" -1",1'
                 SECURITY_REDUCTION="no"
         else
-             echo "ERROR Choose a correct value (i.e. Cingulata_BFV or SEAL_BFV) for configuration variable."
+             echo "ERROR Choose a correct value (i.e. Cingulata_BFV or SEAL_BFV) for POLITIC variable."
              exit 1   
         fi
 }

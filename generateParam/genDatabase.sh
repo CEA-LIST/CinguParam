@@ -21,11 +21,14 @@
     
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 PARAM_DIR="../storeParam"
-PLAINTEXT_MODULUS=2 
-CONF=Cingulata_BFV # More info on possible values (Cingulata_BGV, SEAL_BFV) in defaultParam.sh.
+PLAINTEXT_MODULUS=${1:-2} 
+POLITIC=${2:-SEAL_BFV} # More info on defined politics (Cingulata_BFV, SEAL_BFV) in defaultParam.sh.
 
 source defaultParam.sh
 
-default_param ${CONF} 
+default_param ${POLITIC} # To define PRIVATE_KEY_DISTRIB and SECURITY_REDUCTION
 
-parallel  --header : --results ${PARAM_DIR}/${HEAD_ID} bash updateParam.sh {1} {2} {3} {4} ${HEAD_ID} ${PLAINTEXT_MODULUS} ${PRIVATE_KEY_DISTRIB} ${SECURITY_REDUCTION} ::: mult_depth $(seq 20) ::: min_secu 80 128 192 ::: model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: gen_method "wordsizeinc" "bitsizeinc" && bash renameParam.sh ${PARAM_DIR}/${HEAD_ID} 80 128 192
+OUTPUT_DIR=${PARAM_DIR}/${HEAD_ID}/${POLITIC}
+
+parallel  --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} ${HEAD_ID}/${POLITIC} ${PLAINTEXT_MODULUS} ${PRIVATE_KEY_DISTRIB} ${SECURITY_REDUCTION} ::: mult_depth $(seq 20) ::: min_secu 80 128 192 ::: model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: gen_method "wordsizeinc" "bitsizeinc" && bash renameParam.sh ${OUTPUT_DIR} 80 128 192
+echo "${HEAD_ID}/${POLITIC}" "$(date)" >> "${PARAM_DIR}/commit.log"

@@ -55,12 +55,13 @@ string exec(const char* cmd) {
         return result;
 }
 
-int main()
+int main(int ac, char **av)
 {
-        /** Read content of the directory named [commit-id], the HEAD of the lwe-estimator **/
+        /** Read content of the directory named [commit-id]/[politic] **/
         string output_dir;
         string COMMIT_ID=exec("bash -c \"git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 | cut -z -f1 -d$'\n'\"");
-        output_dir.append("../storeParam/").append(COMMIT_ID);
+        string POLITIC=(ac == 1)? "Cingulata_BFV" : string(av[1]); 
+        output_dir.append("../storeParam/").append(COMMIT_ID).append("/").append(POLITIC);
         char *real_path = realpath(output_dir.c_str(), NULL);
         DIR *dir;
         struct dirent *ent;
