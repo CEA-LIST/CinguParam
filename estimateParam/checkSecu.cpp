@@ -93,15 +93,15 @@ int main(int ac, char **av)
                                 }
 
 
-                                int n                       = params.child("extra").child("n").text().as_int();
-                                string q                    = params.child("extra").child("q").text().as_string();
-                                double alpha                = params.child("extra").child("alpha").text().as_double();
-                                string reduction_cost_model = params.child("extra").child("bkz_reduction_cost_model").text().as_string();
+                                int n                           = params.child("extra").child("n").text().as_int();
+                                string q                        = params.child("extra").child("q").text().as_string();
+                                double alpha                    = params.child("extra").child("alpha").text().as_double();
+                                string reduction_cost_model     = params.child("extra").child("bkz_reduction_cost_model").text().as_string();
                                 int m=n;
-                                
+                                string private_key_distribution = params.child("extra").child("private_key_distribution").text().as_string();
                                 sprintf(cmd_line,"sage -c \"load('https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py');"
-                                "ring_operations=estimate_lwe(%i,%.*g,%s,m=%i,secret_distribution=((0,1),63), reduction_cost_model=%s) \" "
-                                ,n,DBL_DIG,alpha,q.c_str(),m,reduction_cost_model.c_str());
+                                "ring_operations=estimate_lwe(%i,%.*g,%s,m=%i,secret_distribution=%s, reduction_cost_model=%s) \" "
+                                ,n,DBL_DIG,alpha,q.c_str(),m,private_key_distribution.c_str(),reduction_cost_model.c_str());
                                 system((char *)cmd_line);
                         }
                 }

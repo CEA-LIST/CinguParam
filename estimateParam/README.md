@@ -15,8 +15,22 @@ Goal: It serves to check estimated security level of parameters contained in xml
 Example:
 
 ```sh
+PS3='Please enter your choice: '
+options=("Cingulata_BFV" "SEAL_BFV")
+select POLITIC in "${options[@]}"
+do
+    case $POLITIC in
+        "Cingulata_BFV")
+            break
+            ;;
+        "SEAL_BFV")
+            break   
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
 COMMIT_ID=$(awk '{w=$1} END{print w}' ../storeParam/commit.log ) # to determine last commit ID in database
-g++ -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml&& ./checkSecu 2>&1 | tee -a ${COMMIT_ID}_${POLITIC}_estimate_lwe
+g++ -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml&& ./checkSecu ${POLITIC} 2>&1 | tee -a ${COMMIT_ID}_${POLITIC}_estimate_lwe
 ```
 
 ## sortAttack

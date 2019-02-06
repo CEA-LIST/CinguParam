@@ -458,7 +458,7 @@ def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_re
                 if (security_reduction == "yes"):    
                         noise_Gaussian_width=RR(2*sqrt(n))                                  # Regev reduction, see [P16,pages 3,18]
                 elif (security_reduction == "no"):
-                        noise_Gaussian_width=8/sqrt(2*pi)                                   # [CCDG17, page 16], practical choice
+                        noise_Gaussian_width=RR(8/sqrt(2*pi))                                   # [CCDG17, page 16], practical choice
                 else:
                         raise NotImplementedError
                 q = MinModulus(n,t,noise_Gaussian_width,beta,mult_depth,cryptosystem,omega,word_size,gen_method)  # for fixed n, log2_q is minimized
