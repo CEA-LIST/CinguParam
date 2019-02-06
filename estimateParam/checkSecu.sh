@@ -5,7 +5,6 @@ POLITIC=${1:-Cingulata_BFV} # More info on defined politics in defaultParam.sh.
 INPUT_DIR="../storeParam/${HEAD_ID}/${POLITIC}"
 
 FILE_LIST=$(ls ${INPUT_DIR})
-echo $FILE_LIST
 OUTPUT_FILE=${HEAD_ID}_${POLITIC}_estimate_lwe
 
 export SHELL=$(type -p bash)
