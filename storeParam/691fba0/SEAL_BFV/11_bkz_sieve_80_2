@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>16384</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>318</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>3</sigma>
+			<bound>30</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>954</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>772895132365952408770296167803990716781179638997670672161060800007481845493489279340369527187236340623933099709296846530599084653389704901983417611371068616351949505262041118384622990786560000</sigma>
+			<bound>7076081992289381844113688958087609113694878801205425187634736396033287700009957048644023435963784044317103717045781466359345503685769170014676081643699311167777048755748448033151482367760662528</bound>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>-1</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>85</estimated_secu_level>
+		<security_reduction>no</security_reduction>
+		<private_key_distribution>(-1, 1)</private_key_distribution>
+		<n>8192</n>
+		<alpha>(7.49068216750752e-96)*sqrt(2)/sqrt(pi)</alpha>
+		<q>533996758980227520598755426542388028650676130589163192486760401955554931445160137505740521734144</q>
+		<t>2</t>
+		<gen_method>bitsizeinc</gen_method>
+		<bkz_reduction_cost_model>BKZ.sieve</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>32768</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>486</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>3</sigma>
+			<bound>30</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1458</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>108192988060716246013720221986691474800486101173481876749662199931613738342073661530624436329822802164980325397724344950385544082414083960069508681619785918003148572019891790754075810605174262215600098973629702482701070147946005829901579596150816121122848800928592539956993103172286451548160000</sigma>
+			<bound>990538589840574043766415337972015766133607970653269971038234721917945078785323063000973655825215161325241802767569524863122808036461840929216926618722195459788949675814969812272067684557565909594370017529914628409763927478960850582794854966587083491754692315811959175590517830629698818810052608</bound>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>-1</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>80</estimated_secu_level>
+		<security_reduction>no</security_reduction>
+		<private_key_distribution>(-1, 1)</private_key_distribution>
+		<n>16384</n>
+		<alpha>(2.00208309518310e-146)*sqrt(2)/sqrt(pi)</alpha>
+		<q>199791907220223502808422222706762643567910281130558153654986045416023791284464999687699590596063486154228923591770023865308670443474450259602571264</q>
+		<t>2</t>
+		<gen_method>bitsizeinc</gen_method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.292*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>
