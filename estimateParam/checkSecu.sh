@@ -12,7 +12,7 @@ export SHELL=$(type -p bash)
 lwe_estimator_from_xml()
 {
                 PATH_TO_FILE=$1
-                FILE=${PATH_TO_FILE##*/}
+                FILE=${PATH_TO_FILE##*/} # extract string after last /
                 n=$(xmllint --xpath 'fhe_params/extra/n/text()' ${PATH_TO_FILE}) 
                 q=$(xmllint --xpath 'fhe_params/extra/q/text()' ${PATH_TO_FILE}) 
                 alpha=$(xmllint --xpath 'fhe_params/extra/alpha/text()' ${PATH_TO_FILE}) 

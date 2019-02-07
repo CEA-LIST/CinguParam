@@ -378,7 +378,7 @@ class colors:
                                                                                                                               
 
 
-# To decrease computation time to generate parameters we use lower bound on bitsize of q given in [B18,p. 76]. 
+# To decrease computation time to generate parameters we use lower bound on bitsize of q given in [B18,p. 76] for BFV scheme. 
 # There is only values for mult depth multiple of 5.
 # Values in dictionary should be updated when we change parameter set following a new attack.   
 def lb_log2_q(mult_depth,omega=32):
