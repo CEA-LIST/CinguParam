@@ -24,9 +24,7 @@ PARAM_DIR="../storeParam"
 PLAINTEXT_MODULUS=${1:-2} 
 POLITIC=${2:-Cingulata_BFV} # More info on defined politics in defaultParam.sh.
 
-source defaultParam.sh
-
-default_param ${POLITIC} # To define PRIVATE_KEY_DISTRIB and SECURITY_REDUCTION
+defaultParam.sh ${POLITIC} # To define PRIVATE_KEY_DISTRIB and SECURITY_REDUCTION
 
 OUTPUT_DIR=${PARAM_DIR}/${HEAD_ID}/${POLITIC}
 

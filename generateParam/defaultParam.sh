@@ -18,20 +18,53 @@
     #The fact that you are presently reading this means that you have had
     #knowledge of the CeCILL-C license and that you accept its terms.
 
-default_param()
+#Color text
+DEFAULT_ZEN='\e[m'
+CYAN_WARNING='\e[0;36m'
+RED_ERROR='\e[0;31m'
+
+
+if [ $# -eq 0 ]
+  then
+    echo -e "${RED_ERROR}You forget to supply a politic.${DEFAULT_ZEN}"
+    exit 3 # Undefined politic
+fi
+
+POLITICS=()
+while read -r line; do
+                POLITICS+=( "$(echo $line | awk -F: '{print}')" )
+done < available_politics
+
+
+CHOICE="$1"
+IS_DEFINED="no"
+for DESCRIPTION in "${POLITICS[@]}"
+do
 {
-        POLITIC=$1
-        if [ ${POLITIC} = "Cingulata_BFV" ]
-        then
-               PRIVATE_KEY_DISTRIB='0,1,63' 
-               SECURITY_REDUCTION="yes"
-                
-        elif  [ ${POLITIC} = "SEAL_BFV" ]
-        then
-                PRIVATE_KEY_DISTRIB='" -1",1'
-                SECURITY_REDUCTION="no"
-        else
-             echo "ERROR Choose a correct value (i.e. Cingulata_BFV or SEAL_BFV) for POLITIC variable."
-             exit 1   
-        fi
+     POLITIC=$(echo ${DESCRIPTION}| awk -F: '{print $1}')
+     if [ ${CHOICE} = ${POLITIC} ];
+     then
+     {
+       PRIVATE_KEY_DISTRIB=$(echo  $DESCRIPTION | awk -F: '{print $2}')     
+       SECURITY_REDUCTION=$(echo  $DESCRIPTION | awk -F: '{print $3}')
+       IS_DEFINED="yes"
+       break     
+     }
+     fi
 }
+done
+
+
+if [ ${IS_DEFINED} = "no" ]
+then
+{
+      echo -e "${RED_ERROR}Politic $CHOICE is not defined."
+      echo -e "Use existing politic or define your own ones."
+      echo -e  "Definitions are given in the file generateParam/available_politics.${DEFAULT_ZEN}"
+      exit 3 # Undefined politic
+ 
+}
+fi
+
+
+
