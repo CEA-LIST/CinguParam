@@ -18,7 +18,7 @@
     #The fact that you are presently reading this means that you have had
     #knowledge of the CeCILL-C license and that you accept its terms.
 
-default_param()
+default_politic()
 {
         POLITIC=$1
         if [ ${POLITIC} = "Cingulata_BFV" ]

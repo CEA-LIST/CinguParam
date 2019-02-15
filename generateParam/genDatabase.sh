@@ -22,11 +22,11 @@
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 PARAM_DIR="../storeParam"
 PLAINTEXT_MODULUS=${1:-2} 
-POLITIC=${2:-Cingulata_BFV} # More info on defined politics in defaultParam.sh.
+POLITIC=${2:-Cingulata_BFV} 
 
-source defaultParam.sh
+source defaultPolitic.sh
 
-default_param ${POLITIC} # To define PRIVATE_KEY_DISTRIB and SECURITY_REDUCTION
+default_politic ${POLITIC} # To define PRIVATE_KEY_DISTRIB and SECURITY_REDUCTION
 
 OUTPUT_DIR=${PARAM_DIR}/${HEAD_ID}/${POLITIC}
 
