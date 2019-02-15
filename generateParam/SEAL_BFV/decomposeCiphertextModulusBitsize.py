@@ -23,10 +23,13 @@
 # It permits to decompose any ciphertext modulus q with suitable bitsize for cryptographic use.
 
 def decompose_fork(q):
+        dico={}
+        if q<=60:
+                dico[str(q)]=1
+                return dico
         q_m=q%30
         q_m60=q%60
         q_d=q//60
-        dico={}
         for i in range(30,61):
                 dico[str(i)]=0
         if q_m60>=30: dico["30"]=1        
@@ -37,7 +40,12 @@ def decompose_fork(q):
                 dico["60"]=q_d-2
                 dico["40"]=1
                 dico["50"]=1
-                dico[str(30+q_m)]=dico[str(30+q_m)]+1                
+                dico[str(30+q_m)]=dico[str(30+q_m)]+1
+        if dico["60"]==-1:
+                dico["30"]=dico["30"]+1
+                dico["40"]=dico["40"]-1
+                dico["50"]=dico["50"]-1 
+                dico["60"]=0                                    
         return dico
     
 
@@ -83,6 +91,10 @@ def decompose_seal(q):
                 dico["40"]=0
                 dico["50"]=1
                 dico["60"]=q_d
+        if dico["60"]==-1:
+                dico["40"]=dico["40"]+1
+                dico["50"]=dico["50"]-2 
+                dico["60"]=0      
         return dico
 
 
@@ -92,19 +104,19 @@ def decompose_seal(q):
 
 # Define decomposition of ciphertext moduli for SEAL.B/FV official version as well as our fork.
 
-q_min=180
+q_min=54
 q_max=700
+debug=False
 
 for i in range(q_min,q_max):
+# for i in range(q_min//10*10,q_max//10*10,10):
         dico_seal=decompose_seal (i)
-        debug=True
-        if debug==False:
+        if debug==True:
             if dico_seal: print (i, dico_seal)
             
 
 for i in range(q_min,q_max):
         dico_fork=decompose_fork (i)
-        debug=False
         if debug==True:
             if dico_fork:
                     print (i)

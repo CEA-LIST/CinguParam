@@ -15,7 +15,7 @@ SEAL v3.1 database contains SmallModulus of size 30, 40, 50 and 60. It is enough
 
 ## generateSmallModulus
 
-Goal: It permits to complete SmallModulus database in SEAL v3.1 with SmallModulus of bitsize in the interval $[30,60]$. This is necessary to decompose any ciphertext modulus q with suitable size (i.e more than 180 bits) for Brakerski/Fan-Vercauteren scheme into a product of distinct SmallModulus. Security and correction depends among other on bitsize(q). This database is available in our fork of SEAL v3.1.
+Goal: It permits to complete SmallModulus database in SEAL v3.1 with SmallModulus of bitsize in the interval $[30,60]$. This is necessary to decompose any ciphertext modulus q with suitable size (i.e more than 54 bits) for Brakerski/Fan-Vercauteren scheme into a product of distinct SmallModulus. Security and correction depends among other on bitsize(q). This database is available in our fork of SEAL v3.1.
 
 
 
