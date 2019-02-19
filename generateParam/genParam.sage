@@ -85,7 +85,8 @@ import mpmath as mpm
 from mpmath import mpf
 from xml.dom import minidom
 import numpy as np
-
+sys.path.insert(0,"SEAL_BFV")
+from generateCiphertextModulus import *
 
 #######
 # Read config file with name=value pairs, ConfigParse module
@@ -339,7 +340,11 @@ class _ParametersGenerator:
 
                 n = doc.createElement("q_CINGULATA_BFV")
                 en.appendChild(n)
-                n.appendChild(doc.createTextNode(str(int(self.q))))
+                n.appendChild(doc.createTextNode(str(2)+"**"+str(self.log2_q)))
+                
+                n = doc.createElement("q_SEAL_BFV")
+                en.appendChild(n)
+                n.appendChild(doc.createTextNode(CiphertextModulus_user(self.log2_q)))
                 
                 n = doc.createElement("t")
                 en.appendChild(n)

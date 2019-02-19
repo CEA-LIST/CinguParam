@@ -41,31 +41,31 @@ int main (void)
         {
                 counter=0;
                 exponent=bitsize-19;
-                cout << "extern const std::vector<SmallModulus> small_mods_" << bitsize << "bit;" << endl;  // to complete src/seal/util/globals.h in SEAL v3.1, without Boost dependency, but longer.
-                //cout << "const vector<SmallModulus> small_mods" << bitsize << "_bit={"  ;
-                //mpz_ui_pow_ui (max_iteration.get_mpz_t(), 2, exponent+1); 
-                //max_iteration--;
-                //mpz_ui_pow_ui (min_iteration.get_mpz_t(), 2, exponent);
+                //cout << "extern const std::vector<SmallModulus> small_mods_" << bitsize << "bit;" << endl;  // to complete src/seal/util/globals.h in SEAL v3.1, without Boost dependency, but longer.
+                cout << "const vector<SmallModulus> small_mods" << bitsize << "_bit={"  ;
+                mpz_ui_pow_ui (max_iteration.get_mpz_t(), 2, exponent+1); 
+                max_iteration--;
+                mpz_ui_pow_ui (min_iteration.get_mpz_t(), 2, exponent);
                 
-                //for (iteration=max_iteration;iteration>=min_iteration ;iteration--)
-                //{
-                                //factor=1+iteration*2*n;
-                                //if (mpz_probab_prime_p(factor.get_mpz_t(),50))
-                                //{
-                                        //if (counter!=0)
-                                                //cout << ", " ;
-                                        //if (counter % 4 == 0)
-                                                //cout << endl;
-                                        //counter++;
-                                        //cout << std::hex <<factor << dec;
-                                        //if (counter == max_nb_factor)
-                                        //{
-                                                //break;
-                                        //}
-                                //}
-                //}
+                for (iteration=max_iteration;iteration>=min_iteration ;iteration--)
+                {
+                                factor=1+iteration*2*n;
+                                if (mpz_probab_prime_p(factor.get_mpz_t(),50))
+                                {
+                                        if (counter!=0)
+                                                cout << ", " ;
+                                        if (counter % 4 == 0)
+                                                cout << endl;
+                                        counter++;
+                                        cout << std::hex <<factor << dec;
+                                        if (counter == max_nb_factor)
+                                        {
+                                                break;
+                                        }
+                                }
+                }
                 
-                //cout << endl << "}" << endl;
+                cout << endl << "}" << endl;
         }
         return 0;
 }    
