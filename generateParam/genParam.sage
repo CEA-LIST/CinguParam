@@ -50,7 +50,7 @@ The second one is used during relinearisation (version 2).
 
 Sources (chronological order): 
 
-        [LP11] LINDNER, Richard et PEIKERT, Chris. Better key sizes (and attacks) for LWE-based encryption. In : Cryptographers’ Track at the RSA Conference. Springer, Berlin, Heidelberg, 2011. p. 319-339.
+        [LP11] Lindner, Richard et Peikert, Chris. Better key sizes (and attacks) for LWE-based encryption. In : Cryptographers’ Track at the RSA Conference. Springer, Berlin, Heidelberg, 2011. p. 319-339.
 
         [FV12] Fan, Junfeng, and Frederik Vercauteren. "Somewhat Practical Fully Homomorphic Encryption." IACR Cryptology ePrint Archive 2012 (2012): 144.
         URL: https://eprint.iacr.org/2012/144.pdf
@@ -59,7 +59,7 @@ Sources (chronological order):
         Journal of Mathematical Cryptology. Volume 9, Issue 3, Pages 169–203, ISSN (Online) 1862-2984,
         ISSN (Print) 1862-2976 DOI: 10.1515/jmc-2015-0016, October 2015
 
-        [P16] PEIKERT, Chris. How (not) to instantiate ring-lwe. In : International Conference on Security and Cryptography for Networks. Springer, Cham, 2016. p. 411-430.
+        [P16] Peikert, Chris. How (not) to instantiate ring-lwe. In : International Conference on Security and Cryptography for Networks. Springer, Cham, 2016. p. 411-430.
 
         [CCDG17] Melissa Chase, Hao Chen, Jintai Ding, Shafi Goldwasser, Sergey Gorbunov, Jeffrey Hoffstein, Kristin Lauter, Satya Lokam, Dustin Moody, Travis Morrison, Amit Sahai, Vinod Vaikuntanathan
         Security of Homomorphic Encryption (white paper)
@@ -132,13 +132,13 @@ class _ParametersGenerator:
 
         def write(self):
                 print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT 
-                order = ['model', '_lambda_p','security_reduction' ,'L','n', 'log2_q' , 'sigma', 't','private_key_distribution'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
+                order = ['model', '_lambda_p','security_reduction' ,'L','n', 'log2_q' , 'sigma', 't','private_key_distribution','nr_samples'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                 for flag in order:
                         for key,val in self.__dict__.items():
                                 if (flag == key):        
                                         if (key in ['model','_lambda_p','L','sigma','log2_q']): #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
                                                 print ('\t{0} = {1}'.format(Describe(key), val))  
-                                        elif (key in ['security_reduction','n','L','t','private_key_distribution']):
+                                        elif (key in ['security_reduction','n','L','t','private_key_distribution','nr_samples']):
                                                 print ('\t{0} = {1}'.format(key, val))
         
         def comp_init_params(self):
@@ -181,8 +181,9 @@ class _ParametersGenerator:
                 private_key_distribution=self.private_key_distribution
                 beta=self._beta # defined on page 3 in [FV12]
                 security_reduction=self.security_reduction
-                param_set=ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method ) 
+                param_set=ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
                 self.n=param_set[0]
+                self.nr_samples=2*self.n # number of LWE samples
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
                 self._lambda_p=param_set[1][0]   
@@ -327,12 +328,16 @@ class _ParametersGenerator:
                 n = doc.createElement("n")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(int(self.n))))                
+
+                n = doc.createElement("nr_samples")
+                en.appendChild(n)
+                n.appendChild(doc.createTextNode(str(int(self.nr_samples))))  
                 
                 n = doc.createElement("alpha")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(self.alpha)))
 
-                n = doc.createElement("q")
+                n = doc.createElement("q_CINGULATA_BFV")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(int(self.q))))
                 
@@ -463,7 +468,7 @@ def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_re
                         raise NotImplementedError
                 q = MinModulus(n,t,noise_Gaussian_width,beta,mult_depth,cryptosystem,omega,word_size,gen_method)  # for fixed n, log2_q is minimized
                 noise_rate = noise_Gaussian_width/RR(q) 
-                estimated_security_level = SecurityLevel(n,noise_rate,q,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
+                estimated_security_level = SecurityLevel(n,noise_rate,q,current_model=model,private_key_distribution=paramsGen.private_key_distribution,nr_samples=2*n)
                 n=2*n
         return n/2,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,q, noise_rate 
 
@@ -486,8 +491,8 @@ def Describe(x):
         }.get(x, "42")   # default value
 
 
-def SecurityLevel(n,alpha,q,current_model,private_key_distribution):
-        ring_operations=primal_usvp(n, alpha, q, private_key_distribution, m=2*n, success_probability=0.99, reduction_cost_model=eval(current_model))["rop"] 
+def SecurityLevel(n,alpha,q,current_model,private_key_distribution,nr_samples):
+        ring_operations=primal_usvp(n, alpha, q, private_key_distribution, m=nr_samples, success_probability=0.99, reduction_cost_model=eval(current_model))["rop"] 
         #success_probability for the primal uSVP attack  
         security_level= floor(log(ring_operations)/log(2))
         return security_level    
@@ -524,10 +529,8 @@ groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type
 groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
 groupArgs.add_argument('--word_size', help='Machine word size', default = 64, type = int)
 groupArgs.add_argument('--model',help='BKZ cost model',default="bkz_sieve", type=str)
-groupArgs.add_argument('--gen_method',help='Method to generate secure parameters',default="bitsizeinc", type=str) # values in ["wordsizeinc","bitsizeinc"].  
- #Impacts time to estimate secure param and time to execute homomorphic computation. 
-groupArgs.add_argument('--security_reduction',help='Parameters compatibility with security reduction', default="yes", type=str) 
-# Either "no", in this case, Gaussian width is fixed, or "yes" for compatibility with Regev quantum security reduction proof. 
+groupArgs.add_argument('--gen_method',help='Method to generate secure parameters',default="bitsizeinc", type=str)  #Impacts time to estimate secure param and time to execute homomorphic computation. 
+groupArgs.add_argument('--security_reduction',help='Parameters compatibility with security reduction', default="yes", type=str) # Either "no", then Gaussian width is fixed. Or "yes" to use parameters compatible with Regev quantum security reduction proof. 
 groupPoly = parser.add_argument_group("polynomial ring quotient", "cyclotomic polynomial Phi_m(x) parameters, for the moment only m=2^n polynomials are supported")
 groupPoly.add_argument('--cyclotomic_poly_index', help='Cyclotomic polynomial index, m', default = 4096, type = int)
 
