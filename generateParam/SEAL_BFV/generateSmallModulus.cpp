@@ -41,8 +41,8 @@ int main (void)
         {
                 counter=0;
                 exponent=bitsize-19;
-                //cout << "extern const std::vector<SmallModulus> small_mods_" << bitsize << "bit;" << endl;  // to complete src/seal/util/globals.h in SEAL v3.1, without Boost dependency, but longer.
-                cout << "const vector<SmallModulus> small_mods" << bitsize << "_bit={"  ;
+                //cout << "extern const std::vector<SmallModulus> default_small_mods_" << bitsize << "bit;" << endl;  // to complete src/seal/util/globals.h in SEAL v3.1, without Boost dependency, but longer.
+                cout << "const vector<SmallModulus> small_mods_" << bitsize << "bit={"  ;
                 mpz_ui_pow_ui (max_iteration.get_mpz_t(), 2, exponent+1); 
                 max_iteration--;
                 mpz_ui_pow_ui (min_iteration.get_mpz_t(), 2, exponent);

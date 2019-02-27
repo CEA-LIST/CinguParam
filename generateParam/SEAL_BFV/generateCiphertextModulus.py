@@ -13,7 +13,7 @@ def CiphertextModulus_dev(bitsize):
                 small_modulus_bitsize=decomposition[0]
                 nr_occurences=decomposition[1]
                 for i in range(nr_occurences):
-                        print ("\t\tutil::global_variables::small_mods_",small_modulus_bitsize,"bit.at(",i,  sep='',end='') 
+                        print ("\t\tutil::global_variables::default_small_mods_",small_modulus_bitsize,"bit.at(",i,  sep='',end='') 
                         if decomposition==last_turn and i==nr_occurences-1:
                                 print(")",end='')
                                 print ("});")
@@ -40,7 +40,7 @@ def CiphertextModulus_user(bitsize,debug=False):
                 small_modulus_bitsize=decomposition[0]
                 nr_occurences=decomposition[1]
                 for i in range(nr_occurences):
-                        user_description+="small_mods_" + str(small_modulus_bitsize) + "bit(" + str(i)
+                        user_description+="default_small_mods_" + str(small_modulus_bitsize) + "bit(" + str(i)
                         if decomposition==last_turn and i==nr_occurences-1:
                                 user_description += ")"
                         else:
