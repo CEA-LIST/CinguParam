@@ -184,7 +184,6 @@ class _ParametersGenerator:
                 security_reduction=self.security_reduction
                 param_set=ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
                 self.n=param_set[0]
-                self.nr_samples=2*self.n # number of LWE samples
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
                 self._lambda_p=param_set[1][0]   
@@ -192,6 +191,7 @@ class _ParametersGenerator:
                 self.nb_lwe_estimator_calls=param_set[2]
                 self.q=param_set[3]
                 self.alpha=param_set[4] # noise rate
+                self.nr_samples=param_set[5] # number of LWE samples                
                 self.sigma=mpf(self.alpha*self.q) # noise Gaussian width
                 self.error_bound = self._comp_error_bound(self._beta, self.sigma)
                 self._comp_relin_v2_params()
@@ -472,10 +472,13 @@ def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_re
                 else:
                         raise NotImplementedError
                 q = MinModulus(n,t,noise_Gaussian_width,beta,mult_depth,cryptosystem,omega,word_size,gen_method)  # for fixed n, log2_q is minimized
-                noise_rate = noise_Gaussian_width/RR(q) 
-                estimated_security_level = SecurityLevel(n,noise_rate,q,current_model=model,private_key_distribution=paramsGen.private_key_distribution,nr_samples=2*n)
+                noise_rate = noise_Gaussian_width/RR(q)
+                nr_samples=2*n 
+                estimated_security_level = SecurityLevel(n,noise_rate,q,nr_samples,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
                 n=2*n
-        return n/2,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,q, noise_rate 
+        n=n/2
+        nr_samples=2*n
+        return n,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,q, noise_rate,nr_samples 
 
   
 
@@ -496,7 +499,7 @@ def Describe(x):
         }.get(x, "42")   # default value
 
 
-def SecurityLevel(n,alpha,q,current_model,private_key_distribution,nr_samples):
+def SecurityLevel(n,alpha,q,nr_samples, current_model,private_key_distribution,nr_samples):
         ring_operations=primal_usvp(n, alpha, q, private_key_distribution, m=nr_samples, success_probability=0.99, reduction_cost_model=eval(current_model))["rop"] 
         #success_probability for the primal uSVP attack  
         security_level= floor(log(ring_operations)/log(2))
