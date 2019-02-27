@@ -499,7 +499,7 @@ def Describe(x):
         }.get(x, "42")   # default value
 
 
-def SecurityLevel(n,alpha,q,nr_samples, current_model,private_key_distribution,nr_samples):
+def SecurityLevel(n,alpha,q,nr_samples, current_model,private_key_distribution):
         ring_operations=primal_usvp(n, alpha, q, private_key_distribution, m=nr_samples, success_probability=0.99, reduction_cost_model=eval(current_model))["rop"] 
         #success_probability for the primal uSVP attack  
         security_level= floor(log(ring_operations)/log(2))
