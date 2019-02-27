@@ -210,8 +210,9 @@ class _ParametersGenerator:
         def mpf2str(self, mpf):
                 prec = int(mpm.nstr(mpf, 0).split('e')[-1]) + 3
                 mpf_str = mpm.nstr(mpf, prec)
-                mpf_int_str = mpf_str.split('.')[0]
-                return mpf_int_str
+                # mpf_int_str = mpf_str.split('.')[0]
+                # return mpf_int_str
+                return mpf_str
 
 
         def createPolynomialRingNode(self, doc):
