@@ -259,22 +259,17 @@ class _ParametersGenerator:
                 pt.appendChild(cm)
 
                 return pt
-
-        def createNormalDistributionNode(self, doc, sigma, bound):
+                
+                
+        def createNormalDistributionNode(self, doc, **kwargs):
                 nd = doc.createElement("normal_distribution")
-
-                sn = doc.createElement("sigma")
-                nd.appendChild(sn)
-
-                sn.appendChild(doc.createTextNode(sigma))    
-
-                bn = doc.createElement("bound")
-                nd.appendChild(bn)
-
-                bn.appendChild(doc.createTextNode(bound))    
+                 
+                for arg_name in kwargs:
+                    sn = doc.createElement(arg_name)
+                    nd.appendChild(sn)
+                    sn.appendChild(doc.createTextNode(kwargs[arg_name]))
                                
-
-                return nd
+                return nd        
   
         def createCiphertextNode(self, doc):
                 ct = doc.createElement("ciphertext")
@@ -283,7 +278,7 @@ class _ParametersGenerator:
 
                 cm.appendChild(doc.createTextNode(str(int(self.log2_q))))
 
-                ct.appendChild(self.createNormalDistributionNode(doc, self.mpf2str(self.sigma), self.mpf2str(self.error_bound)))
+                ct.appendChild(self.createNormalDistributionNode(doc, sigma=self.mpf2str(self.sigma), bound=self.mpf2str(self.error_bound)))
 
                 return ct
   
@@ -303,7 +298,7 @@ class _ParametersGenerator:
                 n.appendChild(doc.createTextNode(str(int(self.log2_p))))
 
                 #write linearization normal distribution
-                ln.appendChild(self.createNormalDistributionNode(doc, self.mpf2intstr(self.sigma_k), self.mpf2intstr(self.B_k)))
+                ln.appendChild(self.createNormalDistributionNode(doc, sigma_k=self.mpf2intstr(self.sigma_k), bound_k=self.mpf2intstr(self.B_k)))
 
                 return ln
 
