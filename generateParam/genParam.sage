@@ -207,14 +207,17 @@ class _ParametersGenerator:
                 self.B_k = self._comp_error_bound(self._beta, self.sigma_k)
 
 
+        def mpf2intstr(self, mpf):
+                prec = int(mpm.nstr(mpf, 0).split('e')[-1]) + 1
+                mpf_str = mpm.nstr(mpf, prec)
+                mpf_int_str = mpf_str.split('.')[0]
+                return mpf_int_str
+
         def mpf2str(self, mpf):
                 prec = int(mpm.nstr(mpf, 0).split('e')[-1]) + 3
                 mpf_str = mpm.nstr(mpf, prec)
-                # mpf_int_str = mpf_str.split('.')[0]
-                # return mpf_int_str
                 return mpf_str
-
-
+                
         def createPolynomialRingNode(self, doc):
                 def createCoeffNode(doc, value, degree):
                         coeff = doc.createElement("coeff")
@@ -300,7 +303,7 @@ class _ParametersGenerator:
                 n.appendChild(doc.createTextNode(str(int(self.log2_p))))
 
                 #write linearization normal distribution
-                ln.appendChild(self.createNormalDistributionNode(doc, self.mpf2str(self.sigma_k), self.mpf2str(self.B_k)))
+                ln.appendChild(self.createNormalDistributionNode(doc, self.mpf2intstr(self.sigma_k), self.mpf2intstr(self.B_k)))
 
                 return ln
 
