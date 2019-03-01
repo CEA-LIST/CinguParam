@@ -455,8 +455,10 @@ q_core_sieve.__name__="lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 # beta: block size, d: LWE dimension, B: bit-size of entries        
 
 
-# variant of Algorithm 5.9 in [B18] where n is an input param, n has to be not too small for lwe-estimator, n is a power of two 
-                                                                   
+def NrSamples(n):
+    return 2*n
+
+# variant of Algorithm 5.9 in [B18] where n is an input param, n has to be not too small for lwe-estimator, n is a power of two                                                                    
 def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
         first_pass=True
         nb_pass=1
@@ -472,11 +474,11 @@ def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_re
                         raise NotImplementedError
                 q = MinModulus(n,t,noise_Gaussian_width,beta,mult_depth,cryptosystem,omega,word_size,gen_method)  # for fixed n, log2_q is minimized
                 noise_rate = noise_Gaussian_width/RR(q)
-                nr_samples=2*n 
+                nr_samples=NrSamples(n) 
                 estimated_security_level = SecurityLevel(n,noise_rate,q,nr_samples,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
                 n=2*n
         n=n/2
-        nr_samples=2*n
+        nr_samples=NrSamples(n)
         return n,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,q, noise_rate,nr_samples 
 
   
