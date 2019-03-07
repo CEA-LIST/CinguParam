@@ -204,7 +204,7 @@ class _ParametersGenerator:
                 q=mpm.power(2,self.log2_q)
                 self.sigma_k = mpf(self._comp_sigma_k(self.sigma, q, self.k))
                 self.log2_sigma_k=ceil(log(self.sigma_k)/log(2))
-                self.B_k = self._comp_error_bound(self._beta, self.sigma_k)
+                self.B_k = self._comp_error_bound(mpm.power(self._beta, mpm.sqrt(self.k)), self.sigma_k) 
 
 
         def mpf2intstr(self, mpf):
