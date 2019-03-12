@@ -34,8 +34,11 @@ PRIVATE_KEY_DISTRIB=$7
 # Example: the ternary distribution (,1,0,1) is obtained with PRIVATE_KEY_DISTRIB=" -1",1
 SECURITY_REDUCTION=$8 
 # Either "yes", Gaussian width depends on the polynomial degree, as required in Regev quantum security-reduction proof or "no", Gaussian width is set at  aproximately 8/sqrt(2*Pi), it is estimated sufficient by a large part of the community, in 2019, and it improves performance.
+RELIN_VERSION=$9 # Version 1 and 2 are presented in [BFV12].
 
 FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MODULUS}_${GEN_METHOD}"
+echo "FILE_NAME = ", ${FILE_NAME}
 sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --model "$COST_MODEL"  --gen_method "$GEN_METHOD" \
-                                    --plaintext_modulus ${PLAINTEXT_MODULUS} --private_key_distribution "${PRIVATE_KEY_DISTRIB}" --security_reduction ${SECURITY_REDUCTION}
+                                    --plaintext_modulus ${PLAINTEXT_MODULUS} --private_key_distribution "${PRIVATE_KEY_DISTRIB}" --security_reduction ${SECURITY_REDUCTION} \
+                                    --relin_version ${RELIN_VERSION}
 

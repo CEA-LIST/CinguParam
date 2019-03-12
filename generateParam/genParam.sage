@@ -46,7 +46,7 @@ Output is a xml file in which generated parameters and input parameters are writ
 [Additional info]
 The script define two parameters sets. 
 The first parameter set is used during key generation, encryption.
-The second one is used during relinearisation (version 2).
+The second one is used during relinearisation.
 
 Sources (chronological order): 
 
@@ -75,9 +75,7 @@ Sources (chronological order):
 \author CEA-List, Embedded Real-Time System foundations Lab (DACLE/LaSTRE)
 """
 
-
 load('https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py')
-
 import sys
 import os
 import argparse
@@ -86,7 +84,9 @@ from mpmath import mpf
 from xml.dom import minidom
 import numpy as np
 sys.path.insert(0,"SEAL_BFV")
-from generateCiphertextModulus import *
+from generateCiphertextModulus import * # To define ciphertext moduli for SEAL BFV.
+import colorama
+from colorama import Fore, Style
 
 #######
 # Read config file with name=value pairs, ConfigParse module
@@ -120,28 +120,32 @@ class _ParametersGenerator:
                 # Estimated security _lambda_p is greater than desired/minimal/required security level given in CLI.   
                 self.t = params['plaintext_modulus'] 
                 self.L = params['mult_depth'] # Circuit multiplicative depth
-                self.k = params['relin_k']
-                self.cyclotomic_poly_index = params['cyclotomic_poly_index']  # Is equal to 2*n where n is the polynomial degree, a power of two.
+                self.relin_version = params['relin_version']
+                if (self.relin_version == 1):
+                    self.dbc = params['dbc']
+                elif (self.relin_version == 2):
+                    self.k = params['relin_k']
+                self.cyclotomic_poly_index = params['cyclotomic_poly_index']
                 self.poly_degree_log2 = int(np.log2(self.cyclotomic_poly_index)) - 1 
-                self.omega=params['omega']
-                self.word_size=params['word_size']
-                self.model=params['model'] #BKZ reduction cost model
-                self.gen_method=params['gen_method'] # scale factor to determine coefficient size q
-                self.security_reduction=params['security_reduction'] 
+                self.omega = params['omega'] # basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64
+                self.word_size = params['word_size']
+                self.model = params['model'] # BKZ reduction cost model
+                self.gen_method = params['gen_method'] # scale factor to determine coefficient size q
+                self.security_reduction = params['security_reduction']
                 mpm.mp.prec = 128
                 self.comp_init_params()
 
         def write(self):
-                print colors.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID =",os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + colors.DEFAULT 
-                order = ['model', '_lambda_p','security_reduction' ,'L','n', 'log2_q' , 'sigma', 't','private_key_distribution','nr_samples'] #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
+                print (Fore.YELLOW + "Attack cost computed with lwe-estimator \nHEAD commit ID = " + os.popen("git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7").read().rstrip('\n') + Style.RESET_ALL)
+                order = ['model', '_lambda_p','security_reduction' ,'L','n', 'log2_q' , 'sigma', 't','private_key_distribution','nr_samples','relin_version']
                 for flag in order:
                         for key,val in self.__dict__.items():
                                 if (flag == key):        
-                                        if (key in ['model','_lambda_p','L','sigma','log2_q']): #'sigma_k','log2_sigma_k','nb_lwe_estimator_calls'
+                                        if (key in ['model','_lambda_p','L','sigma','log2_q']): 
                                                 print ('\t{0} = {1}'.format(Describe(key), val))  
-                                        elif (key in ['security_reduction','n','L','t','private_key_distribution','nr_samples']):
+                                        elif (key in ['security_reduction','n','L','t','private_key_distribution','nr_samples','relin_version']):
                                                 print ('\t{0} = {1}'.format(key, val))
-        
+                                            
         def comp_init_params(self):
                 self._alfa = self._comp_alfa(self._eps_exp)
                 self._beta = self._comp_beta(self._eps_exp)
@@ -173,39 +177,51 @@ class _ParametersGenerator:
 
         def __getitem__(self, key):
                 return self.__dict__[key]
-    
+                
         def comp_params(self): 
-                n_init=int(2 * 2 ** self.poly_degree_log2) # ciphertext polynomial degree
-                t=self.t # plaintext modulus
-                min_security_level=self._lambda_p
-                mult_depth=self.L
-                private_key_distribution=self.private_key_distribution
-                beta=self._beta # defined on page 3 in [FV12]
-                security_reduction=self.security_reduction
-                param_set=ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method) 
-                self.n=param_set[0]
+                n_init = int(2 * 2 ** self.poly_degree_log2) # ciphertext polynomial degree
+                t = self.t # plaintext modulus
+                min_security_level = self._lambda_p
+                mult_depth = self.L
+                private_key_distribution = self.private_key_distribution
+                beta = self._beta # defined on page 3 in [FV12]
+                security_reduction = self.security_reduction
+                relin_version = self.relin_version
+                if relin_version == 1:
+                    param_set = ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,relin_version,\
+                                            mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method,dbc=self.dbc)
+                elif relin_version == 2:
+                    param_set = ChooseParam(n_init,t,min_security_level,private_key_distribution,beta,security_reduction,relin_version,\
+                                            mult_depth,model=self.model,omega=self.omega,word_size=self.word_size,gen_method=self.gen_method)
+                self.n = param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
-                self._lambda_p=param_set[1][0]   
-                self.log2_q= param_set[1][1]
-                self.nb_lwe_estimator_calls=param_set[2]
-                self.q=param_set[3]
-                self.alpha=param_set[4] # noise rate
-                self.nr_samples=param_set[5] # number of LWE samples                
-                self.sigma=mpf(self.alpha*self.q) # noise Gaussian width
+                self._lambda_p = param_set[1][0]
+                self.log2_q = param_set[1][1]
+                self.nb_lwe_estimator_calls = param_set[2]
+                self.q = param_set[3]
+                self.alpha = param_set[4] # noise rate
+                self.nr_samples = param_set[5] # number of LWE samples            
+                self.sigma = mpf(self.alpha*self.q) # noise Gaussian width
                 self.error_bound = self._comp_error_bound(self._beta, self.sigma)
-                self._comp_relin_v2_params()
-                
-                
-
+                if (self.relin_version == 1):
+                    self._comp_relin_v1_params()
+                elif (self.relin_version == 2):
+                    self._comp_relin_v2_params()
+                            
+        def _comp_relin_v1_params(self):
+                # l = floor(log_T(q)) in [FV12] and T = 2**dbc
+                self.l = int(self.log2_q/self.dbc)
+                        
         def _comp_relin_v2_params(self):
                 self.log2_p = int(self.log2_q) * (self.k-1)
                 self.log2_pq = int(self.log2_q) * self.k
-                q=mpm.power(2,self.log2_q)
-                self.sigma_k = mpf(self._comp_sigma_k(self.sigma, q, self.k))
-                self.log2_sigma_k=ceil(log(self.sigma_k)/log(2))
-                self.B_k = self._comp_error_bound(mpm.power(self._beta, mpm.sqrt(self.k)), self.sigma_k) 
-
+                self.q = mpm.power(2,self.log2_q)
+                self.sigma_k = mpf(self._comp_sigma_k(self.sigma, self.q, self.k))
+                self.log2_sigma_k = ceil(log(self.sigma_k)/log(2))
+                self.B_k = self._comp_error_bound(mpm.power(self._beta, mpm.sqrt(self.k)), self.sigma_k)
+                self.pq = mpm.power(2,self.log2_pq)
+                self.alpha_k = self.sigma_k/self.pq
 
         def mpf2intstr(self, mpf):
                 prec = int(mpm.nstr(mpf, 0).split('e')[-1]) + 1
@@ -284,24 +300,20 @@ class _ParametersGenerator:
   
         def createLinearizationNode(self, doc):
                 ln = doc.createElement("linearization")
-
-                #write linearization version
                 n = doc.createElement("version")
                 ln.appendChild(n)
-
-                n.appendChild(doc.createTextNode("2"))
-
-                #write linearization coefficient modulo
-                n = doc.createElement("coeff_modulo_log2")
-                ln.appendChild(n)
-
-                n.appendChild(doc.createTextNode(str(int(self.log2_p))))
-
-                #write linearization normal distribution
-                ln.appendChild(self.createNormalDistributionNode(doc, sigma_k=self.mpf2intstr(self.sigma_k), bound_k=self.mpf2intstr(self.B_k)))
-
+                n.appendChild(doc.createTextNode(str(int(self.relin_version))))
+                if (self.relin_version == 1): # not implemented in Cingulata
+                    n = doc.createElement("decomposition_bit_count")
+                    ln.appendChild(n)
+                    n.appendChild(doc.createTextNode(str(int(self.dbc))))
+                elif (self.relin_version == 2):    
+                    n = doc.createElement("coeff_modulo_log2")
+                    ln.appendChild(n)
+                    n.appendChild(doc.createTextNode(str(int(self.log2_p))))
+                    ln.appendChild(self.createNormalDistributionNode(doc, sigma_k=self.mpf2intstr(self.sigma_k), bound_k=self.mpf2intstr(self.B_k)))
                 return ln
-
+                
         def createPrivateKeyNode(self, doc):
                 skn = doc.createElement("secret_key")
                 n = doc.createElement("hamming_weight")
@@ -384,14 +396,11 @@ class colors:
         DEFAULT = '\033[0m'
 
 
-                                                                                                                              
-
-
 # To decrease computation time to generate parameters we use lower bound on bitsize of q given in [B18,p. 76] for BFV scheme. 
 # There is only values for mult depth multiple of 5.
 # Values in dictionary should be updated when we change parameter set following a new attack.   
 def lb_log2_q(mult_depth,omega=32):
-        x= range(20)
+        x = range(20)
         cases = map(lambda  mult_depth : int(mult_depth/5),x)
         # cases = {mult_depth: int(mult_depth/5) for mult_depth in range(20)}
         if (omega == 32):
@@ -402,7 +411,7 @@ def lb_log2_q(mult_depth,omega=32):
                 3:454,
                 4:611,
                         }.get(tuple(cases), 54)   # default value
-        elif (omega ==64):
+        elif (omega == 64):
                 return {
                 0:87,
                 1:193,
@@ -415,70 +424,81 @@ def lb_log2_q(mult_depth,omega=32):
 
    
 def MinModulus(n,t,noise_Gaussian_width, beta, mult_depth=10,cryptosystem="FV",omega=32,word_size=64,gen_method="bitsizeinc"):  
-# omega: basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64 
 # max_circuit_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
 # max_correctness_noise is an upper bound on the noise to guarantee correct decryption
-        q_min=2**(lb_log2_q(mult_depth,omega)-1)   
+        q_min = 2**(lb_log2_q(mult_depth,omega)-1)
         first_pass = True
-        B_key=1
-        if (gen_method=="bitsizeinc"):  
-                scale_factor=2
-        elif (gen_method=="wordsizeinc"): 
-                basis=2**word_size       
-                scale_factor=basis
+        B_key = 1
+        if (gen_method == "bitsizeinc"):
+                scale_factor = 2
+        elif (gen_method == "wordsizeinc"):
+                basis = 2**word_size
+                scale_factor = basis
         else:
                 raise NotImplementedError   
         while first_pass or  (max_circuit_noise>=max_correctness_noise): 
                 first_pass = False      
-                q_min=q_min*scale_factor
-                Delta=floor(q_min/t)
-                l=ceil(log(q_min)/log(omega), bits=1000)
-                B_error=ceil(beta * noise_Gaussian_width)                                                             
-                max_encryption_noise=B_error*(1+2*n*B_key)
-                C=2*n*(4+n*B_key) 
-                D=n^2*B_key*(B_key+4)+n*omega*l*B_error
-                max_circuit_noise= C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D 
-                max_correctness_noise=(Delta*(1+t)-q_min)/2
+                q_min = q_min*scale_factor
+                Delta = floor(q_min/t)
+                l = ceil(log(q_min)/log(omega), bits=1000)
+                B_error = ceil(beta * noise_Gaussian_width)                                             
+                max_encryption_noise = B_error*(1+2*n*B_key)
+                C = 2*n*(4+n*B_key)
+                D = n^2*B_key*(B_key+4)+n*omega*l*B_error
+                max_circuit_noise = C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D
+                max_correctness_noise = (Delta*(1+t)-q_min)/2
           
         return q_min
 
 
 # selection of BKZ (lattice reduction) cost model 
 bkz_enum = BKZ.enum    #https://bitbucket.org/malb/lwe-estimator.git   In April 2018, BKZ.enum is reduction_default_cost in lwe-estimator.
-bkz_sieve=BKZ.sieve 
+bkz_sieve = BKZ.sieve
 core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.292*beta)   #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="classical"
 q_core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.265*beta) #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="quantum"
-bkz_enum.__name__="BKZ.enum"
-bkz_sieve.__name__="BKZ.sieve"
-core_sieve.__name__="lambda beta, d, B: ZZ(2)**RR(0.292*beta)"
-q_core_sieve.__name__="lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
+bkz_enum.__name__ = "BKZ.enum"
+bkz_sieve.__name__ = "BKZ.sieve"
+core_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.292*beta)"
+q_core_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 # beta: block size, d: LWE dimension, B: bit-size of entries        
 
 
-def NrSamples(n):
-    return 2*n
+def NrSamples(n, relin_version,l=None): # Scheme assumption: BFV is secure when the adversary has the relinearization key.
+    if (relin_version == 1): # memory costly
+        return (l+2)*n # l+1 LWE samples encoding the secret key are contained in the evaluation key, the public key is one LWE sample of the secret key (pessimistic approach). 
+    elif (relin_version == 2): # time costly
+        return n # We do not consider the evaluation key parameters which involves a modulus switching (optimisitc approach).
 
 # variant of Algorithm 5.9 in [B18] where n is an input param, n has to be not too small for lwe-estimator, n is a power of two                                                                    
-def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_reduction,mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc"):
-        first_pass=True
-        nb_pass=1
-        max_security_level=64*ceil(min_security_level/64)
-        while first_pass or (estimated_security_level< min_security_level):
+def ChooseParam(n,t,min_security_level,private_key_distribution,beta,security_reduction,relin_version,\
+                mult_depth=10,cryptosystem="FV",model=core_sieve,omega=32,word_size=64,gen_method="bitsizeinc",dbc=None):
+        first_pass = True
+        nb_pass = 1
+        max_security_level = 64*ceil(min_security_level/64)
+        while first_pass or (estimated_security_level<min_security_level):
                 first_pass = False
-                nb_pass+=1
+                nb_pass += 1
                 if (security_reduction == "yes"):    
-                        noise_Gaussian_width=RR(2*sqrt(n))                                  # Regev reduction, see [P16,pages 3,18]
+                        noise_Gaussian_width = RR(2*sqrt(n))                                  # Regev reduction, see [P16,pages 3,18]
                 elif (security_reduction == "no"):
-                        noise_Gaussian_width=RR(8/sqrt(2*pi))                                   # [CCDG17, page 16], practical choice
+                        noise_Gaussian_width = RR(8/sqrt(2*pi))                                   # [CCDG17, page 16], practical choice
                 else:
                         raise NotImplementedError
                 q = MinModulus(n,t,noise_Gaussian_width,beta,mult_depth,cryptosystem,omega,word_size,gen_method)  # for fixed n, log2_q is minimized
                 noise_rate = noise_Gaussian_width/RR(q)
-                nr_samples=NrSamples(n) 
+                if relin_version == 1:
+                    l = floor(log(q)/(log(2)*dbc), bits=1000)
+                    nr_samples = NrSamples(n,relin_version,l)
+                elif relin_version == 2:
+                    nr_samples = NrSamples(n,relin_version)
                 estimated_security_level = SecurityLevel(n,noise_rate,q,nr_samples,current_model=model,private_key_distribution=paramsGen.private_key_distribution)
-                n=2*n
-        n=n/2
-        nr_samples=NrSamples(n)
+                n = 2*n
+        n = n/2
+        if relin_version == 1:
+            l = floor(log(q)/(log(2)*dbc), bits=1000)
+            nr_samples = NrSamples(n,relin_version,l)
+        elif relin_version == 2:
+            nr_samples = NrSamples(n,relin_version)
         return n,(estimated_security_level,floor(log(q)/log(2), bits=1000)),nb_pass,q, noise_rate,nr_samples 
 
   
@@ -533,13 +553,16 @@ groupArgs.add_argument('--private_key_distribution', help='Private key distribut
 groupArgs.add_argument('--lambda_p', help='Security level', default = 128, type = int)
 groupArgs.add_argument('--plaintext_modulus', help='Plaintext base', default = 2, type = int)
 groupArgs.add_argument('--mult_depth', help='Multiplicative depth', default = 5, type = int)
-groupArgs.add_argument('--relin_k', help='Parameter k for the relinearization', default = 4, type = int, choices=[4,5])
 groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type = int)
 groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
 groupArgs.add_argument('--word_size', help='Machine word size', default = 64, type = int)
 groupArgs.add_argument('--model',help='BKZ cost model',default="bkz_sieve", type=str)
 groupArgs.add_argument('--gen_method',help='Method to generate secure parameters',default="bitsizeinc", type=str)  #Impacts time to estimate secure param and time to execute homomorphic computation. 
-groupArgs.add_argument('--security_reduction',help='Parameters compatibility with security reduction', default="yes", type=str) # Either "no", then Gaussian width is fixed. Or "yes" to use parameters compatible with Regev quantum security reduction proof. 
+groupArgs.add_argument('--security_reduction',help='Parameters compatibility with security reduction', default="yes", type=str)
+# This string is either "no", then Gaussian width is set to 3.19. Or "yes" to use parameters compatible with Regev quantum security reduction proof.
+groupArgs.add_argument('--relin_version',help='BFV relinearisation method', default = 1, type = int, choices = [1,2]) # This refers to the two methods in [FV12].
+groupArgs.add_argument('--dbc',help='Decomposition bit count for the relin. v1', default = 60, type= int, choices = range(1, 60)) 
+groupArgs.add_argument('--relin_k', help='Parameter k for the relin. v2', default = 4, type = int, choices=[4,5])
 groupPoly = parser.add_argument_group("polynomial ring quotient", "cyclotomic polynomial Phi_m(x) parameters, for the moment only m=2^n polynomials are supported")
 groupPoly.add_argument('--cyclotomic_poly_index', help='Cyclotomic polynomial index, m', default = 4096, type = int)
 
