@@ -14,11 +14,11 @@ lwe_estimator_from_xml()
                 PATH_TO_FILE=$1
                 FILE=${PATH_TO_FILE##*/} # extract string after last /
                 n=$(xmllint --xpath 'fhe_params/extra/n/text()' ${PATH_TO_FILE}) 
-                q=$(xmllint --xpath 'fhe_params/extra/q/text()' ${PATH_TO_FILE}) 
+                q=$(xmllint --xpath 'fhe_params/extra/q_CINGULATA_BFV/text()' ${PATH_TO_FILE}) # Estimated security depends on log2(q) not on factorization of q, from our knowledge.
+                m=$(xmllint --xpath 'fhe_params/extra/nr_samples/text()' ${PATH_TO_FILE})
                 alpha=$(xmllint --xpath 'fhe_params/extra/alpha/text()' ${PATH_TO_FILE}) 
                 bkz_reduction_cost_model=$(xmllint --xpath 'fhe_params/extra/bkz_reduction_cost_model/text()' ${PATH_TO_FILE}) 
                 private_key_distribution=$(xmllint --xpath 'fhe_params/extra/private_key_distribution/text()' ${PATH_TO_FILE}) 
-                m=$n
                 {
                         echo $FILE         
                         sage -c "load('https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py');"  \
