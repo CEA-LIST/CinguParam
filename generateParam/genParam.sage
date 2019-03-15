@@ -493,7 +493,7 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
         scale_factor=ScaleFactor(scale_name,customsize)     
         while first_pass or  (max_circuit_noise>=max_correctness_noise):
             first_pass = False
-            n,estimated_secu_level,noise_rate = MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_version,security_reduction,dbc=None)
+            n,estimated_secu_level,noise_rate = MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_version,security_reduction,dbc)
             Delta = floor(q/t)
             l = ceil(log(q)/log(omega), bits=1000)                               # [CCDG17, page 16], practical choice
             B_error = ceil(beta * NoiseGaussianWidth(n,security_reduction)/RR(q))          
