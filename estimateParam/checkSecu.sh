@@ -18,11 +18,11 @@ lwe_estimator_from_xml()
                 m=$(xmllint --xpath 'fhe_params/extra/nr_samples/text()' ${PATH_TO_FILE})
                 alpha=$(xmllint --xpath 'fhe_params/extra/alpha/text()' ${PATH_TO_FILE}) 
                 bkz_reduction_cost_model=$(xmllint --xpath 'fhe_params/extra/bkz_reduction_cost_model/text()' ${PATH_TO_FILE}) 
-                private_key_distribution=$(xmllint --xpath 'fhe_params/extra/private_key_distribution/text()' ${PATH_TO_FILE}) 
+                prv_key_distr=$(xmllint --xpath 'fhe_params/extra/prv_key_distr/text()' ${PATH_TO_FILE}) 
                 {
                         echo $FILE         
                         sage -c "load('https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py');"  \
-                                "ring_operations=estimate_lwe($n,$alpha,$q,m=$m,secret_distribution=${private_key_distribution}, reduction_cost_model=${bkz_reduction_cost_model})" 2>&1
+                                "ring_operations=estimate_lwe($n,$alpha,$q,m=$m,secret_distribution=${prv_key_distr}, reduction_cost_model=${bkz_reduction_cost_model})" 2>&1
                 } | tee -a temp_${FILE}
                  
 }

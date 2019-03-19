@@ -12,26 +12,16 @@ These tools makes use of the xml database contained in the directory storeParam.
 
 Goal: It serves to check estimated security level of parameters contained in xml files. Security is estimated against primal_uSVP, dual_scale, primal_decode attacks. It is used to check generated parameters are still secure.
 
+
 Example:
 
 ```sh
-PS3='Please enter your choice: '
-options=("Cingulata_BFV" "SEAL_BFV")
-select POLITIC in "${options[@]}"
-do
-    case $POLITIC in
-        "Cingulata_BFV")
-            break
-            ;;
-        "SEAL_BFV")
-            break   
-            ;;
-        *) echo "invalid option $REPLY";;
-    esac
-done
-COMMIT_ID=$(awk '{w=$1} END{print w}' ../storeParam/commit.log ) # to determine last commit ID in database
-g++ -o checkSecu checkSecu.cpp -lboost_filesystem -lboost_system -lpugixml&& ./checkSecu ${POLITIC} 2>&1 | tee -a ${COMMIT_ID}_${POLITIC}_estimate_lwe
+POLITIC=${1:-"Cingulata_BFV"}
+bash checkSecu.sh ${POLITIC}
 ```
+
+Note: Politics are defined in generateParam/defaultPolitic.sh.
+
 
 ## sortAttack
 
@@ -73,7 +63,7 @@ Current results indicate primal_usvp is the best attack against all parameter se
 In the generation script, we only consider primal_usvp attack to estimate security.
 This is only heuristic .
  
-We added two programs in "estimateParam" directory : checkSecu.cpp and sortAttack.sh.
+We added two programs in "estimateParam" directory : checkSecu.sh and sortAttack.sh.
 They permit to check if our heuristic is valid when new parameter set are generated.
 
 * To see parameter sets for which primal_usvp is not the unique best attack, in terms of estimated bits of security with lwe-estimator tool.

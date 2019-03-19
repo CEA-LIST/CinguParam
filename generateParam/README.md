@@ -7,8 +7,12 @@ These tools makes use of the xml database contained in the directory storeParam.
 
 ## defaultPolitic
 
-Goal: This script defines politics adopted in different implementations. Each of them adopt different strategies, priorities, default behaviors.
-For instance, the parameter can be chosen to be compliant with Regev security-reduction or not, the distribution of the noise can be binary or ternary.
+Goal: This script defines politics adopted in different implementations. A politic defines the following choices:
+
+* the compliance with Regev security-reduction proof
+* the distribution of the private key
+* the relinearization method
+
 Currently, we take into account two politics:  "Cingulata_BFV" "SEAL_BFV".
 It is not question to discuss here, advantages/drawbacks of each choice but to ease comparison between different choices.
 
