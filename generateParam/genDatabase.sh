@@ -21,13 +21,12 @@
     
 HEAD_ID=$(git ls-remote https://bitbucket.org/malb/lwe-estimator.git HEAD | awk '{print $1}' | cut -c-7 )
 STORE_DIR="../storeParam"
-PLAINTEXT_MOD=2
 
 POLITIC="Cingulata_BFV"
 source defaultPolitic.sh
 default_politic ${POLITIC} # To define PRV_KEY_DISTR and SECU_RED
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
-parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} ${HEAD_ID}/${POLITIC} ${PLAINTEXT_MOD} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: scale_name "bitsize" "wordsize" ::: method "min_modulus" "min_degree" && bash renameParam.sh ${OUTPUT_DIR} 80 128 192
+parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: scale_name "bitsize" "wordsize" ::: method "min_modulus" "min_degree" ::: plaintext_mod 2 && bash renameParam.sh ${OUTPUT_DIR}
 echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
 
 
@@ -36,6 +35,8 @@ source defaultPolitic.sh
 default_politic ${POLITIC} # To define PRV_KEY_DISTR and SECU_RED
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
 # In SEAL 3.2, ciphertext size is always a multiple of 10. To check this property, this requires a particular setting  in CinguParam with customsize=10 and "min_degree" method.
-parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} ${HEAD_ID}/${POLITIC} ${PLAINTEXT_MOD} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: scale_name "customsize" ::: method "min_degree" && bash renameParam.sh ${OUTPUT_DIR} 128 192 
+parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" ::: scale_name "customsize" ::: method "min_degree" ::: plaintext_mod 2 40961 65537 163841 && bash renameParam.sh ${OUTPUT_DIR}
 echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
+
+
 

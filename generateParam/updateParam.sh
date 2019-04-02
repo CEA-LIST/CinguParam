@@ -23,8 +23,8 @@ REQUIRED_SECU=$2
 COST_MODEL=$3
 INCR_FUNC=$4 
 METHOD=$5 
-DIR_NAME=$6
-PLAINTEXT_MOD=$7
+PLAINTEXT_MOD=$6
+DIR_NAME=$7
 PRV_KEY_DISTR=$8
 # Two possible forms: a,b or a,b,h -- Private key coefficients are in the interval [a,b]. The integer h indicates the Hamming weight (number of non-zero coefficient) of the private key. 
 # Example: the ternary distribution (,1,0,1) is obtained with PRV_KEY_DISTR=" -1",1
