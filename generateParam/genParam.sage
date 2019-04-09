@@ -113,7 +113,7 @@ class _Parameters:
 
 class _ParametersGenerator:
         def __init__(self, params):
-                self._eps_exp = params['eps_exp'] # Exponent of adversary's advantage (i.e. success probability) in distinguishing attack on decision-LWE described in [LP11].
+                self._eps_exp = params['eps_exp'] # Exponent of adversary's advantage (i.e. success probability) to have samples out of bound
                 self.prv_key_distr = params['prv_key_distr'] # Distribution is described by bounds and optionally Hamming weight of the private key
                 self._h = params['prv_key_distr'][1] if isinstance(params['prv_key_distr'][0],tuple) else -1 # Hamming weight of the private key. -1 means weight is not indicated in prv_key_distr.
                 self._lambda_p = params['lambda_p'] # Security level
@@ -562,6 +562,7 @@ groupArgs.add_argument('--mult_depth', help='Multiplicative depth', default = 5,
 groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type = int)
 groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
 groupArgs.add_argument('--scale_name',help='Scale function of ciphertext modulus',default="bitsize", type = str, choices=["bitsize","customsize","wordsize"]) 
+# bitsize is slower but permits to increase database, customsize can be needed to be compatible with certain cryptosystem implementation (e.g Microsoft SEAL)
 groupArgs.add_argument('--customsize',help='Ciphertext modulus bitsize increment',default=10, type = int) # Small increment value means slow and tight generation, especially with flag "min_degree". 
 groupArgs.add_argument('--reduction_cost_model',help='BKZ cost model',default="bkz_sieve", type = str)
 groupArgs.add_argument('--security_reduction',help='Parameters compatibility with Regev security reduction', default="yes", choices=["yes","no"], type = str)
