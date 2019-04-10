@@ -434,7 +434,6 @@ def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,
     scale_factor=ScaleFactor(scale_name,customsize)
     while first_pass or  (max_circuit_noise>=max_correctness_noise):
         first_pass = False      
-        q = q*scale_factor
         Delta = floor(q/t)
         l = ceil(log(q)/log(omega), bits=1000)
         B_error = ceil(beta * noise_Gaussian_width)                                             
@@ -443,6 +442,8 @@ def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,
         D = n^2*B_key*(B_key+4)+n*omega*l*B_error
         max_circuit_noise = C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D
         max_correctness_noise = (Delta*(1+t)-q)/2
+        q *= scale_factor
+    q /= scale_factor
     return q
 
        
@@ -456,6 +457,7 @@ def MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_ve
             nr_samples = NrSamples(n,q,relin_version,dbc)
             estimated_secu_level = SecurityLevel(n,q,noise_rate,nr_samples,current_model=reduction_cost_model,prv_key_distr=prv_key_distr)
             n *= 2
+    n /= 2
     return n,estimated_secu_level,noise_rate
     
     
