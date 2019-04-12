@@ -406,12 +406,12 @@ def NoiseGaussianWidth(n,security_reduction):
         noise_Gaussian_width = RR(8/sqrt(2*pi))                               # [CCDG17, page 16], practical choice
     return noise_Gaussian_width
 
-def NrSamples(n,q,relin_version,dbc=None): # Scheme assumption: BFV is secure when the adversary has the relinearization key.
+def NrSamples(n,q,relin_version,dbc=None): # Scheme assumption: BFV is secure when the adversary has the relinearization/evaluation key.
     if relin_version == 1: # memory costly
         l = floor(log(q)/(log(2)*dbc), bits=1000)
         return (l+2)*n # l+1 LWE samples encoding the secret key are contained in the evaluation key, the public key is one LWE sample of the secret key (pessimistic approach). 
     elif relin_version == 2: # time costly
-        return n # We do not consider the evaluation key parameters which involves a modulus switching (optimisitc approach).
+        return n # We do not consider the evaluation key parameters which involves a modulus switching (optimistic approach).
 
 def log2(x):
     return ceil(log(x)/log(2)) 
@@ -477,7 +477,6 @@ q_core_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
                 mult_depth=10,cryptosystem="BFV",reduction_cost_model=core_sieve,omega=32,customsize=64,scale_name="bitsize",dbc=None):
     first_pass = True
-    max_secu_level = 64*ceil(min_secu_level/64)
     if method == "min_modulus":
         n=n_init
         while first_pass or (estimated_secu_level<min_secu_level):
