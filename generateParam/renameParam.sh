@@ -56,6 +56,7 @@ mmv -d \*_min_degree "#1"  &>/dev/null
 mmv -d \*_wordsize "#1"    &>/dev/null
 mmv -d \*_customsize "#1"  &>/dev/null
 mmv -d \*_bitsize "#1"     &>/dev/null
+mmv -d \*_bytesize "#1"     &>/dev/null
 
 
 # remove most unpractical parameter sets
