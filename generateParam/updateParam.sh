@@ -35,7 +35,7 @@ RELIN_VERSION=${10} # Version 1 and 2 are presented in [BFV12].
 
 FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MOD}_${INCR_FUNC}_${METHOD}"
 echo "FILE_NAME = "${FILE_NAME}
-sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --reduction_cost_model "$COST_MODEL"  --scale_name "$INCR_FUNC" \
+sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --reduction_cost_model "$COST_MODEL"  --modulus_level "$INCR_FUNC" \
                                     --plaintext_modulus ${PLAINTEXT_MOD} --prv_key_distr "${PRV_KEY_DISTR}" --security_reduction ${SECU_RED} \
                                     --relin_version ${RELIN_VERSION} --method ${METHOD}
 

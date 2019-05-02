@@ -129,8 +129,8 @@ class _ParametersGenerator:
                 self.omega = params['omega'] # basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64
                 self.customsize = params['customsize']
                 self.reduction_cost_model = params['reduction_cost_model'] # BKZ reduction cost model
-                self.scale_name = params['scale_name'] # incremented function during computation of ciphertext modulus q
-                if  self.scale_name == "bitsize" and self.method == "min_degree":
+                self.modulus_level = params['modulus_level'] # incremented function during computation of ciphertext modulus q
+                if  self.modulus_level == "bitsize" and self.method == "min_degree":
                     sys.exit() # This setting slowdowns parameter generation because of numerous calls to LWE-Estimator. 
                 self.security_reduction = params['security_reduction'] 
                 mpm.mp.prec = 128
@@ -190,10 +190,10 @@ class _ParametersGenerator:
                 method = self.method
                 if relin_version == 1:
                     param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
-                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,customsize=self.customsize,scale_name=self.scale_name,dbc=self.dbc)
+                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,customsize=self.customsize,modulus_level=self.modulus_level,dbc=self.dbc)
                 elif relin_version == 2:
                     param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
-                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,customsize=self.customsize,scale_name=self.scale_name)
+                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,customsize=self.customsize,modulus_level=self.modulus_level)
                 self.n = param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
@@ -361,9 +361,9 @@ class _ParametersGenerator:
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(int(self.t))))                
 
-                n = doc.createElement("scale_name")
+                n = doc.createElement("modulus_level")
                 en.appendChild(n)
-                n.appendChild(doc.createTextNode(self.scale_name))
+                n.appendChild(doc.createTextNode(self.modulus_level))
 
                 n = doc.createElement("method")
                 en.appendChild(n)
@@ -416,22 +416,24 @@ def NrSamples(n,q,relin_version,dbc=None): # Scheme assumption: BFV is secure wh
 def log2(x):
     return ceil(log(x)/log(2)) 
 
-def ScaleFactor(scale_name,customsize):
-    if (scale_name == "bitsize"):
+def ScaleFactor(modulus_level,customsize):
+    if (modulus_level == "bitsize"):
             scale_factor = 2
-    elif (scale_name == "customsize"):
+    elif (modulus_level == "bytesize"):
+            scale_factor = 2**8            
+    elif (modulus_level == "customsize"):
             scale_factor = 2**customsize
-    elif (scale_name == "wordsize"):
+    elif (modulus_level == "wordsize"):
             scale_factor = 2**64
     return scale_factor
     
-def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,cryptosystem="BFV",omega=32,customsize=64,scale_name="bitsize"):  
+def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,cryptosystem="BFV",omega=32,customsize=64,modulus_level="bitsize"):  
 # max_circuit_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
 # max_correctness_noise is an upper bound on the noise to guarantee correct decryption
     q = q_init
     first_pass = True
     B_key = prv_key_distr[0][1] if isinstance(prv_key_distr[0],tuple) else prv_key_distr[1] # Upper bound on prv_key_distr
-    scale_factor=ScaleFactor(scale_name,customsize)
+    scale_factor=ScaleFactor(modulus_level,customsize)
     while first_pass or  (max_circuit_noise>=max_correctness_noise):
         first_pass = False      
         Delta = floor(q/t)
@@ -475,14 +477,14 @@ q_core_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
 
     
 def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
-                mult_depth=10,cryptosystem="BFV",reduction_cost_model=core_sieve,omega=32,customsize=64,scale_name="bitsize",dbc=None):
+                mult_depth=10,cryptosystem="BFV",reduction_cost_model=core_sieve,omega=32,customsize=64,modulus_level="bitsize",dbc=None):
     first_pass = True
     if method == "min_modulus":
         n=n_init
         while first_pass or (estimated_secu_level<min_secu_level):
             first_pass = False
             noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
-            q = MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth,cryptosystem,omega,customsize,scale_name)  # for fixed n, log2_q is minimized
+            q = MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth,cryptosystem,omega,customsize,modulus_level)  # for fixed n, log2_q is minimized
             noise_rate = noise_Gaussian_width/RR(q)
             nr_samples = NrSamples(n,q,relin_version,dbc)
             estimated_secu_level = SecurityLevel(n,q,noise_rate,nr_samples,current_model=reduction_cost_model,prv_key_distr=prv_key_distr)
@@ -491,7 +493,7 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
     elif method == "min_degree":
         q=q_init            
         B_key = prv_key_distr[0][1] if isinstance(prv_key_distr[0],tuple) else prv_key_distr[1] # Upper bound on prv_key_distr   
-        scale_factor=ScaleFactor(scale_name,customsize)     
+        scale_factor=ScaleFactor(modulus_level,customsize)     
         while first_pass or  (max_circuit_noise>=max_correctness_noise):
             first_pass = False
             n,estimated_secu_level,noise_rate = MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_version,security_reduction,dbc)
@@ -562,7 +564,7 @@ groupArgs.add_argument('--plaintext_modulus', help='Plaintext base', default = 2
 groupArgs.add_argument('--mult_depth', help='Multiplicative depth', default = 5, type = int)
 groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type = int)
 groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
-groupArgs.add_argument('--scale_name',help='Scale function of ciphertext modulus',default="bitsize", type = str, choices=["bitsize","customsize","wordsize"]) 
+groupArgs.add_argument('--modulus_level',help='Scale function of ciphertext modulus',default="bitsize", type = str, choices=["bitsize","bytesize","customsize","wordsize"]) 
 # bitsize is slower but permits to increase database, customsize can be needed to be compatible with certain cryptosystem implementation (e.g Microsoft SEAL)
 groupArgs.add_argument('--customsize',help='Ciphertext modulus bitsize increment',default=10, type = int) # Small increment value means slow and tight generation, especially with flag "min_degree". 
 groupArgs.add_argument('--reduction_cost_model',help='BKZ cost model',default="bkz_sieve", type = str)
