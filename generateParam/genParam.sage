@@ -466,12 +466,16 @@ def MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_ve
 # selection of BKZ (lattice reduction) cost model 
 bkz_enum = BKZ.enum    #https://bitbucket.org/malb/lwe-estimator.git   In April 2018, BKZ.enum is reduction_default_cost in lwe-estimator.
 bkz_sieve = BKZ.sieve
-core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.292*beta)   #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="classical"
-q_core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.265*beta) #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="quantum"
+core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.292*beta)   #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="classical" [Becker Ducas Laarhoven Gama]
+q_core_sieve =  lambda beta, d, B: ZZ(2)**RR(0.265*beta) #https://estimate-all-the-lwe-ntru-schemes.github.io/docs/        aka BKZ.ADPS16, mode="quantum" [Laarhoven Thesis]
+paranoid_sieve =  lambda beta, d, B: ZZ(2)**RR(0.2075*beta) #called paranoid in LWE-Estimator and "best plausible" in New Hope paper
+
+
 bkz_enum.__name__ = "BKZ.enum"
 bkz_sieve.__name__ = "BKZ.sieve"
 core_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.292*beta)"
 q_core_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.265*beta)"
+paranoid_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.2075*beta)"
 # beta: block size, d: LWE dimension, B: bit-size of entries        
 
 
@@ -519,6 +523,7 @@ def Describe(x):
                 bkz_sieve:   "BKZ.sieve",
                 core_sieve:  "Core-Sieve",    # aka BKZ.ADPS16, classical mode
                 q_core_sieve:"Q-Core-Sieve",  # aka BKZ.ADPS16, quantum mode   
+                paranoid_sieve:"Paranoid Sieve" # aka BKZ.ADPS16, paranoid mode  
                 '_lambda_p':"security level",
                 'L':"multiplicative depth",
                 'sigma':"noise Gaussian width", 
