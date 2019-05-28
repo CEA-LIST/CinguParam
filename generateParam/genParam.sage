@@ -523,7 +523,7 @@ def Describe(x):
                 bkz_sieve:   "BKZ.sieve",
                 core_sieve:  "Core-Sieve",    # aka BKZ.ADPS16, classical mode
                 q_core_sieve:"Q-Core-Sieve",  # aka BKZ.ADPS16, quantum mode   
-                paranoid_sieve:"Paranoid Sieve" # aka BKZ.ADPS16, paranoid mode  
+                paranoid_sieve:"Paranoid Sieve", # aka BKZ.ADPS16, paranoid mode  
                 '_lambda_p':"security level",
                 'L':"multiplicative depth",
                 'sigma':"noise Gaussian width", 
