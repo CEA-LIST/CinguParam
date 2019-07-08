@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>131072</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>684</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>512.0</sigma>
+			<bound>4688.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>2052</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>449383595314990132809315747935570849404948640615100771414006504379381442312782994957656096215401753254012752358280770719736861829597513517995198452729579319114759297081818696233981122463076559698173811619439426199588780789916803902757140814502189126855913883490221625481825323564168183626757950575814158849105713922291838072584125924036907730653037472473090374530324369899534377681270088390011804070806519609038995456</sigma_k>
+			<bound_k>37667065155523072375554829907551935031660291494597240114821898521693502619189159639406320577309409423375422873055363726879125750935149569107140762343086586690537494846435497871783712631451237551956440459050370066561282690529987149097173607813806766027710611486942663517445277843969963842356579668831184063797057055738207195783779515276818647789912309772445269227150148622672907670716072220870128589209398464556625297408</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>311</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>65536</n>
+		<nr_samples>65536</nr_samples>
+		<alpha>6.37900476870244e-204</alpha>
+		<q_CINGULATA_BFV>2**684</q_CINGULATA_BFV>
+		<q_SEAL_BFV>default_small_mods_40bit(0),default_small_mods_50bit(0),default_small_mods_54bit(0),default_small_mods_60bit(0),default_small_mods_60bit(1),default_small_mods_60bit(2),default_small_mods_60bit(3),default_small_mods_60bit(4),default_small_mods_60bit(5),default_small_mods_60bit(6),default_small_mods_60bit(7),default_small_mods_60bit(8)</q_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.265*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

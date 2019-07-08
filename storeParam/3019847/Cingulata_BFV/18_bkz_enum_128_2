@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>32768</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>540</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>256.0</sigma>
+			<bound>2344.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1620</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>225901165688096369291736200831437396654231603470513133700819551630444705625075574845858216655537498705242496932173663034334766189197033787986948053161699901777023216111969069074704290905812157669440958190697696867686048263541099405153740709648973950488405371134901139719975085459655206181981185005507295025835081132933361323474944</sigma_k>
+			<bound_k>18934901085380813693905508655844668090536756588438409607331693863905946273973982915328728624209809490919601395687717625252070295700924077704694222738666013969700308916842959278412180096468686462784650097312601964128044647697560744841693683678885727970814995910066066569519984664925858439623226360678528577973565833858771513132449792</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>147</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>16384</n>
+		<nr_samples>16384</nr_samples>
+		<alpha>7.11282799835225e-161</alpha>
+		<q_CINGULATA_BFV>2**540</q_CINGULATA_BFV>
+		<q_SEAL_BFV>default_small_mods_60bit(0),default_small_mods_60bit(1),default_small_mods_60bit(2),default_small_mods_60bit(3),default_small_mods_60bit(4),default_small_mods_60bit(5),default_small_mods_60bit(6),default_small_mods_60bit(7),default_small_mods_60bit(8)</q_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>BKZ.enum</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

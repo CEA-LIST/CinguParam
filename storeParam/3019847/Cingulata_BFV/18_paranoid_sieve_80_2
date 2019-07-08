@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>65536</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>588</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>362.04</sigma>
+			<bound>3315.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1764</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>35795468534596512797931073066554302119952286294001854908067293024346715529557616118963405803571907018986621605553451977555744049621169712568063222806610341799479451705926522362606292333092871634152151703501265805496120582848684090062933160371791947970179484695601535431114172070622558782031487086962888754704118109399937409598260751417098165107018082539274240</sigma_k>
+			<bound_k>3000354840768143016407441109080291074169430358506778356391654611553366158147303038839680477523740609048252372914898505945545755918046272637404231477365857564222110935741150966484376185546539818841443775621691566176644835714748560607613931708587592069618847898057142408165913608952162458345006960740728780563858098713152078827904367006868669123023785334384099328</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>118</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>32768</n>
+		<nr_samples>32768</nr_samples>
+		<alpha>3.57369523204086e-175</alpha>
+		<q_CINGULATA_BFV>2**588</q_CINGULATA_BFV>
+		<q_SEAL_BFV>default_small_mods_30bit(0),default_small_mods_40bit(0),default_small_mods_48bit(0),default_small_mods_50bit(0),default_small_mods_60bit(0),default_small_mods_60bit(1),default_small_mods_60bit(2),default_small_mods_60bit(3),default_small_mods_60bit(4),default_small_mods_60bit(5),default_small_mods_60bit(6)</q_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_modulus</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>
