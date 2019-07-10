@@ -17,9 +17,7 @@ def CiphertextModulus(bitsize):
                 
                 for i in range(nr_occurences):
                         user_description+=small_modulus_bitsize
-                        if decomposition==last_turn and i==nr_occurences-1:
-                                2+2
-                        else:
+                        if decomposition!=last_turn or i!=nr_occurences-1:
                             user_description+=","
         user_description+="}"
         return user_description
