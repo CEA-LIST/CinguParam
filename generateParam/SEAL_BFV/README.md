@@ -1,35 +1,18 @@
 # Tools:
 
 * decomposeCiphertextModulus
-* generateSmallModulus
 
-Context: SEAL v3.1 uses ciphertext modulus q with particular properties:
+Context: SEAL v3.3 uses ciphertext modulus q with particular properties:
 
 * product of distinct prime factors,
-* each factor is less than 60 bits,
+* each factor is less than 62 bits,
 * any factor f is NTT-enabled, that is, it is congruent to 1 modulo $2*n$  where n is the ciphertext polynomial degree.
-
-Such factors are called SmallModulus.
-
-SEAL v3.1 database contains SmallModulus of size 30, 40, 50 and 60. It is enough when bitsize(q) is a multiple of 10. 
-
-## generateSmallModulus
-
-Goal: It permits to complete SmallModulus database in SEAL v3.1 with SmallModulus of bitsize in the interval $[30,60]$. This is necessary to decompose any ciphertext modulus q with suitable size (i.e more than 54 bits) for Brakerski/Fan-Vercauteren scheme into a product of distinct SmallModulus. Security and correction depends among other on bitsize(q). This database is available in our fork of SEAL v3.1.
-
-
-
-```sh
-g++ generateSmallModulusSEAL.cpp -o generateSmallModulusSEAL  -lgmpxx -lgmp    && ./generateSmallModulusSEAL
-```
 
 
 ## decomposeCiphertextModulus
 
-Goal: It permits to decompose ciphertext modulus bitsize into a sum of small bitsize. It is related to the coin problem. We propose two decompositions:
+Goal: It permits to decompose ciphertext modulus bitsize into a sum of small bitsize. It is related to the coin problem. 
 
-1. For official SEALv3.1, it is resticted to bitsize, multiple of 10.
-2. For our fork of SEAL v3.1, it is extended for any suitable bitsize. Once again, security and correction depends on bitsize(q).
 
 ```sh
 python decomposeCiphertextModulusBitsize.py
