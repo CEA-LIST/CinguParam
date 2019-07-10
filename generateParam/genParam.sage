@@ -353,9 +353,9 @@ class _ParametersGenerator:
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(2)+"**"+str(self.log2_q)))
                 
-                n = doc.createElement("q_bit_sizes_SEAL_BFV")
+                n = doc.createElement("q_bitsize_SEAL_BFV")
                 en.appendChild(n)
-                n.appendChild(doc.createTextNode(CiphertextModulus(self.log2_q)))
+                n.appendChild(doc.createTextNode(str(CiphertextModulus(self.log2_q))))
                 
                 n = doc.createElement("t")
                 en.appendChild(n)
