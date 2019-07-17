@@ -31,7 +31,6 @@ PRV_KEY_DISTR=$8
 SECU_RED=$9 
 # Either "yes", Gaussian width depends on the polynomial degree, as required in Regev quantum security-reduction proof or "no", Gaussian width is set at  aproximately 8/sqrt(2*Pi), it is estimated sufficient by a large part of the community, in 2019, and it improves performance.
 RELIN_VERSION=${10} # Version 1 and 2 are presented in [BFV12].
-CUSTOMSIZE=${11}
 
 
 FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MOD}_${INCR_FUNC}_${METHOD}"

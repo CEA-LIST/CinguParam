@@ -352,7 +352,7 @@ class _ParametersGenerator:
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(2)+"**"+str(self.log2_q))) 
                                 
-                n = doc.createElement("q_bitsize_SEAL_BFV_3.2")
+                n = doc.createElement("q_bitsize_SEAL_3.2_BFV")
                 en.appendChild(n)
                 n.appendChild(doc.createTextNode(str(CiphertextModulus(self.log2_q))))
                             
@@ -415,21 +415,21 @@ def NrSamples(n,q,relin_version,dbc=None): # Scheme assumption: BFV is secure wh
 def log2(x):
     return ceil(log(x)/log(2)) 
 
-def ScaleFactor(modulus_level): #Small increment value means slow and tight generation, especially with flag "min_degree". 
+def ScaleFactor(modulus_level): # Small increment value means slow and tight generation, especially with flag "min_degree". 
     if (modulus_level == "bitsize"):
             scale_factor = 2
     elif (modulus_level == "bytesize"):
-            scale_factor = 2**8            
-    elif (modulus_level == "SEAL-3.2-size"):
-            scale_factor = 2**10
-    elif (modulus_level == "FV-NFLlib-uint16-size"):
-            scale_factor = 2**14
-    elif (modulus_level == "FV-NFLlib-uint32-size"):
-            scale_factor = 2**30
-    elif (modulus_level == "FV-NFLlib-uint64-size"):
-            scale_factor = 2**62
+            scale_factor = 1<<8            
+    elif (modulus_level == "SEAL_3.2_size"):
+            scale_factor = 1<<10 
+    elif (modulus_level == "FV_NFLlib_uint16_size"):
+            scale_factor = 1<<14
+    elif (modulus_level == "FV_NFLlib_uint32_size"):
+            scale_factor = 1<<30
+    elif (modulus_level == "FV_NFLlib_uint64_size"):
+            scale_factor = 1<<62
     elif (modulus_level == "wordsize"):
-            scale_factor = 2**64
+            scale_factor = 1<<64
     return scale_factor
     
 def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,cryptosystem="BFV",omega=32,modulus_level="bitsize"):  
@@ -581,7 +581,7 @@ groupArgs.add_argument('--plaintext_modulus', help='Plaintext base', default = 2
 groupArgs.add_argument('--mult_depth', help='Multiplicative depth', default = 5, type = int)
 groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type = int)
 groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
-groupArgs.add_argument('--modulus_level',help='Scale function of ciphertext modulus',default="bitsize", type = str, choices=["bitsize","bytesize","SEAL-3.2-size","FV-NFLlib-uint32-size","FV-NFLlib-uint64-size","FV-NFLlib-uint16-size","wordsize"]) 
+groupArgs.add_argument('--modulus_level',help='Scale function of ciphertext modulus',default="bitsize", type = str, choices=["bitsize","bytesize","SEAL_3.2_size","FV_NFLlib_uint32_size","FV_NFLlib_uint64_size","FV_NFLlib_uint16_size","wordsize"]) 
 # bitsize is slower but permits to increase database, 
 groupArgs.add_argument('--reduction_cost_model',help='BKZ cost model',default="bkz_sieve", type = str)
 groupArgs.add_argument('--security_reduction',help='Parameters compatibility with Regev security reduction', default="yes", choices=["yes","no"], type = str)
