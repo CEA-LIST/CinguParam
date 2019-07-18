@@ -29,21 +29,29 @@ OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
 parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "bytesize" ::: method "min_modulus" "min_degree" ::: plaintext_mod 2 && bash renameParam.sh ${OUTPUT_DIR}
 echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
 
-
 POLITIC="SEAL_BFV"
+# In SEAL v3.2, ciphertext size is always a multiple of 10. To check this property, this requires a particular setting  in CinguParam with modulus_level "SEAL_3.2_size" and "min_degree" method.
 source defaultPolitic.sh
 default_politic ${POLITIC} # To define PRV_KEY_DISTR and SECU_RED
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
-# In SEAL 3.2, ciphertext size is always a multiple of 10. To check this property, this requires a particular setting  in CinguParam with modulus_level "SEAL-3.2-size" and "min_degree" method.
-parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "SEAL-3.2-size" ::: method "min_degree" ::: plaintext_mod 2 40961 65537 163841 1032193 && bash renameParam.sh ${OUTPUT_DIR}
+parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "SEAL_3.2_size" ::: method "min_degree" ::: plaintext_mod 2 40961 65537 163841 1032193 && bash renameParam.sh ${OUTPUT_DIR}
 echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
 
+
+POLITIC="SEAL_BFV"
+# In SEAL v3.3, ciphertext size is not constrained to be a multiple of 10.  
+source defaultPolitic.sh
+default_politic ${POLITIC} # To define PRV_KEY_DISTR and SECU_RED
+OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
+parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "bytesize" ::: method  "min_modulus" "min_degree" ::: plaintext_mod 2 40961 65537 163841 1032193 && bash renameParam.sh ${OUTPUT_DIR}
+echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
+
+# In FV_NFLlib, we suppose here polynomial is stored with data of type uint64_t. Then ciphertext modulus bitsize is a multiple of 62. 
+# Other valid choices are 14 and 30 for uint16_t and unnt32_t respectively. See doc/nfl.rst in NFL library.
 POLITIC="FV_NFLlib"
 source defaultPolitic.sh
 default_politic ${POLITIC} # To define PRV_KEY_DISTR and SECU_RED
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
-parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "FV-NFLlib-uint64-size" ::: method "min_degree" ::: plaintext_mod 2 379 123456789 987654345678987654345678987654323456953  && bash renameParam.sh ${OUTPUT_DIR} 
-# Chosen plaintext moduli values are used in example tests in FV-NFLlib library
-# We suppose polynomial is stored with data of type uint64_t. Then ciphertext modulus bitsize is a multiple of 62. Other valid choices are 14 and 30 for uint16_t and unnt32_t respectively. See doc/nfl.rst in NFL library.
+parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ::: mult_depth $(seq 0 20) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "FV_NFLlib_uint64_size" ::: method "min_degree" ::: plaintext_mod 2 379 123456789  && bash renameParam.sh ${OUTPUT_DIR} 
 echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"  
 
