@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>65536</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>644</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>362.04</sigma>
+			<bound>3315.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1932</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>185860698821967743246950553121144345877585425907883015648575548324480574091419080112957129026229363182773005806402831375992979206177315172952927456522069276912201806349326175177751436899254323094354838044757857262910443500614220562798030657341203784221206895759516687788089800991918536970109925060975550298196874455539191033034021471546064848796774791519688067955732801291800954538829063127040</sigma_k>
+			<bound_k>15578733014210191954825019775312832933439319028862162479788647620729835661032455234311879215904703548138760392397393685790785442130083541797695213745380060726202922425245943080494817346194535338985509456669492691796967763144408599852907523606407348078172049711643675397004719960362847437432161743257472920847921727590760502542605859388269881854534855467491675919527680207386479210431969637695488</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>104</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>32768</n>
+		<nr_samples>32768</nr_samples>
+		<alpha>4.95949841200613e-192</alpha>
+		<q_CINGULATA_BFV>2**644</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{30,40,44,50,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

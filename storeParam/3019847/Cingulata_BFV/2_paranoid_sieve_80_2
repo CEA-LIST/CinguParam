@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>8192</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>76</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>128.0</sigma>
+			<bound>1172.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>228</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>24889862902921177957699794915870706029248439648256</sigma_k>
+			<bound_k>2086253475762103399154327122099145990310046422007808</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>115</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>4096</n>
+		<nr_samples>4096</nr_samples>
+		<alpha>1.69406589450860e-21</alpha>
+		<q_CINGULATA_BFV>2**76</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{30,46}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_modulus</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

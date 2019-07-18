@@ -1,0 +1,14 @@
+FILE_NAME = ../storeParam/3019847/FV_NFLlib/3_paranoid_sieve_192_379_FV-NFLlib-uint64-size_min_degree
+[33mAttack cost computed with lwe-estimator 
+HEAD commit ID = 3019847[0m
+	BKZ cost model = paranoid_sieve
+	security level = 368
+	security_reduction = no
+	multiplicative depth = 3
+	n = 16384
+	log_2(q) = 122
+	noise Gaussian width = 3.1915382432114616229057446616934612393
+	t = 379
+	prv_key_distr = normal
+	nr_samples = 65536
+	relin_version = 1

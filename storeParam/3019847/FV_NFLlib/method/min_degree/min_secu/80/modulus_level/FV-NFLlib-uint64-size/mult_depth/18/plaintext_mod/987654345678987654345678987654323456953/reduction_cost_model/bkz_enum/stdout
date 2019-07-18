@@ -1,0 +1,14 @@
+FILE_NAME = ../storeParam/3019847/FV_NFLlib/18_bkz_enum_80_987654345678987654345678987654323456953_FV-NFLlib-uint64-size_min_degree
+[33mAttack cost computed with lwe-estimator 
+HEAD commit ID = 3019847[0m
+	BKZ cost model = bkz_enum
+	security level = 97
+	security_reduction = no
+	multiplicative depth = 18
+	n = 16384
+	log_2(q) = 680
+	noise Gaussian width = 3.1915382432114616229057446616934612393
+	t = 987654345678987654345678987654323456953
+	prv_key_distr = normal
+	nr_samples = 212992
+	relin_version = 1

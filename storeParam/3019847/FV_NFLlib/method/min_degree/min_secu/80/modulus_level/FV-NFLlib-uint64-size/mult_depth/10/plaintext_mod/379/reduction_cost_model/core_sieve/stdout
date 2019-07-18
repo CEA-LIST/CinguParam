@@ -1,0 +1,14 @@
+FILE_NAME = ../storeParam/3019847/FV_NFLlib/10_core_sieve_80_379_FV-NFLlib-uint64-size_min_degree
+[33mAttack cost computed with lwe-estimator 
+HEAD commit ID = 3019847[0m
+	BKZ cost model = core_sieve
+	security level = 119
+	security_reduction = no
+	multiplicative depth = 10
+	n = 16384
+	log_2(q) = 370
+	noise Gaussian width = 3.1915382432114616229057446616934612393
+	t = 379
+	prv_key_distr = normal
+	nr_samples = 131072
+	relin_version = 1

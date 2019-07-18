@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>65536</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>379</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>556</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>3.19</sigma>
+			<bound>30.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>1</version>
+		<decomposition_bit_count>60</decomposition_bit_count>
+	</linearization>
+	<secret_key>
+		<hamming_weight>-1</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>479</estimated_secu_level>
+		<security_reduction>no</security_reduction>
+		<prv_key_distr>normal</prv_key_distr>
+		<n>32768</n>
+		<nr_samples>360448</nr_samples>
+		<alpha>1.35307684982577e-167</alpha>
+		<q_CINGULATA_BFV>2**556</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV_3.2>{40,46,50,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV_3.2>
+		<t>379</t>
+		<modulus_level>FV-NFLlib-uint64-size</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>BKZ.enum</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>
