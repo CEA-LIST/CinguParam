@@ -30,9 +30,9 @@
 		<nr_samples>294912</nr_samples>
 		<alpha>1.04689250539340e-141</alpha>
 		<q_CINGULATA_BFV>2**470</q_CINGULATA_BFV>
-		<q_bitsize_SEAL_BFV>{30,40,50,50,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<q_bitsize_SEAL_3.2_BFV>{30,40,50,50,60,60,60,60,60}</q_bitsize_SEAL_3.2_BFV>
 		<t>65537</t>
-		<modulus_level>customsize</modulus_level>
+		<modulus_level>SEAL_3.2_size</modulus_level>
 		<method>min_degree</method>
 		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.292*beta)</bkz_reduction_cost_model>
 	</extra>

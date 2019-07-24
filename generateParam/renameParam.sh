@@ -51,12 +51,13 @@ done
 
 
 # shorten xml filename
-mmv -d \*_min_modulus "#1" &>/dev/null
-mmv -d \*_min_degree "#1"  &>/dev/null
-mmv -d \*_wordsize "#1"    &>/dev/null
-mmv -d \*_customsize "#1"  &>/dev/null
-mmv -d \*_bitsize "#1"     &>/dev/null
-mmv -d \*_bytesize "#1"    &>/dev/null
+mmv -d \*_min_modulus "#1"              &>/dev/null
+mmv -d \*_min_degree "#1"               &>/dev/null
+mmv -d \*_wordsize "#1"                 &>/dev/null
+mmv -d \*_bitsize "#1"                  &>/dev/null
+mmv -d \*_bytesize "#1"                 &>/dev/null
+mmv -d \*_SEAL_3.2_size "#1"            &>/dev/null
+mmv -d \*_FV_NFLlib_uint64_size "#1"    &>/dev/null
 
 
 # remove most unpractical parameter sets

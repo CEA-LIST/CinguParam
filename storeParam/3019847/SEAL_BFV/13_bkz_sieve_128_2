@@ -30,9 +30,9 @@
 		<nr_samples>131072</nr_samples>
 		<alpha>1.23595251965931e-120</alpha>
 		<q_CINGULATA_BFV>2**400</q_CINGULATA_BFV>
-		<q_bitsize_SEAL_BFV>{30,40,40,50,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<q_bitsize_SEAL_3.2_BFV>{30,40,40,50,60,60,60,60}</q_bitsize_SEAL_3.2_BFV>
 		<t>2</t>
-		<modulus_level>customsize</modulus_level>
+		<modulus_level>SEAL_3.2_size</modulus_level>
 		<method>min_degree</method>
 		<bkz_reduction_cost_model>BKZ.sieve</bkz_reduction_cost_model>
 	</extra>

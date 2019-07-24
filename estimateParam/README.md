@@ -7,7 +7,6 @@ These tools makes use of the xml database contained in the directory storeParam.
 
 
 
-
 ## checkSecu
 
 Goal: It serves to check estimated security level of parameters contained in xml files. Security is estimated against primal_uSVP, dual_scale, primal_decode attacks. It is used to check generated parameters are still secure.

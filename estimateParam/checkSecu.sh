@@ -17,8 +17,9 @@ lwe_estimator_from_xml()
                 q=$(xmllint --xpath 'fhe_params/extra/q_CINGULATA_BFV/text()' ${PATH_TO_FILE}) # Estimated security depends on log2(q) not on factorization of q, from our knowledge.
                 m=$(xmllint --xpath 'fhe_params/extra/nr_samples/text()' ${PATH_TO_FILE})
                 alpha=$(xmllint --xpath 'fhe_params/extra/alpha/text()' ${PATH_TO_FILE}) 
-                bkz_reduction_cost_model=$(xmllint --xpath 'fhe_params/extra/bkz_reduction_cost_model/text()' ${PATH_TO_FILE}) 
-                prv_key_distr=$(xmllint --xpath 'fhe_params/extra/prv_key_distr/text()' ${PATH_TO_FILE}) 
+                bkz_reduction_cost_model=$(xmllint --xpath 'fhe_params/extra/bkz_reduction_cost_model/text()' ${PATH_TO_FILE})
+                prv_key_distr=$(xmllint --xpath 'fhe_params/extra/prv_key_distr/text()' ${PATH_TO_FILE})
+                if [ "${prv_key_distr}" = "normal" ]; then prv_key_distr='"normal"'; fi
                 {
                         echo $FILE         
                         sage -c "load('https://bitbucket.org/malb/lwe-estimator/raw/HEAD/estimator.py');"  \
@@ -29,5 +30,5 @@ lwe_estimator_from_xml()
 export -f lwe_estimator_from_xml
 parallel --header :  lwe_estimator_from_xml   ${INPUT_DIR}/{1} ::: FILE ${FILE_LIST} 
 
-cat temp_* >| ${OUTPUT_FILE}
-rm temp_*
+#cat temp_* >| ${OUTPUT_FILE}
+#rm temp_*
