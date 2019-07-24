@@ -30,7 +30,7 @@
 		<nr_samples>425984</nr_samples>
 		<alpha>6.36213677279442e-205</alpha>
 		<q_CINGULATA_BFV>2**680</q_CINGULATA_BFV>
-		<q_bitsize_SEAL_3.2_BFV>{40,50,50,60,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_3.2_BFV>
+		<q_bitsize_SEAL_BFV>{40,50,50,60,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
 		<t>379</t>
 		<modulus_level>FV_NFLlib_uint64_size</modulus_level>
 		<method>min_degree</method>

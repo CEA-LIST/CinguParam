@@ -30,7 +30,7 @@
 		<nr_samples>229376</nr_samples>
 		<alpha>1.42495623858824e-102</alpha>
 		<q_CINGULATA_BFV>2**340</q_CINGULATA_BFV>
-		<q_bitsize_SEAL_3.2_BFV>{30,40,40,50,60,60,60}</q_bitsize_SEAL_3.2_BFV>
+		<q_bitsize_SEAL_BFV>{30,40,40,50,60,60,60}</q_bitsize_SEAL_BFV>
 		<t>2</t>
 		<modulus_level>bytesize</modulus_level>
 		<method>min_modulus</method>

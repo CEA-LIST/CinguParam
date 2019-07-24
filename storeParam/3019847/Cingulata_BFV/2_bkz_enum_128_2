@@ -34,7 +34,7 @@
 		<nr_samples>2048</nr_samples>
 		<alpha>3.06658683336675e-19</alpha>
 		<q_CINGULATA_BFV>2**68</q_CINGULATA_BFV>
-		<q_bitsize_SEAL_3.2_BFV>{30,38}</q_bitsize_SEAL_3.2_BFV>
+		<q_bitsize_SEAL_BFV>{30,38}</q_bitsize_SEAL_BFV>
 		<t>2</t>
 		<modulus_level>bytesize</modulus_level>
 		<method>min_degree</method>

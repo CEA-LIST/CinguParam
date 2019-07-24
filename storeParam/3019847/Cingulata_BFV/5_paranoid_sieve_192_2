@@ -34,7 +34,7 @@
 		<nr_samples>16384</nr_samples>
 		<alpha>1.67047794380762e-52</alpha>
 		<q_CINGULATA_BFV>2**180</q_CINGULATA_BFV>
-		<q_bitsize_SEAL_3.2_BFV>{60,60,60}</q_bitsize_SEAL_3.2_BFV>
+		<q_bitsize_SEAL_BFV>{60,60,60}</q_bitsize_SEAL_BFV>
 		<t>2</t>
 		<modulus_level>bytesize</modulus_level>
 		<method>min_modulus</method>
