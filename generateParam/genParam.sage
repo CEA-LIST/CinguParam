@@ -611,8 +611,18 @@ params.updateParams(values.__dict__)
 paramsGen = _ParametersGenerator(params)
 
 n_init=2048
-q_init=2**60 # For compatibility with SEAL v3.2, initial size is the smallest multiple of 10. It is greater than 54 (see [B18] p.76) for security>80 and to enable at least one homomorphic multiplication.
 
+# Ciphertext modulus have to be greater than 54 (see [B18] p.76) for security>80 and to enable at least one homomorphic multiplication.
+if (modulus_level == "FV_NFLlib_uint16_size"):
+    q_init=2**56 #In FV-NFLlib, ciphertext coefficient size is a multiple of type size minus 2.   
+elif (modulus_level == "SEAL_3.2_size"):
+    q_init=2**60 # In SEAL v3.2, ciphertext coefficient size is the smallest multiple of 10. 
+elif (modulus_level == "FV_NFLlib_uint32_size") or  (modulus_level == "FV_NFLlib_uint64_size"):
+    q_init=2**64
+else:
+    q_init=2**54 
+
+    
 param_set=paramsGen.comp_params()
 
 paramsGen.write()
