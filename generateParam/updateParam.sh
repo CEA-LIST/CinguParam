@@ -26,8 +26,8 @@ METHOD=$5
 PLAINTEXT_MOD=$6
 DIR_NAME=$7
 PRV_KEY_DISTR=$8
-# Two possible forms: a,b or a,b,h -- Private key coefficients are in the interval [a,b]. The integer h indicates the Hamming weight (number of non-zero coefficient) of the private key. 
-# Example: the ternary distribution (,1,0,1) is obtained with PRV_KEY_DISTR=" -1",1
+# For uniform distribution in the interval [a,b], use : a,b or a,b,h -- Private key coefficients are in the interval [a,b]. The integer h indicates the Hamming weight (number of non-zero coefficient) of the private key. 
+# Example: PRV_KEY_DISTR=" -1",1
 SECU_RED=$9 
 # Either "yes", Gaussian width depends on the polynomial degree, as required in Regev quantum security-reduction proof or "no", Gaussian width is set at  aproximately 8/sqrt(2*Pi), it is estimated sufficient by a large part of the community, in 2019, and it improves performance.
 RELIN_VERSION=${10} # Version 1 and 2 are presented in [BFV12].

@@ -35,7 +35,7 @@ default_politic()
      
         elif  [ ${POLITIC} = "FV_NFLlib" ]
         then
-                PRIVATE_KEY_DISTRIB="normal" # noise distribution
+                PRIVATE_KEY_DISTRIB="normal" # same as noise distribution, i.e,  a truncated Gaussian distribution
                 SECU_RED="no"   
                 RELIN_VERSION=1 
         else

@@ -56,7 +56,7 @@ File B contains the attack cost:
 * for each parameter set in the directory `estimateParam/<lwe_estimator_commit_id>`.
 
 
-# Comment [june 2018]
+# Comment
 
 Current results indicate primal_usvp is the best attack against all parameter set obtained by our script genParams.sage, according to lwe-estimator tool. 
 In the generation script, we only consider primal_usvp attack to estimate security.

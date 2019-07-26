@@ -445,8 +445,8 @@ def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,
         l = ceil(log(q)/log(omega), bits=1000)
         B_error = ceil(beta * noise_Gaussian_width)                                             
         max_encryption_noise = B_error*(1+2*n*B_key)
-        C = 2*n*(4+n*B_key)
-        D = n^2*B_key*(B_key+4)+n*omega*l*B_error
+        C = t*n*(4+n*B_key)
+        D = n^2*B_key*(B_key+t**2)+n*omega*l*B_error
         max_circuit_noise = C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D
         max_correctness_noise = (Delta*(1+t)-q)/2
         q *= scale_factor
@@ -612,16 +612,17 @@ paramsGen = _ParametersGenerator(params)
 
 n_init=2048
 
-# Ciphertext modulus have to be greater than 54 (see [B18] p.76) for security>80 and to enable at least one homomorphic multiplication.
-if (modulus_level == "FV_NFLlib_uint16_size"):
-    q_init=2**56 #In FV-NFLlib, ciphertext coefficient size is a multiple of type size minus 2.   
-elif (modulus_level == "SEAL_3.2_size"):
-    q_init=2**60 # In SEAL v3.2, ciphertext coefficient size is the smallest multiple of 10. 
-elif (modulus_level == "FV_NFLlib_uint32_size") or  (modulus_level == "FV_NFLlib_uint64_size"):
-    q_init=2**64
+# Ciphertext modulus q have to be greater than 54 (see [B18] p.76) for security>80 and to enable at least one homomorphic multiplication.
+# In FV-NFLlib, ciphertext coefficient size is a multiple of type size minus 2.
+# In SEAL v3.2, ciphertext coefficient size is the smallest multiple of 10. 
+if (params['modulus_level'] == "FV_NFLlib_uint16_size"):
+    q_init=2**56    
+elif (params['modulus_level'] == "SEAL_3.2_size") or (params['modulus_level'] == "FV_NFLlib_uint32_size"):
+    q_init=2**60 
+elif (params['modulus_level'] == "FV_NFLlib_uint64_size"):
+    q_init=2**62
 else:
     q_init=2**54 
-
     
 param_set=paramsGen.comp_params()
 
