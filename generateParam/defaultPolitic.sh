@@ -26,18 +26,21 @@ default_politic()
                PRIVATE_KEY_DISTRIB='0,1,63'
                SECU_RED="yes"   # pessimitic view
                RELIN_VERSION=2  # optimistic view, relinearization parameters with modulus switching are not taken into account during parameter selection
+               EPS_EXP=-64      # used to obtain a noise distribution within statistical distance 2^{-64} from a Gaussian distribution
                 
         elif  [ ${POLITIC} = "SEAL_BFV" ]
         then
                 PRIVATE_KEY_DISTRIB='" -1",1'
                 SECU_RED="no"   # optimistic view
                 RELIN_VERSION=1 # pessimistic view, consider evaluation key contains extra LWE samples even if there are not real ones, there are ones with extra noise depending on the square of the secret key
+                EPS_EXP=-28
      
         elif  [ ${POLITIC} = "FV_NFLlib" ]
         then
                 PRIVATE_KEY_DISTRIB="normal" # same as noise distribution, i.e,  a truncated Gaussian distribution
                 SECU_RED="no"   
                 RELIN_VERSION=1 
+                EPS_EXP=-128
         else
              echo "ERROR Choose a correct value (i.e. Cingulata_BFV, SEAL_BFV or FV_NFLlib) for POLITIC variable."
              exit 1   
