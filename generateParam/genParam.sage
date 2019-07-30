@@ -527,6 +527,7 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
             n,estimated_secu_level,noise_rate = MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_version,security_reduction,dbc)
             Delta = floor(q/t)
             l = ceil(log(q)/log(omega), bits=1000)                               # [CCDG17, page 16], practical choice
+            noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
             B_error = ceil(beta * noise_Gaussian_width)
             if prv_key_distr == "normal":
                 B_key = B_error          
