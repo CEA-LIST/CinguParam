@@ -519,8 +519,6 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
         n = n/2
     elif method == "min_degree":
         q=q_init
-        if prv_key_distr != "normal":            
-            B_key = prv_key_distr[0][1] if isinstance(prv_key_distr[0],tuple) else prv_key_distr[1] # Upper bound on prv_key_distr   
         scale_factor=ScaleFactor(modulus_level)     
         while first_pass or  (max_circuit_noise>=max_correctness_noise):
             first_pass = False
@@ -530,7 +528,9 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
             noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
             B_error = ceil(beta * noise_Gaussian_width)
             if prv_key_distr == "normal":
-                B_key = B_error          
+                B_key = B_error
+            else:
+                B_key = prv_key_distr[0][1] if isinstance(prv_key_distr[0],tuple) else prv_key_distr[1] # Upper bound on prv_key_distr
             max_encryption_noise = B_error*(1+2*n*B_key)
             X = t*n*(4+n*B_key)
             if relin_version == 1:
