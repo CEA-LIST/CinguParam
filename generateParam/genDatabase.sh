@@ -47,9 +47,9 @@ STORE_DIR="../storeParam"
 #echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"  
 
 
-POLITIC="Cingulata_BFV"
+POLITIC="FV_NFLlib"
 source defaultPolitic.sh
 default_politic ${POLITIC} # To define PRV_KEY_DISTR and SECU_RED
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
-parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ${EPS_EXP} ::: mult_depth $(seq 0 20) ::: min_secu 80  ::: reduction_cost_model "bkz_enum"  ::: modulus_level "bytesize" ::: method "min_modulus" "min_degree"  ::: plaintext_mod 2 && bash renameParam.sh ${OUTPUT_DIR}
+parallel --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ${EPS_EXP} ::: mult_depth $(seq 0 0) ::: min_secu 80  ::: reduction_cost_model "bkz_enum"  ::: modulus_level "bytesize" ::: method "min_modulus"   ::: plaintext_mod 2 && bash renameParam.sh ${OUTPUT_DIR}
 echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
