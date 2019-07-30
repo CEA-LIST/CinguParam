@@ -182,17 +182,19 @@ class _ParametersGenerator:
                 t = self.t # plaintext modulus
                 min_secu_level = self._lambda_p
                 mult_depth = self.L
+                k=self.k # Parameter k for the relin. v2
+                eps_exp=self._eps_exp
                 prv_key_distr = self.prv_key_distr
                 beta = self._beta # defined on page 3 in [FV12]
                 security_reduction = self.security_reduction
                 relin_version = self.relin_version
                 method = self.method
-                if relin_version == 1:
-                    param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
-                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,modulus_level=self.modulus_level,dbc=self.dbc)
-                elif relin_version == 2:
-                    param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
-                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,modulus_level=self.modulus_level)
+                if self.relin_version == 1:
+                    param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,eps_exp,\
+                                            mult_depth,k,reduction_cost_model=self.reduction_cost_model,omega=self.omega,modulus_level=self.modulus_level,dbc=self.dbc)
+                elif self.relin_version == 2:
+                    param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,eps_exp,\
+                                            mult_depth,k,reduction_cost_model=self.reduction_cost_model,omega=self.omega,modulus_level=self.modulus_level)
                 self.n = param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
@@ -419,9 +421,9 @@ def ScaleFactor(modulus_level): # Small increment value means slow and tight gen
     if (modulus_level == "bitsize"):
             scale_factor = 2
     elif (modulus_level == "bytesize"):
-            scale_factor = 1<<8            
+            scale_factor = 1<<8 
     elif (modulus_level == "SEAL_3.2_size"):
-            scale_factor = 1<<10 
+            scale_factor = 1<<10
     elif (modulus_level == "FV_NFLlib_uint16_size"):
             scale_factor = 1<<14
     elif (modulus_level == "FV_NFLlib_uint32_size"):
@@ -432,7 +434,7 @@ def ScaleFactor(modulus_level): # Small increment value means slow and tight gen
             scale_factor = 1<<64
     return scale_factor
     
-def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,cryptosystem="BFV",omega=32,modulus_level="bitsize"):  
+def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,eps_exp,mult_depth=10,k=4,cryptosystem="BFV",omega=32,modulus_level="bitsize"):  
 # max_circuit_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
 # max_correctness_noise is an upper bound on the noise to guarantee correct decryption
     q = q_init
@@ -445,9 +447,18 @@ def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth=10,
         l = ceil(log(q)/log(omega), bits=1000)
         B_error = ceil(beta * noise_Gaussian_width)                                             
         max_encryption_noise = B_error*(1+2*n*B_key)
-        C = t*n*(4+n*B_key)
-        D = n^2*B_key*(B_key+t**2)+n*omega*l*B_error
-        max_circuit_noise = C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D
+        X = t*n*(4+n*B_key)
+        if relin_version == 1:
+            Y = n^2*B_key*(B_key+t**2)+n*omega*l*B_error
+        else: ##YYYYY
+            noise_rate = noise_Gaussian_width/RR(q)
+            sigma = mpf(noise_rate*q) 
+            log2_p = int(log(q)/log(2)) * (k-1) 
+            sigma_k = mpf(_ParametersGenerator._comp_sigma_k(paramsGen,sigma, q, k)) 
+            _beta=_ParametersGenerator._comp_beta(paramsGen, eps_exp)
+            B_k = _ParametersGenerator._comp_error_bound(paramsGen,mpm.power(_beta, mpm.sqrt(k)), sigma_k) 
+            Y = n^2*B_key*(B_key+t**2)+q*B_k*n/mpm.power(2,log2_p)+(n+1)/2
+        max_circuit_noise = X^mult_depth*max_encryption_noise+mult_depth*X^(mult_depth-1)*Y
         max_correctness_noise = (Delta*(1+t)-q)/2
         q *= scale_factor
     q /= scale_factor
@@ -485,15 +496,15 @@ paranoid_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.2075*beta)"
 
 
     
-def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,\
-                mult_depth=10,cryptosystem="BFV",reduction_cost_model=core_sieve,omega=32,modulus_level="bitsize",dbc=None):
+def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,eps_exp,\
+                mult_depth=10,k=4,cryptosystem="BFV",reduction_cost_model=core_sieve,omega=32,modulus_level="bitsize",dbc=None):
     first_pass = True
     if method == "min_modulus":
         n=n_init
         while first_pass or (estimated_secu_level<min_secu_level):
             first_pass = False
             noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
-            q = MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,mult_depth,cryptosystem,omega,modulus_level)  # for fixed n, log2_q is minimized
+            q = MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,eps_exp,mult_depth,k,cryptosystem,omega,modulus_level)  # for fixed n, log2_q is minimized
             noise_rate = noise_Gaussian_width/RR(q)
             nr_samples = NrSamples(n,q,relin_version,dbc)
             estimated_secu_level = SecurityLevel(n,q,noise_rate,nr_samples,current_model=reduction_cost_model,prv_key_distr=prv_key_distr)
@@ -513,9 +524,19 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
             if prv_key_distr == "normal":
                 B_key = B_error          
             max_encryption_noise = B_error*(1+2*n*B_key)
-            C = 2*n*(4+n*B_key)
-            D = n^2*B_key*(B_key+4)+n*omega*l*B_error
-            max_circuit_noise = C^mult_depth*max_encryption_noise+mult_depth*C^(mult_depth-1)*D
+            X = t*n*(4+n*B_key)
+            if relin_version == 1:
+                Y = n^2*B_key*(B_key+t**2)+n*omega*l*B_error
+            else: # XXX
+                noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
+                noise_rate = noise_Gaussian_width/RR(q)
+                sigma = mpf(noise_rate*q) 
+                log2_p = int(log(q)/log(2)) * (k-1) 
+                sigma_k = mpf(_ParametersGenerator._comp_sigma_k(paramsGen,sigma, q, k)) 
+                _beta=_ParametersGenerator._comp_beta(paramsGen, eps_exp)
+                B_k = _ParametersGenerator._comp_error_bound(paramsGen,mpm.power(_beta, mpm.sqrt(k)), sigma_k) 
+                Y = n^2*B_key*(B_key+t**2)+q*B_k*n/mpm.power(2,log2_p)+(n+1)/2                
+            max_circuit_noise = X^mult_depth*max_encryption_noise+mult_depth*X^(mult_depth-1)*Y
             max_correctness_noise = (Delta*(1+t)-q)/2             
             q = q*scale_factor
         q = q/scale_factor

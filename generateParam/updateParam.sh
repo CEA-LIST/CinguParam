@@ -22,7 +22,7 @@ MULT_DEPTH=$1
 REQUIRED_SECU=$2
 COST_MODEL=$3
 INCR_FUNC=$4 
-METHOD=$5 
+METHOD=$5 # min_degree or min_modulus
 PLAINTEXT_MOD=$6
 DIR_NAME=$7
 PRV_KEY_DISTR=$8
@@ -37,5 +37,5 @@ FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_
 echo "FILE_NAME = "${FILE_NAME}
 sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --reduction_cost_model "$COST_MODEL"  --modulus_level "$INCR_FUNC" \
                                     --plaintext_modulus ${PLAINTEXT_MOD} --prv_key_distr "${PRV_KEY_DISTR}" --security_reduction ${SECU_RED} \
-                                    --relin_version ${RELIN_VERSION} --method ${METHOD} --eps_exp ${EPS_EXP}
+                                    --relin_version ${RELIN_VERSION} --eps_exp ${EPS_EXP} --method ${METHOD} 
 
