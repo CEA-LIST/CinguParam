@@ -13,7 +13,8 @@ Goal: This script defines politics adopted in different implementations. A polit
 * the distribution of the private key
 * the relinearization method
 
-Currently, we take into account two politics:  "Cingulata_BFV" "SEAL_BFV".
+Predefined politics:  "Cingulata_BFV" "SEAL_BFV" "FV_NFLlib".
+
 It is not question to discuss here, advantages/drawbacks of each choice but to ease comparison between different choices.
 
 ## genDatabase

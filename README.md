@@ -1,9 +1,10 @@
 # CinguParam -- HE parameters for all
 
-The goal of **CinguParam** project is to generate and store parameter sets for homomorphic encryption.
-It also permits to estimate the security level of a parameter set against [LWE](https://cims.nyu.edu/~regev/papers/lwesurvey.pdf) attacks using the [LWE-Estimator](https://bitbucket.org/malb/lwe-estimator).
+The goal of **CinguParam** project is to generate and store parameter sets for [LWE](https://cims.nyu.edu/~regev/papers/lwesurvey.pdf)-based homomorphic cryptosystems.
 
-Parameter sets are usable within [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques.
+It also permits to estimate the security level of a parameter set against LWE attacks using the [LWE-Estimator](https://bitbucket.org/malb/lwe-estimator).
+
+Parameter sets for Brakerski/Fan-Vercauteren cryptosystem are selected automatically within [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques. 
 
 More information is available on [CinguParam wiki](https://github.com/CEA-LIST/CinguParam/wiki).
 

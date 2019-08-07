@@ -641,7 +641,7 @@ paramsGen = _ParametersGenerator(params)
 
 n_init=2048
 
-# Ciphertext modulus q have to be greater than 54 (see [B18] p.76) for security>80 and to enable at least one homomorphic multiplication.
+# Ciphertext modulus q have to be greater than 2**54 (see [B18] p.76) for security>80 and to enable at least one homomorphic multiplication.
 # In FV-NFLlib, ciphertext coefficient size is a multiple of type size minus 2.
 # In SEAL v3.2, ciphertext coefficient size is the smallest multiple of 10. 
 if (params['modulus_level'] == "FV_NFLlib_uint16_size"):

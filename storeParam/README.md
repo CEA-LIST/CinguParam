@@ -1,14 +1,15 @@
 # How to read the filename?
 
-Filename format is `<mult_depth>_<bkz_cost_model>_<approx_secu>`.
+Filename format is `<mult_depth>_<bkz_cost_model>_<approx_secu>_<plaintext_modulus>`.
 
-Filename contains three input parameters:
+Filename contains input parameters:
 
 * Multiplicative depth
 * BKZ reduction model cost
 * Approximated security level
+* Plaintext modulus
 
-Parameter files are stored in the directory `storeParam/<lwe_estimator_commit_id>`.
+Parameter files are stored in the directory `storeParam/<lwe_estimator_commit_id>/<politic>`.
 
 ## Example:
 
@@ -17,9 +18,11 @@ Parameter files are stored in the directory `storeParam/<lwe_estimator_commit_id
 | Multiplicative depth          | `7`                   |
 | Approximated security level   | `128`                 |
 | BKZ reduction model cost      | `bkz_enum`            |
+| Plaintext modulus             | `65537`                   |
 | Commit id                     | `0b16750`             |
-| Parameter file directory      | `storeParam/0b16750/` |
-| Filename                      | `7_bkz_enum_128`      |
+| Politic                       | `SEAL_BFV`             |
+| Parameter file directory      | `storeParam/0b16750/SEAL_BFV` |
+| Filename                      | `7_bkz_enum_128_65537`      |
 
 
 # Notes
@@ -33,6 +36,11 @@ Parameter files are stored in the directory `storeParam/<lwe_estimator_commit_id
 | `256`                                           | `⟦248,312⟧`               |
 
 * Estimated security level against primal uSVP attack is indicated in the parameter file (xml format).
+
+* Politics are defined in generateParam/defaultPolitic.sh.
+
+* If Hamming weight of private key is not fixed in advance, it is written -1 in the corresponding field of the xml.
+
 
 
 ```

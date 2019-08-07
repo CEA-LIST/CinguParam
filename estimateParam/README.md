@@ -46,7 +46,7 @@ More precisely, the results concern three attacks:
 
 It is in raw format and we use it to obtain File B.
 
-# File B: `<lwe_estimator_commit_id>_sorted_attack_cost`
+# File B: `<lwe_estimator_commit_id>_<politic>_sorted_attack_cost`
 
 ## Description
 
