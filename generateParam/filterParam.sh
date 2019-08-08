@@ -53,8 +53,8 @@ done
 
 
 # shorten xml filename
-mmv -d \*_min_modulus "#1"              &>/dev/null # TOIMPROVE: before renaming, remove worst parameter set between min_modulus and min_degree
 mmv -d \*_min_degree "#1"               &>/dev/null
+mmv -d \*_min_modulus "#1"              &>/dev/null # TOIMPROVE: before renaming, remove worst parameter set between min_modulus and min_degree
 mmv -d \*_wordsize "#1"                 &>/dev/null
 mmv -d \*_bitsize "#1"                  &>/dev/null
 mmv -d \*_bytesize "#1"                 &>/dev/null
@@ -85,7 +85,7 @@ done
 
 
 # each subset contain files with same triple and different security levels 
-count=0 # to count unconsistent paramset
+#count=0 # to count unconsistent paramset
 for triple in "${triple_set[@]}"
 do
     
@@ -120,10 +120,10 @@ do
                 #echo "n: "$min_n $max_n
                 #echo "log2(q): " $min_log_q $max_log_q
                 #echo "byebye: "${min_file}
-                count=$((count+1))
-                #rm ${min_file}
+                #count=$((count+1))
+                rm ${min_file}
             fi
         done
     fi
 done 
-echo ${count}
+#echo ${count}
