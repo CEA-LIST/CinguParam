@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>65536</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>438</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>362.04</sigma>
+			<bound>3315.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1314</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>17572330067045812885136587931381566189719190380295338340566983934289324881542254824645476618051557563213327169152470794698964995901770889204284984299083606960408186754630682476815474920516347740509252821457957072376771345478024924581270947799641619299509080735078154240</sigma_k>
+			<bound_k>1472902234238929176683726986719731977482514824299888574411179867346148772587038278801469149759494315306937002746948583867003047559429528904622068412939761932979449251085764416593680630995007482756120262686746020871394526285508116054602179241346002266719462926841521635328</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>175</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>32768</n>
+		<nr_samples>32768</nr_samples>
+		<alpha>5.10054827436460e-130</alpha>
+		<q_CINGULATA_BFV>2**438</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{40,48,50,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

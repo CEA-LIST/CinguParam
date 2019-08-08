@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>131072</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>662</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>512.0</sigma>
+			<bound>4688.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1986</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>25544499937665826383256202685491351155914608205824877780628782169252499574712544185652865065515115546418926007747857665875520855797589861026335623405974463316554152759284687376406345860179758329773779429356149319095765167157697072909578583591052684304026677380660522969823507740111846466490871453960048646030470190583619004916279546025458997215368837741669402392422192059458119370064542203522921913122816</sigma_k>
+			<bound_k>2141124761892744594181000929185753138407351997022785787681976814934245261337603076265527339348262184067574643964653871926152859881264565109810335021796083008810995513979122385523152879127976436391034011367672182277674590439459458883514662819255065984845635482937647311555638102843770630122240826769438175676728920719722691261709969426011562506455010735205932475489029719862680148635040053526957341842341888</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>254</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>65536</n>
+		<nr_samples>65536</nr_samples>
+		<alpha>2.67554852173877e-197</alpha>
+		<q_CINGULATA_BFV>2**662</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{32,40,50,60,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

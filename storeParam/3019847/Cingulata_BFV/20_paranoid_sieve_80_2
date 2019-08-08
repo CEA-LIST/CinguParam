@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>65536</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>654</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>362.04</sigma>
+			<bound>3315.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1962</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>194889068127943648342914423189557053622935015556784341016720754159890542458483853348524134525807480728739387336454655312913214164096584434794288860650085314107488921294551043463185890698072501092986218657620014937313581204100056940856507794552210099243536241927930970414084051164901971821969984780737498629482085829091462776654682098547886494891926923792548435544750477847351477706507223697499095040</sigma_k>
+			<bound_k>16335485549108466239222599935918429106014067390008170884406860967554408158102767779773813060696490427693148817218489481471758635766994479924060056448275642556038955584974690011572933593603281087612069564036669968793697269206911391999362359473112191418417335198436478573089621237157433114552866432097947925451030373430209284714115481613914479635500740606680551568994656801140484824557912994816184025088</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>101</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>32768</n>
+		<nr_samples>32768</nr_samples>
+		<alpha>4.84326016797473e-195</alpha>
+		<q_CINGULATA_BFV>2**654</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{30,40,50,54,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

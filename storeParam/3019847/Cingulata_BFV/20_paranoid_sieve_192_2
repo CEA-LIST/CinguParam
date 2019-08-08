@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>131072</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>694</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>512.0</sigma>
+			<bound>4688.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>2082</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>471212852841011093500661069707289138985643425781619906486213284336114275254568741720719198745161108820079675816836617438218799629832042334645333212769371364120077844696865121222242989467842966662072302692665315766660005405567802569137471686707447465882066756294642631161230470481621217314611344782984907429359873081781086398797972424922924560577239420735943212563509406491774159611515464203645017465350017105567673699270656</sigma_k>
+			<bound_k>39496780512517761139269781325141177827758221814238795650639487064283286202418892258050122005672791295525307414536901075276006163412575394576089232014664360725617044196095948616403478256236612867280276510789200842914563558505171804851717912986970243494272682150532390340468699660518648805962892882824327660880062899277746348526172389010905390424955090131951570625128194242167866833728776145071115955558834204370927927854891008</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>239</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>65536</n>
+		<nr_samples>65536</nr_samples>
+		<alpha>6.22949684443598e-207</alpha>
+		<q_CINGULATA_BFV>2**694</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{30,34,40,50,60,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

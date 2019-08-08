@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>131072</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>630</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>512.0</sigma>
+			<bound>4688.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>2</version>
+		<coeff_modulo_log2>1890</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma_k>1384770116373656077957056988739234371821199530483473672395638714280910137373615749828516310356968656336536651032601955115339994225589151303131334582307950633182770095119193538347847190432926292253929338670371516596927406520103262397473083718976016144067201059628185564482809004474726803087386109672888290560939852674272345339132286543864364223751152771896223746198028966173630399512576</sigma_k>
+			<bound_k>116070605920331104285718943897485314022173779313216415475417147192506377885446056339755152149855593153776104522841422328643038021522694673018325245124212481045544043490882296899150082554375811786546665678523513637628949547788405495026402997584201469462351402689786816918085678707515659756552329062275178885549652787487439658268486676195275581491837625430748794535793266036371928087789568</bound_k>
+		</normal_distribution>
+	</linearization>
+	<secret_key>
+		<hamming_weight>63</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>271</estimated_secu_level>
+		<security_reduction>yes</security_reduction>
+		<prv_key_distr>((0, 1), 63)</prv_key_distr>
+		<n>65536</n>
+		<nr_samples>65536</nr_samples>
+		<alpha>1.14913933997292e-187</alpha>
+		<q_CINGULATA_BFV>2**630</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{30,60,60,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>

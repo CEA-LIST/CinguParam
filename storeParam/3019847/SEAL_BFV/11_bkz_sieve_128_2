@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<fhe_params>
+	<polynomial_ring>
+		<cyclotomic_polynomial>
+			<index>32768</index>
+		</cyclotomic_polynomial>
+	</polynomial_ring>
+	<plaintext>
+		<coeff_modulo>2</coeff_modulo>
+	</plaintext>
+	<ciphertext>
+		<coeff_modulo_log2>342</coeff_modulo_log2>
+		<normal_distribution>
+			<sigma>3.19</sigma>
+			<bound>19.0</bound>
+		</normal_distribution>
+	</ciphertext>
+	<linearization>
+		<version>1</version>
+		<decomposition_bit_count>60</decomposition_bit_count>
+	</linearization>
+	<secret_key>
+		<hamming_weight>-1</hamming_weight>
+	</secret_key>
+	<extra>
+		<estimated_secu_level>167</estimated_secu_level>
+		<security_reduction>no</security_reduction>
+		<prv_key_distr>(-1, 1)</prv_key_distr>
+		<n>16384</n>
+		<nr_samples>114688</nr_samples>
+		<alpha>3.56239059647059e-103</alpha>
+		<q_CINGULATA_BFV>2**342</q_CINGULATA_BFV>
+		<q_bitsize_SEAL_BFV>{30,40,42,50,60,60,60}</q_bitsize_SEAL_BFV>
+		<t>2</t>
+		<modulus_level>bytesize</modulus_level>
+		<method>min_degree</method>
+		<bkz_reduction_cost_model>BKZ.sieve</bkz_reduction_cost_model>
+	</extra>
+</fhe_params>
