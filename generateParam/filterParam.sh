@@ -121,7 +121,7 @@ do
                 #echo "log2(q): " $min_log_q $max_log_q
                 #echo "byebye: "${min_file}
                 #count=$((count+1))
-                rm ${min_file}
+                rm -v ${min_file}
             fi
         done
     fi

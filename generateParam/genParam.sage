@@ -442,10 +442,10 @@ def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,
     if prv_key_distr == "normal":
         B_error = ceil(beta * noise_Gaussian_width)                                             
         B_key = B_error # Upper bound on prv_key_distr
-    elif isinstance(prv_key_distr[0],tuple):
+    elif isinstance(prv_key_distr[0],tuple):  # ((a,b),h)
         B_key = prv_key_distr[0][1] 
-    else :
-        B_key = prv_key_distr
+    else : # wait for (a,b)
+        B_key = prv_key_distr[1]
     
     scale_factor=ScaleFactor(modulus_level)
     while first_pass or  (max_circuit_noise>=max_correctness_noise):

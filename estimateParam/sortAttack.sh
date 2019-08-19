@@ -32,11 +32,11 @@ BASE_DIR=$(dirname ${SCRIPT_PATH})
 PARAM_DIR="${BASE_DIR}/storeParam"
 COMMIT_ID="$(awk '{w=$1} END{print w}' ${PARAM_DIR}/commit.log)" # to determine last commit ID in database
 POLITIC=${1:-"Cingulata_BFV"}
-echo "POLITIC="${POLITIC}
 
 NUMBER_FILE=$(ls ${PARAM_DIR}/${COMMIT_ID}/${POLITIC} | wc -l)
 INPUT_FILE="${COMMIT_ID}_${POLITIC}_estimate_lwe"
 OUTPUT_FILE="${COMMIT_ID}_${POLITIC}_sorted_attack_cost"    
+
 
 #empty output file
 cp /dev/null "${OUTPUT_FILE}"

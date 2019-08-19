@@ -33,7 +33,7 @@
 		<q_bitsize_SEAL_BFV>{54}</q_bitsize_SEAL_BFV>
 		<t>65537</t>
 		<modulus_level>bytesize</modulus_level>
-		<method>min_degree</method>
+		<method>min_modulus</method>
 		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.265*beta)</bkz_reduction_cost_model>
 	</extra>
 </fhe_params>

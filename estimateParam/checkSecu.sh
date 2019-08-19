@@ -28,7 +28,7 @@ lwe_estimator_from_xml()
                  
 }
 export -f lwe_estimator_from_xml
-parallel --header :  lwe_estimator_from_xml   ${INPUT_DIR}/{1} ::: FILE ${FILE_LIST} 
+nice parallel --header :  lwe_estimator_from_xml   ${INPUT_DIR}/{1} ::: FILE ${FILE_LIST}
 
 cat temp_* >| ${OUTPUT_FILE}
 rm temp_*
