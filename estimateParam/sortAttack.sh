@@ -41,17 +41,37 @@ OUTPUT_FILE="${COMMIT_ID}_${POLITIC}_sorted_attack_cost"
 #empty output file
 cp /dev/null "${OUTPUT_FILE}"
 
+
+i=0
+while read line
+do
+    #if line is empty, increment the array no, and move on to the next line.
+    if [[ -z $line ]]; then	
+        (( i++ ))
+        continue
+    #if line contains ":", it is estimation attack cost
+    elif test "${line#*:}" != "$line" ; then
+        ESTIM_PARAM[i]+=${ESTIM_PARAM[n]:+'\n'}$line
+        continue
+    else
+        FILENAME[i]=$line
+    fi
+done <${INPUT_FILE}
+
+
 #sort attack estimation cost into ascending order
 for i in $(seq 1 ${NUMBER_FILE})
 do
-        RANKING=$(sed -n $((4*i-2)),$((4*i))p ${INPUT_FILE} | tr '^' ':' | tr '.'  ':' | cut -f 1,4 -d: | sort  -n -t: -k2,2)
-        FILENAME=$(sed -n $((4*i-3))p ${INPUT_FILE})
-        echo ${RANKING} ${FILENAME}   >>  ${OUTPUT_FILE}        
+        RANKING=$(echo -e ${ESTIM_PARAM[i]} | tr '^' ':' | tr '.'  ':' | cut -f 1,4 -d: | sort  -n -t: -k2,2) #sort with usvp estimated cost in ascending order  
+        echo ${RANKING} ${FILENAME[i]}   >>  ${OUTPUT_FILE}        
 done
 
 #think to human reader :-)
-cat "${OUTPUT_FILE}" | sed "s/ /    /g"   | column -t | sort -n -k4 > tmp  
+cat "${OUTPUT_FILE}" | sed "s/ /    /g"   | column -t | awk '{print $NF"|"$0}' | sort -nt"|" -k1 | awk -F"|" '{print $NF }' > tmp  #sort with filename in numerical order
 mv tmp "${OUTPUT_FILE}"
+
+#remove empty lines
+sed -i '/^$/d' ${OUTPUT_FILE}
 
 
 
