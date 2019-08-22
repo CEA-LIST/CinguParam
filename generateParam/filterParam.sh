@@ -85,7 +85,7 @@ done
 
 
 # each subset contain files with same triple and different security levels 
-#count=0 # to count unconsistent paramset
+count=0 # to count unconsistent paramset
 for triple in "${triple_set[@]}"
 do
     
@@ -119,11 +119,11 @@ do
                 #echo "secu: " $min_secu $max_secu
                 #echo "n: "$min_n $max_n
                 #echo "log2(q): " $min_log_q $max_log_q
-                #echo "byebye: "${min_file}
-                #count=$((count+1))
+                echo "rm -v "${min_file}
+                count=$((count+1))
                 rm -v ${min_file}
             fi
         done
     fi
 done 
-#echo ${count}
+echo "filter:${count} detected and removed inconsistent parameter set(s)"
