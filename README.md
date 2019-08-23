@@ -1,10 +1,16 @@
 # CinguParam -- HE parameters for all
 
-The goal of **CinguParam** project is to generate and store parameter sets for [LWE](https://cims.nyu.edu/~regev/papers/lwesurvey.pdf)-based homomorphic cryptosystems.
+The goal of **CinguParam** project is to generate and store parameter sets for different implementations of [LWE](https://cims.nyu.edu/~regev/papers/lwesurvey.pdf)-based homomorphic cryptosystems.
 
-It also permits to estimate the security level of a parameter set against LWE attacks using the [LWE-Estimator](https://bitbucket.org/malb/lwe-estimator).
+It also permits to estimate the security level of parameter sets against LWE attacks using the [LWE-Estimator](https://bitbucket.org/malb/lwe-estimator).
 
-Parameter sets for Brakerski/Fan-Vercauteren cryptosystem are selected automatically within [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques. 
+Parameter sets for Brakerski/Fan-Vercauteren (BFV for short) cryptosystem are selected automatically within [Cingulata](https://github.com/CEA-LIST/Cingulata), a compiler toolchain and RTE for running C++ programs over encrypted data by means of fully homomorphic encryption techniques.
+
+The database contains parameters for different implementations of [BFV](https://eprint.iacr.org/2012/144) scheme:
+
+* [Cingulata](https://github.com/CEA-LIST/Cingulata)
+* [FV_NFLlib](https://github.com/CryptoExperts/FV-NFLlib)
+* [Microsoft SEAL](https://github.com/Microsoft/SEAL) 
 
 More information is available on [CinguParam wiki](https://github.com/CEA-LIST/CinguParam/wiki).
 
@@ -14,7 +20,7 @@ CinguParam is to be used for Research Purposes ONLY.
 It should not substitute recommendations given by accredited certification bodies.
 <!-- It should not be regarded as a substitute for the recommendations given by accredited certification bodies. -->
 
-The LWE-estimator ([commit a2296b8](https://bitbucket.org/malb/lwe-estimator/commits/a2296b8)) is used AS IS in CinguParam.
+The LWE-estimator ([commit 3019847](https://bitbucket.org/malb/lwe-estimator/commits/3019847)) is used AS IS in CinguParam.
 
 ```
     ....................................................................................................
