@@ -35,7 +35,7 @@ EPS_EXP=${11}
 
 FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MOD}_${MOD_LEVEL}_${METHOD}"
 echo "FILE_NAME = "${FILE_NAME}
-sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --reduction_cost_model "$COST_MODEL"  --modulus_level "$MOD_LEVEL" \
+sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "${MULT_DEPTH}"  --lambda_p "${REQUIRED_SECU}" --reduction_cost_model "${COST_MODEL}"  --modulus_level "${MOD_LEVEL}" \
                                     --plaintext_modulus ${PLAINTEXT_MOD} --prv_key_distr "${PRV_KEY_DISTR}" --security_reduction ${SECU_RED} \
                                     --relin_version ${RELIN_VERSION} --eps_exp ${EPS_EXP} --method ${METHOD} 
 
