@@ -21,7 +21,7 @@
 MULT_DEPTH=$1
 REQUIRED_SECU=$2
 COST_MODEL=$3
-INCR_FUNC=$4 
+MOD_LEVEL=$4   # bitsize, bytesize, SEAL_3.2_size, FV_NFLlib_uint16_size, FV_NFLlib_uint32_size, FV_NFLlib_uint64_size, wordsize
 METHOD=$5 # min_degree or min_modulus
 PLAINTEXT_MOD=$6
 DIR_NAME=$7
@@ -33,9 +33,9 @@ SECU_RED=$9
 RELIN_VERSION=${10} # Version 1 and 2 are presented in [BFV12].
 EPS_EXP=${11}
 
-FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MOD}_${INCR_FUNC}_${METHOD}"
+FILE_NAME="../storeParam/$DIR_NAME/${MULT_DEPTH}_${COST_MODEL}_${REQUIRED_SECU}_${PLAINTEXT_MOD}_${MOD_LEVEL}_${METHOD}"
 echo "FILE_NAME = "${FILE_NAME}
-sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --reduction_cost_model "$COST_MODEL"  --modulus_level "$INCR_FUNC" \
+sage ../generateParam/genParam.sage --output_xml "${FILE_NAME}" --mult_depth  "$MULT_DEPTH"  --lambda_p "$REQUIRED_SECU" --reduction_cost_model "$COST_MODEL"  --modulus_level "$MOD_LEVEL" \
                                     --plaintext_modulus ${PLAINTEXT_MOD} --prv_key_distr "${PRV_KEY_DISTR}" --security_reduction ${SECU_RED} \
                                     --relin_version ${RELIN_VERSION} --eps_exp ${EPS_EXP} --method ${METHOD} 
 
