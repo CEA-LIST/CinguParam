@@ -34,7 +34,7 @@ POLITIC="SEAL_BFV"
 source defaultPolitic.sh
 default_politic ${POLITIC} 
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
-nice parallel -j-1 --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ${EPS_EXP} ::: mult_depth $(seq 20 -1 0) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "bytesize" ::: method  "min_modulus" "min_degree" ::: plaintext_mod 40961 65537 && bash filterParam.sh ${OUTPUT_DIR} && echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
+nice parallel -j-1 --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ${EPS_EXP} ::: mult_depth $(seq 20 -1 0) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "bytesize" ::: method  "min_modulus" "min_degree" ::: plaintext_mod 2 40961 65537 && bash filterParam.sh ${OUTPUT_DIR} && echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"
 
 # In FV_NFLlib, we suppose here polynomial is stored with data of type uint64_t. Then ciphertext modulus bitsize is a multiple of 62. 
 # Other valid choices are 14 and 30 for uint16_t and unnt32_t respectively. See doc/nfl.rst in NFL library.
@@ -42,7 +42,7 @@ POLITIC="FV_NFLlib"
 source defaultPolitic.sh
 default_politic ${POLITIC} 
 OUTPUT_DIR=${STORE_DIR}/${HEAD_ID}/${POLITIC}
-nice parallel -j-1 --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ${EPS_EXP} ::: mult_depth $(seq 20 -1 0) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "FV_NFLlib_uint64_size" ::: method "min_degree" ::: plaintext_mod 40961 65537  && bash filterParam.sh ${OUTPUT_DIR} && echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"  
+nice parallel -j-1 --verbose --header : --results ${OUTPUT_DIR} bash updateParam.sh {1} {2} {3} {4} {5} {6} ${HEAD_ID}/${POLITIC} ${PRIVATE_KEY_DISTRIB} ${SECU_RED} ${RELIN_VERSION} ${EPS_EXP} ::: mult_depth $(seq 20 -1 0) ::: min_secu 80 128 192 ::: reduction_cost_model "bkz_enum" "bkz_sieve" "core_sieve" "q_core_sieve" "paranoid_sieve" ::: modulus_level "FV_NFLlib_uint64_size" ::: method "min_degree" ::: plaintext_mod 2 40961 65537  && bash filterParam.sh ${OUTPUT_DIR} && echo "${HEAD_ID}" "${POLITIC}" "$(date)" >> "${STORE_DIR}/commit.log"  
 
 
 

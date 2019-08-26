@@ -122,11 +122,10 @@ class _ParametersGenerator:
                 self.L = params['mult_depth'] # Circuit multiplicative depth
                 self.relin_version = params['relin_version']
                 if (self.relin_version == 1):
-                    self.dbc = params['dbc']
+                    self.dbc = params['dbc'] # basis 2**dbc during gadget decomposition, bigger relinearisation key but smaller error growth with dbc = 32 rather than 64
                 elif (self.relin_version == 2):
                     self.k = params['relin_k']
                 self.method = params['method']
-                self.omega = params['omega'] # basis during gadget decomposition, bigger relinearisation key but smaller error growth with omega = 32 rather than 64
                 self.reduction_cost_model = params['reduction_cost_model'] # BKZ reduction cost model
                 self.modulus_level = params['modulus_level'] # incremented function during computation of ciphertext modulus q
                 if  self.modulus_level == "bitsize" and self.method == "min_degree":
@@ -190,10 +189,10 @@ class _ParametersGenerator:
                 method = self.method
                 if self.relin_version == 1: # used in SEAL and FV-NFLllib
                     param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,eps_exp,\
-                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,modulus_level=self.modulus_level,dbc=self.dbc)
+                                            mult_depth,reduction_cost_model=self.reduction_cost_model,modulus_level=self.modulus_level,dbc=self.dbc)
                 elif self.relin_version == 2: # used in Cingulata
                     param_set = ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,eps_exp,\
-                                            mult_depth,reduction_cost_model=self.reduction_cost_model,omega=self.omega,modulus_level=self.modulus_level,k=self.k)
+                                            mult_depth,reduction_cost_model=self.reduction_cost_model,modulus_level=self.modulus_level,k=self.k)
                 self.n = param_set[0]
                 self.poly_degree_log2 = int(np.log2(param_set[0]))
                 self.cyclotomic_poly_index = param_set[0]*2
@@ -218,7 +217,7 @@ class _ParametersGenerator:
                 self.log2_pq = int(self.log2_q) * self.k
                 self.q = mpm.power(2,self.log2_q)
                 self.sigma_k = mpf(self._comp_sigma_k(self.sigma, self.q, self.k))
-                self.log2_sigma_k = ceil(log(self.sigma_k)/log(2))
+                self.log2_sigma_k = ceil(log(self.sigma_k,2))
                 self.B_k = self._comp_error_bound(mpm.power(self._beta, mpm.sqrt(self.k)), self.sigma_k)
                 self.pq = mpm.power(2,self.log2_pq)
                 self.alpha_k = self.sigma_k/self.pq
@@ -408,13 +407,10 @@ def NoiseGaussianWidth(n,security_reduction):
 
 def NrSamples(n,q,relin_version,dbc=None): # Scheme assumption: BFV is secure when the adversary has the relinearization/evaluation key.
     if relin_version == 1: # memory costly
-        l = floor(log(q)/(log(2)*dbc), bits=1000)
+        l = floor(log(q, 1<<dbc), bits=1000) # T=2**dbc in SEAL release < 3.3 
         return (l+2)*n # l+1 LWE samples encoding the secret key are contained in the evaluation key, the public key is one LWE sample of the secret key (pessimistic approach). 
     elif relin_version == 2: # time costly
         return n # We do not consider the evaluation key parameters which involves a modulus switching (optimistic approach).
-
-def log2(x):
-    return ceil(log(x)/log(2)) 
 
 def ScaleFactor(modulus_level): # Small increment value means slow and tight generation, especially with flag "min_degree". 
     if (modulus_level == "bitsize"):
@@ -433,7 +429,7 @@ def ScaleFactor(modulus_level): # Small increment value means slow and tight gen
             scale_factor = 1<<64
     return scale_factor
     
-def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,eps_exp,security_reduction,mult_depth=10,k=4,cryptosystem="BFV",omega=32,modulus_level="bitsize"):  
+def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,eps_exp,security_reduction,mult_depth=10,k=4,cryptosystem="BFV",dbc=32,modulus_level="bitsize"):  
 # max_circuit_noise is an upper bound on the noise after evaluating a circuit of given multiplicative depth, neglicting homomorphic additions
 # max_correctness_noise is an upper bound on the noise to guarantee correct decryption
     q = q_init
@@ -451,16 +447,16 @@ def MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,
     while first_pass or  (max_circuit_noise>=max_correctness_noise):
         first_pass = False      
         Delta = floor(q/t)
-        l = ceil(log(q)/log(omega), bits=1000)
+        l = ceil(log(q,1<<dbc), bits=1000)
         B_error = ceil(beta * noise_Gaussian_width)                                             
         max_encryption_noise = B_error*(1+2*n*B_key)
         X = t*n*(4+n*B_key)
         if relin_version == 1:
-            Y = n^2*B_key*(B_key+t**2)+n*omega*l*B_error
+            Y = n^2*B_key*(B_key+t**2)+n*(1<<dbc)*l*B_error
         else: 
             noise_rate = noise_Gaussian_width/RR(q)
             sigma = mpf(noise_rate*q) 
-            log2_p = int(log(q)/log(2)) * (k-1) 
+            log2_p = int(log(q,2)) * (k-1) 
             sigma_k = mpf(_ParametersGenerator._comp_sigma_k(paramsGen,sigma, q, k)) 
             _beta=_ParametersGenerator._comp_beta(paramsGen, eps_exp)
             B_k = _ParametersGenerator._comp_error_bound(paramsGen,mpm.power(_beta, mpm.sqrt(k)), sigma_k) 
@@ -504,14 +500,14 @@ paranoid_sieve.__name__ = "lambda beta, d, B: ZZ(2)**RR(0.2075*beta)"
 
     
 def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,relin_version,eps_exp,\
-                mult_depth=10,cryptosystem="BFV",reduction_cost_model=core_sieve,omega=32,modulus_level="bitsize",dbc=None,k=4):#  k: relineariation integer for relin method 2
+                mult_depth=10,cryptosystem="BFV",reduction_cost_model=core_sieve,modulus_level="bitsize",dbc=None,k=4):#  k: relineariation integer for relin method 2
     first_pass = True
     if method == "min_modulus":
         n=n_init
         while first_pass or (estimated_secu_level<min_secu_level):
             first_pass = False
             noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
-            q = MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,eps_exp,security_reduction,mult_depth,k,cryptosystem,omega,modulus_level)  # for fixed n, log2_q is minimized
+            q = MinCorrectModulus(n,t,noise_Gaussian_width,beta,prv_key_distr,relin_version,eps_exp,security_reduction,mult_depth,k,cryptosystem,dbc,modulus_level)  # for fixed n, log2_q is minimized
             noise_rate = noise_Gaussian_width/RR(q)
             nr_samples = NrSamples(n,q,relin_version,dbc)
             estimated_secu_level = SecurityLevel(n,q,noise_rate,nr_samples,current_model=reduction_cost_model,prv_key_distr=prv_key_distr)
@@ -524,7 +520,7 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
             first_pass = False
             n,estimated_secu_level,noise_rate = MinSecureDegree(q,min_secu_level,prv_key_distr,reduction_cost_model,relin_version,security_reduction,dbc)
             Delta = floor(q/t)
-            l = ceil(log(q)/log(omega), bits=1000)                               # [CCDG17, page 16], practical choice
+            l = ceil(log(q,1<<dbc), bits=1000)                               # [CCDG17, page 16], practical choice
             noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
             B_error = ceil(beta * noise_Gaussian_width)
             if prv_key_distr == "normal":
@@ -534,12 +530,12 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
             max_encryption_noise = B_error*(1+2*n*B_key)
             X = t*n*(4+n*B_key)
             if relin_version == 1:
-                Y = n^2*B_key*(B_key+t**2)+n*omega*l*B_error
+                Y = n^2*B_key*(B_key+t**2)+n*(1<<dbc)*l*B_error
             else: 
                 noise_Gaussian_width=NoiseGaussianWidth(n,security_reduction)
                 noise_rate = noise_Gaussian_width/RR(q)
                 sigma = mpf(noise_rate*q) 
-                log2_p = int(log(q)/log(2)) * (k-1) 
+                log2_p = int(log(q,2)) * (k-1) 
                 sigma_k = mpf(_ParametersGenerator._comp_sigma_k(paramsGen,sigma, q, k)) 
                 _beta=_ParametersGenerator._comp_beta(paramsGen, eps_exp)
                 B_k = _ParametersGenerator._comp_error_bound(paramsGen,mpm.power(_beta, mpm.sqrt(k)), sigma_k) 
@@ -549,7 +545,7 @@ def ChooseParam(method,t,min_secu_level,prv_key_distr,beta,security_reduction,re
             q = q*scale_factor
         q = q/scale_factor
     nr_samples = NrSamples(n,q,relin_version,dbc)
-    return n,(estimated_secu_level,floor(log(q)/log(2), bits=1000)),q, noise_rate,nr_samples 
+    return n,(estimated_secu_level,floor(log(q,2), bits=1000)),q, noise_rate,nr_samples 
         
         
           
@@ -574,7 +570,7 @@ def Describe(x):
 def SecurityLevel(n,q,alpha,nr_samples, current_model,prv_key_distr):
         ring_operations=primal_usvp(n, alpha, q, prv_key_distr, m=nr_samples, success_probability=0.99, reduction_cost_model=eval(current_model))["rop"] 
         #success_probability for the primal uSVP attack  
-        secu_level= floor(log(ring_operations)/log(2))
+        secu_level= floor(log(ring_operations,2))
         return secu_level    
 
 def DistributionInfo(s):
@@ -609,7 +605,6 @@ groupArgs.add_argument('--lambda_p', help='Security level', default = 128, type 
 groupArgs.add_argument('--plaintext_modulus', help='Plaintext base', default = 2, type = int)
 groupArgs.add_argument('--mult_depth', help='Multiplicative depth', default = 5, type = int)
 groupArgs.add_argument('--eps_exp', help='Epsilon exponent', default = -64, type = int)
-groupArgs.add_argument('--omega', help='Basis during gadget decomposition', default = 32, type = int)
 groupArgs.add_argument('--modulus_level',help='Scale function of ciphertext modulus',default="bitsize", type = str, choices=["bitsize","bytesize","SEAL_3.2_size","FV_NFLlib_uint32_size","FV_NFLlib_uint64_size","FV_NFLlib_uint16_size","wordsize"]) 
 # bitsize is slower but permits to increase database, 
 groupArgs.add_argument('--reduction_cost_model',help='BKZ cost model',default="bkz_sieve", type = str)

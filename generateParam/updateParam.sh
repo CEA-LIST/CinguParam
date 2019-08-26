@@ -21,7 +21,7 @@
 MULT_DEPTH=$1
 REQUIRED_SECU=$2
 COST_MODEL=$3
-MOD_LEVEL=$4   # bitsize, bytesize, SEAL_3.2_size, FV_NFLlib_uint16_size, FV_NFLlib_uint32_size, FV_NFLlib_uint64_size, wordsize
+MOD_LEVEL=$4  # bitsize, bytesize, SEAL_3.2_size, FV_NFLlib_uint16_size, FV_NFLlib_uint32_size, FV_NFLlib_uint64_size, wordsize
 METHOD=$5 # min_degree or min_modulus
 PLAINTEXT_MOD=$6
 DIR_NAME=$7
