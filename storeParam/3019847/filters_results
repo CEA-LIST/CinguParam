@@ -1,0 +1,30 @@
+../storeParam/3019847/Cingulata_BFV
+Before filter between methods min_modulus and min_degree:
+nb_file_modulus=166
+nb_file_degree=0
+Pair are two parameter sets with same mult_depht, approximated secu level and model cost, obtained respectively with min_modulus and min_degree modulus.
+nb_pair=0
+After filter, we keep the better parameter set between the two, in terms of memory management.
+nb_file_modulus=166
+nb_file_degree=0
+
+../storeParam/3019847/SEAL_BFV
+Before filter between methods min_modulus and min_degree:
+nb_file_modulus=322
+nb_file_degree=0
+Pair are two parameter sets with same mult_depht, approximated secu level and model cost, obtained respectively with min_modulus and min_degree modulus.
+nb_pair=0
+After filter, we keep the better parameter set between the two, in terms of memory management.
+nb_file_modulus=322
+nb_file_degree=0
+
+../storeParam/3019847/FV_NFLlib
+Before filter between methods min_modulus and min_degree:
+nb_file_modulus=0
+nb_file_degree=313
+Pair are two parameter sets with same mult_depht, approximated secu level and model cost, obtained respectively with min_modulus and min_degree modulus.
+nb_pair=0
+After filter, we keep the better parameter set between the two, in terms of memory management.
+nb_file_modulus=0
+nb_file_degree=313
+
