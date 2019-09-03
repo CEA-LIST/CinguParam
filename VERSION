@@ -21,7 +21,7 @@ Details are given in the file defaultParam.sh
 New parameters are considered during parameter generation:
 * plaintext modulus t (default value: 2)
 * private key distribution D_SK (default value: ((0,1),63))
-* parameters compatible with Regev security-reduction or not (default value: "yes")
+* parameters compatible with Regev security-reduction or not (default value: "yes"). This impact Gaussian noise width value.
 * modulus level to respect (SEAL version <= 3.2, resp. FV-NFLlib) additional constraints on ciphertext modulus bitsize  (sum of multiples of 30,40,50, resp. multiple of bitsize of used type (uint16_t, uint32_t, uint64_t) to store polynomial coefficient minus 2). 
 
 During database generation, each of these parameters impacts different objectives: 

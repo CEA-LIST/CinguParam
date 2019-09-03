@@ -1,315 +1,312 @@
-usvp:170  dual:176  dec:178                      0_bkz_enum_128_65537
-usvp:238  dual:246  dec:255                      0_bkz_sieve_192_40961
-usvp:238  dual:246  dec:255                      0_bkz_sieve_192_65537
-usvp:110  dual:114  dec:116                      0_bkz_sieve_80_40961
-usvp:110  dual:114  dec:116                      0_bkz_sieve_80_65537
-usvp:206  dual:219  dec:224                      0_core_sieve_192_40961
-usvp:206  dual:219  dec:224                      0_core_sieve_192_65537
-usvp:146  dual:155  dec:162                      0_paranoid_sieve_128_40961
-usvp:146  dual:155  dec:162                      0_paranoid_sieve_128_65537
-usvp:187  dual:199  dec:204                      0_q_core_sieve_192_40961
-usvp:187  dual:199  dec:204                      0_q_core_sieve_192_65537
-usvp:171  dual:173  dec:174                      1_bkz_enum_128_40961
-usvp:171  dual:173  dec:174                      1_bkz_enum_128_65537
-usvp:241  dual:247  dec:250                      1_bkz_sieve_192_40961
-usvp:241  dual:247  dec:250                      1_bkz_sieve_192_65537
-usvp:110  dec:113   dual:113                     1_bkz_sieve_80_40961
-usvp:110  dec:113   dual:113                     1_bkz_sieve_80_65537
-usvp:207  dual:213  dec:217                      1_core_sieve_192_40961
-usvp:207  dual:213  dec:217                      1_core_sieve_192_65537
-usvp:147  dual:153  dec:155                      1_paranoid_sieve_128_40961
-usvp:147  dual:153  dec:155                      1_paranoid_sieve_128_65537
-usvp:188  dual:196  dec:198                      1_q_core_sieve_192_40961
-usvp:188  dual:196  dec:198                      1_q_core_sieve_192_65537
-usvp:285  dec:291   dual:291                     2_bkz_enum_256_40961
-usvp:285  dec:291   dual:291                     2_bkz_enum_256_65537
-usvp:81   dec:83    dual:84                      2_bkz_enum_80_40961
-usvp:81   dec:83    dual:84                      2_bkz_enum_80_65537
-usvp:152  dual:154  dec:155                      2_bkz_sieve_128_40961
-usvp:152  dual:154  dec:155                      2_bkz_sieve_128_65537
-usvp:304  dual:308  dec:314                      2_core_sieve_256_40961
-usvp:304  dual:308  dec:314                      2_core_sieve_256_65537
-usvp:118  dual:121  dec:122                      2_core_sieve_80_40961
-usvp:118  dual:121  dec:122                      2_core_sieve_80_65537
-usvp:216  dec:224   dual:226                     2_paranoid_sieve_192_40961
-usvp:216  dec:224   dual:226                     2_paranoid_sieve_192_65537
-usvp:84   dec:87    dual:88                      2_paranoid_sieve_80_40961
-usvp:84   dec:87    dual:88                      2_paranoid_sieve_80_65537
-usvp:276  dual:280  dec:285                      2_q_core_sieve_256_40961
-usvp:276  dual:280  dec:285                      2_q_core_sieve_256_65537
-usvp:107  dual:110  dec:111                      2_q_core_sieve_80_40961
-usvp:107  dual:110  dec:111                      2_q_core_sieve_80_65537
-usvp:285  dec:291   dual:291                     3_bkz_enum_256_40961
-usvp:285  dec:291   dual:291                     3_bkz_enum_256_65537
-usvp:81   dec:83    dual:84                      3_bkz_enum_80_40961
-usvp:81   dec:83    dual:84                      3_bkz_enum_80_65537
-usvp:152  dual:154  dec:155                      3_bkz_sieve_128_40961
-usvp:152  dual:154  dec:155                      3_bkz_sieve_128_65537
-usvp:242  dec:247   dual:249                     3_bkz_sieve_192_40961
-usvp:242  dec:247   dual:249                     3_bkz_sieve_192_65537
-usvp:208  dec:213   dual:215                     3_core_sieve_192_40961
-usvp:208  dec:213   dual:215                     3_core_sieve_192_65537
-usvp:118  dual:121  dec:122                      3_core_sieve_80_40961
-usvp:118  dual:121  dec:122                      3_core_sieve_80_65537
-usvp:148  dec:151   dual:152                     3_paranoid_sieve_128_40961
-usvp:148  dec:151   dual:152                     3_paranoid_sieve_128_65537
-usvp:84   dec:87    dual:88                      3_paranoid_sieve_80_40961
-usvp:84   dec:87    dual:88                      3_paranoid_sieve_80_65537
-usvp:189  dec:193   dual:195                     3_q_core_sieve_192_40961
-usvp:189  dec:193   dual:195                     3_q_core_sieve_192_65537
-usvp:107  dual:110  dec:111                      3_q_core_sieve_80_40961
-usvp:107  dual:110  dec:111                      3_q_core_sieve_80_65537
-usvp:169  dec:172   dual:173                     4_bkz_enum_128_40961
-usvp:169  dec:172   dual:173                     4_bkz_enum_128_65537
-usvp:242  dec:247   dual:249                     4_bkz_sieve_192_40961
-usvp:242  dec:247   dual:249                     4_bkz_sieve_192_65537
-usvp:111  dec:112   dual:113                     4_bkz_sieve_80_40961
-usvp:111  dec:112   dual:113                     4_bkz_sieve_80_65537
-usvp:208  dec:213   dual:215                     4_core_sieve_192_40961
-usvp:208  dec:213   dual:215                     4_core_sieve_192_65537
-usvp:148  dec:151   dual:152                     4_paranoid_sieve_128_40961
-usvp:148  dec:151   dual:152                     4_paranoid_sieve_128_65537
-usvp:274  dec:281   dual:282                     4_paranoid_sieve_256_65537
-usvp:189  dec:193   dual:195                     4_q_core_sieve_192_40961
-usvp:189  dec:193   dual:195                     4_q_core_sieve_192_65537
-usvp:113  dec:114   dual:114                     5_bkz_enum_80_40961
-usvp:113  dec:114   dual:114                     5_bkz_enum_80_65537
-usvp:188  dec:190   dual:192                     5_bkz_sieve_192_40961
-usvp:188  dec:190   dual:192                     5_bkz_sieve_192_65537
-dec:88    dual:88   usvp:88                      5_bkz_sieve_80_40961
-dec:88    dual:88   usvp:88                      5_bkz_sieve_80_65537
-usvp:153  dec:156   dual:157                     5_core_sieve_128_40961
-usvp:153  dec:156   dual:157                     5_core_sieve_128_65537
-usvp:274  dec:281   dual:282                     5_paranoid_sieve_256_40961
-usvp:274  dec:281   dual:282                     5_paranoid_sieve_256_65537
-usvp:109  dec:111   dual:112                     5_paranoid_sieve_80_40961
-usvp:109  dec:111   dual:112                     5_paranoid_sieve_80_65537
-usvp:139  dec:142   dual:143                     5_q_core_sieve_128_40961
-usvp:139  dec:142   dual:143                     5_q_core_sieve_128_65537
-usvp:286  dual:287  dec:288                      6_bkz_enum_256_40961
-usvp:286  dual:287  dec:288                      6_bkz_enum_256_65537
-dec:82    usvp:82   dual:83                      6_bkz_enum_80_40961
-dec:82    usvp:82   dual:83                      6_bkz_enum_80_65537
-usvp:153  dec:154   dual:154                     6_bkz_sieve_128_40961
-usvp:153  dec:154   dual:154                     6_bkz_sieve_128_65537
-usvp:305  dec:310   dual:312                     6_core_sieve_256_40961
-usvp:305  dec:310   dual:312                     6_core_sieve_256_65537
-usvp:118  dec:120   dual:121                     6_core_sieve_80_40961
-usvp:118  dec:120   dual:121                     6_core_sieve_80_65537
-usvp:217  dec:221   dual:222                     6_paranoid_sieve_192_40961
-usvp:217  dec:221   dual:222                     6_paranoid_sieve_192_65537
-usvp:84   dec:85    dual:86                      6_paranoid_sieve_80_40961
-usvp:84   dec:85    dual:86                      6_paranoid_sieve_80_65537
-usvp:277  dec:282   dual:283                     6_q_core_sieve_256_40961
-usvp:277  dec:282   dual:283                     6_q_core_sieve_256_65537
-usvp:107  dec:109   dual:110                     6_q_core_sieve_80_40961
-usvp:107  dec:109   dual:110                     6_q_core_sieve_80_65537
-usvp:218  dec:219   dual:222                     7_bkz_enum_192_40961
-usvp:218  dec:219   dual:222                     7_bkz_enum_192_65537
-dec:82    usvp:82   dual:83                      7_bkz_enum_80_40961
-usvp:129  dec:130   dual:131                     7_bkz_sieve_128_40961
-usvp:129  dec:130   dual:131                     7_bkz_sieve_128_65537
-usvp:284  dec:288   dual:289                     7_bkz_sieve_256_40961
-usvp:284  dec:288   dual:289                     7_bkz_sieve_256_65537
-usvp:249  dec:252   dual:254                     7_core_sieve_256_40961
-usvp:249  dec:252   dual:254                     7_core_sieve_256_65537
-usvp:95   dec:96    dual:96                      7_core_sieve_80_40961
-usvp:95   dec:96    dual:96                      7_core_sieve_80_65537
-usvp:177  dual:178  dec:180                      7_paranoid_sieve_128_40961
-usvp:177  dual:178  dec:180                      7_paranoid_sieve_128_65537
-usvp:226  dec:229   dual:230                     7_q_core_sieve_192_40961
-usvp:226  dec:229   dual:230                     7_q_core_sieve_192_65537
-usvp:86   dec:87    dual:88                      7_q_core_sieve_80_40961
-usvp:86   dec:87    dual:88                      7_q_core_sieve_80_65537
-usvp:170  dec:171   dual:174                     8_bkz_enum_128_65537
-usvp:218  dec:219   dual:222                     8_bkz_enum_192_40961
-usvp:129  dec:130   dual:131                     8_bkz_sieve_128_40961
-usvp:243  dual:245  dec:246                      8_bkz_sieve_192_40961
-usvp:243  dual:245  dec:246                      8_bkz_sieve_192_65537
-dec:112   usvp:112  dual:113                     8_bkz_sieve_80_65537
-usvp:208  dual:210  dec:211                      8_core_sieve_192_40961
-usvp:208  dual:210  dec:211                      8_core_sieve_192_65537
-usvp:95   dec:96    dual:96                      8_core_sieve_80_40961
-usvp:148  dec:150   dual:153                     8_paranoid_sieve_128_40961
-usvp:148  dec:150   dual:153                     8_paranoid_sieve_128_65537
-usvp:189  dual:190  dec:191                      8_q_core_sieve_192_40961
-usvp:189  dual:190  dec:191                      8_q_core_sieve_192_65537
-usvp:86   dec:87    dual:88                      8_q_core_sieve_80_40961
-usvp:170  dec:171   dual:174                     9_bkz_enum_128_40961
-usvp:170  dec:171   dual:174                     9_bkz_enum_128_65537
-usvp:212  dec:214   dual:214                     9_bkz_sieve_192_40961
-usvp:212  dec:214   dual:214                     9_bkz_sieve_192_65537
-dec:112   usvp:112  dual:113                     9_bkz_sieve_80_40961
-dec:112   usvp:112  dual:113                     9_bkz_sieve_80_65537
-usvp:177  dual:178  dec:179                      9_core_sieve_128_40961
-usvp:177  dual:178  dec:179                      9_core_sieve_128_65537
-usvp:126  dec:127   dual:130                     9_paranoid_sieve_128_40961
-usvp:126  dec:127   dual:130                     9_paranoid_sieve_128_65537
-usvp:161  dual:162  dec:163                      9_q_core_sieve_128_40961
-usvp:161  dual:162  dec:163                      9_q_core_sieve_128_65537
-dec:138   usvp:138  dual:140                     10_bkz_enum_128_40961
-dec:138   usvp:138  dual:140                     10_bkz_enum_128_65537
-usvp:212  dec:214   dual:214                     10_bkz_sieve_192_40961
-usvp:212  dec:214   dual:214                     10_bkz_sieve_192_65537
-dec:99    usvp:99   dual:100                     10_bkz_sieve_80_40961
-dec:99    usvp:99   dual:100                     10_bkz_sieve_80_65537
-usvp:177  dual:178  dec:179                      10_core_sieve_128_40961
-usvp:177  dual:178  dec:179                      10_core_sieve_128_65537
-usvp:126  dec:127   dual:130                     10_paranoid_sieve_128_40961
-usvp:126  dec:127   dual:130                     10_paranoid_sieve_128_65537
-usvp:275  dec:278   dual:283                     10_paranoid_sieve_256_40961
-usvp:275  dec:278   dual:283                     10_paranoid_sieve_256_65537
-usvp:161  dual:162  dec:163                      10_q_core_sieve_128_40961
-usvp:161  dual:162  dec:163                      10_q_core_sieve_128_65537
-usvp:114  dec:115   dual:115                     11_bkz_enum_80_40961
-usvp:114  dec:115   dual:115                     11_bkz_enum_80_65537
-dual:189  usvp:189  dec:190                      11_bkz_sieve_192_40961
-dual:189  usvp:189  dec:190                      11_bkz_sieve_192_65537
-usvp:88   dec:89    dual:89                      11_bkz_sieve_80_40961
-usvp:88   dec:89    dual:89                      11_bkz_sieve_80_65537
-usvp:153  dual:154  dec:155                      11_core_sieve_128_40961
-usvp:153  dual:154  dec:155                      11_core_sieve_128_65537
-usvp:243  dec:246   dual:249                     11_paranoid_sieve_192_40961
-usvp:243  dec:246   dual:249                     11_paranoid_sieve_192_65537
-usvp:109  dec:110   dual:112                     11_paranoid_sieve_80_40961
-usvp:109  dec:110   dual:112                     11_paranoid_sieve_80_65537
-usvp:139  dec:140   dual:143                     11_q_core_sieve_128_40961
-usvp:139  dec:140   dual:143                     11_q_core_sieve_128_65537
-usvp:311  dec:314   dual:315                     11_q_core_sieve_256_40961
-usvp:311  dec:314   dual:315                     11_q_core_sieve_256_65537
-dec:97    dual:97   usvp:97                      12_bkz_enum_80_40961
-dec:97    dual:97   usvp:97                      12_bkz_enum_80_65537
-dec:170   dual:170  usvp:170                     12_bkz_sieve_128_40961
-dec:170   dual:170  usvp:170                     12_bkz_sieve_128_65537
-dec:81    dual:81   usvp:81                      12_bkz_sieve_80_40961
-dec:81    dual:81   usvp:81                      12_bkz_sieve_80_65537
-usvp:134  dec:135   dual:137                     12_core_sieve_128_40961
-usvp:134  dec:135   dual:137                     12_core_sieve_128_65537
-usvp:306  dec:308   dual:313                     12_core_sieve_256_65537
-usvp:243  dec:246   dual:249                     12_paranoid_sieve_192_40961
-usvp:217  dec:219   dual:222                     12_paranoid_sieve_192_65537
-usvp:95   dec:96    dual:97                      12_paranoid_sieve_80_40961
-usvp:95   dec:96    dual:97                      12_paranoid_sieve_80_65537
-usvp:122  dec:123   dual:124                     12_q_core_sieve_128_40961
-usvp:122  dec:123   dual:124                     12_q_core_sieve_128_65537
-usvp:311  dec:314   dual:315                     12_q_core_sieve_256_40961
-usvp:277  dec:280   dual:284                     12_q_core_sieve_256_65537
-usvp:287  dec:288   dual:291                     13_bkz_enum_256_40961
-usvp:287  dec:288   dual:291                     13_bkz_enum_256_65537
-dec:97    dual:97   usvp:97                      13_bkz_enum_80_40961
-dec:83    dual:83   usvp:83                      13_bkz_enum_80_65537
-dec:154   dual:154  usvp:154                     13_bkz_sieve_128_40961
-dec:154   dual:154  usvp:154                     13_bkz_sieve_128_65537
-dec:81    dual:81   usvp:81                      13_bkz_sieve_80_40961
-usvp:306  dec:308   dual:313                     13_core_sieve_256_40961
-usvp:306  dec:308   dual:313                     13_core_sieve_256_65537
-usvp:118  dec:119   dual:121                     13_core_sieve_80_40961
-usvp:118  dec:119   dual:121                     13_core_sieve_80_65537
-usvp:217  dec:219   dual:222                     13_paranoid_sieve_192_40961
-usvp:217  dec:219   dual:222                     13_paranoid_sieve_192_65537
-usvp:84   dec:85    dual:86                      13_paranoid_sieve_80_40961
-usvp:84   dec:85    dual:86                      13_paranoid_sieve_80_65537
-usvp:277  dec:280   dual:284                     13_q_core_sieve_256_40961
-usvp:277  dec:280   dual:284                     13_q_core_sieve_256_65537
-usvp:107  dec:108   dual:110                     13_q_core_sieve_80_40961
-usvp:107  dec:108   dual:110                     13_q_core_sieve_80_65537
-dec:249   usvp:249  dual:251                     14_bkz_enum_256_40961
-dec:249   usvp:249  dual:251                     14_bkz_enum_256_65537
-dec:83    dual:83   usvp:83                      14_bkz_enum_80_40961
-dec:83    dual:83   usvp:83                      14_bkz_enum_80_65537
-dec:141   usvp:141  dual:143                     14_bkz_sieve_128_40961
-dec:141   usvp:141  dual:143                     14_bkz_sieve_128_65537
-usvp:275  dec:277   dual:281                     14_core_sieve_256_40961
-usvp:275  dec:277   dual:281                     14_core_sieve_256_65537
-usvp:105  dec:106   dual:108                     14_core_sieve_80_40961
-usvp:105  dec:106   dual:108                     14_core_sieve_80_65537
-usvp:195  dec:197   dual:199                     14_paranoid_sieve_192_40961
-usvp:195  dec:197   dual:199                     14_paranoid_sieve_192_65537
-usvp:250  dec:252   dual:255                     14_q_core_sieve_256_40961
-usvp:250  dec:252   dual:255                     14_q_core_sieve_256_65537
-usvp:95   dec:96    dual:98                      14_q_core_sieve_80_40961
-usvp:95   dec:96    dual:98                      14_q_core_sieve_80_65537
-dec:219   dual:219  usvp:219                     15_bkz_enum_192_65537
-dec:249   usvp:249  dual:251                     15_bkz_enum_256_40961
-dec:141   usvp:141  dual:143                     15_bkz_sieve_128_40961
-dec:130   usvp:130  dual:132                     15_bkz_sieve_128_65537
-usvp:286  dec:287   dual:291                     15_bkz_sieve_256_40961
-usvp:286  dec:287   dual:291                     15_bkz_sieve_256_65537
-usvp:249  dec:251   dual:254                     15_core_sieve_256_40961
-usvp:249  dec:251   dual:254                     15_core_sieve_256_65537
-usvp:105  dec:106   dual:108                     15_core_sieve_80_40961
-dec:95    usvp:95   dual:96                      15_core_sieve_80_65537
-usvp:177  dec:178   dual:180                     15_paranoid_sieve_128_40961
-usvp:177  dec:178   dual:180                     15_paranoid_sieve_128_65537
-usvp:226  dec:228   dual:231                     15_q_core_sieve_192_40961
-usvp:226  dec:228   dual:231                     15_q_core_sieve_192_65537
-usvp:95   dec:96    dual:98                      15_q_core_sieve_80_40961
-dec:86    usvp:86   dual:87                      15_q_core_sieve_80_65537
-dual:219  usvp:219  16_bkz_enum_192_40961
+usvp:170  dual:176  dec:178                       0_bkz_enum_128_65537
+usvp:238  dual:246  dec:255                       0_bkz_sieve_192_262144
+usvp:238  dual:246  dec:255                       0_bkz_sieve_192_65537
+usvp:110  dual:114  dec:116                       0_bkz_sieve_80_262144
+usvp:110  dual:114  dec:116                       0_bkz_sieve_80_65537
+usvp:206  dual:219  dec:224                       0_core_sieve_192_262144
+usvp:206  dual:219  dec:224                       0_core_sieve_192_65537
+usvp:146  dual:155  dec:162                       0_paranoid_sieve_128_262144
+usvp:146  dual:155  dec:162                       0_paranoid_sieve_128_65537
+usvp:187  dual:199  dec:204                       0_q_core_sieve_192_262144
+usvp:187  dual:199  dec:204                       0_q_core_sieve_192_65537
+usvp:171  dual:173  dec:174                       1_bkz_enum_128_262144
+usvp:171  dual:173  dec:174                       1_bkz_enum_128_65537
+usvp:241  dual:247  dec:250                       1_bkz_sieve_192_262144
+usvp:241  dual:247  dec:250                       1_bkz_sieve_192_65537
+usvp:110  dec:113   dual:113                      1_bkz_sieve_80_262144
+usvp:110  dec:113   dual:113                      1_bkz_sieve_80_65537
+usvp:207  dual:213  dec:217                       1_core_sieve_192_262144
+usvp:207  dual:213  dec:217                       1_core_sieve_192_65537
+usvp:147  dual:153  dec:155                       1_paranoid_sieve_128_262144
+usvp:147  dual:153  dec:155                       1_paranoid_sieve_128_65537
+usvp:188  dual:196  dec:198                       1_q_core_sieve_192_262144
+usvp:188  dual:196  dec:198                       1_q_core_sieve_192_65537
+usvp:285  dec:291   dual:291                      2_bkz_enum_256_262144
+usvp:285  dec:291   dual:291                      2_bkz_enum_256_65537
+usvp:81   dec:83    dual:84                       2_bkz_enum_80_262144
+usvp:81   dec:83    dual:84                       2_bkz_enum_80_65537
+usvp:152  dual:154  dec:155                       2_bkz_sieve_128_262144
+usvp:152  dual:154  dec:155                       2_bkz_sieve_128_65537
+usvp:304  dual:308  dec:314                       2_core_sieve_256_262144
+usvp:304  dual:308  dec:314                       2_core_sieve_256_65537
+usvp:118  dual:121  dec:122                       2_core_sieve_80_262144
+usvp:118  dual:121  dec:122                       2_core_sieve_80_65537
+usvp:216  dec:224   dual:226                      2_paranoid_sieve_192_262144
+usvp:216  dec:224   dual:226                      2_paranoid_sieve_192_65537
+usvp:84   dec:87    dual:88                       2_paranoid_sieve_80_262144
+usvp:84   dec:87    dual:88                       2_paranoid_sieve_80_65537
+usvp:276  dual:280  dec:285                       2_q_core_sieve_256_262144
+usvp:276  dual:280  dec:285                       2_q_core_sieve_256_65537
+usvp:107  dual:110  dec:111                       2_q_core_sieve_80_262144
+usvp:107  dual:110  dec:111                       2_q_core_sieve_80_65537
+usvp:169  dec:172   dual:173                      3_bkz_enum_128_262144
+usvp:285  dec:291   dual:291                      3_bkz_enum_256_65537
+usvp:81   dec:83    dual:84                       3_bkz_enum_80_262144
+usvp:81   dec:83    dual:84                       3_bkz_enum_80_65537
+usvp:152  dual:154  dec:155                       3_bkz_sieve_128_65537
+usvp:242  dec:247   dual:249                      3_bkz_sieve_192_262144
+usvp:242  dec:247   dual:249                      3_bkz_sieve_192_65537
+usvp:111  dec:112   dual:113                      3_bkz_sieve_80_262144
+usvp:208  dec:213   dual:215                      3_core_sieve_192_262144
+usvp:208  dec:213   dual:215                      3_core_sieve_192_65537
+usvp:118  dual:121  dec:122                       3_core_sieve_80_65537
+usvp:148  dec:151   dual:152                      3_paranoid_sieve_128_262144
+usvp:148  dec:151   dual:152                      3_paranoid_sieve_128_65537
+usvp:84   dec:87    dual:88                       3_paranoid_sieve_80_65537
+usvp:189  dec:193   dual:195                      3_q_core_sieve_192_262144
+usvp:189  dec:193   dual:195                      3_q_core_sieve_192_65537
+usvp:107  dual:110  dec:111                       3_q_core_sieve_80_65537
+usvp:169  dec:172   dual:173                      4_bkz_enum_128_262144
+usvp:169  dec:172   dual:173                      4_bkz_enum_128_65537
+usvp:188  dec:190   dual:192                      4_bkz_sieve_192_262144
+usvp:242  dec:247   dual:249                      4_bkz_sieve_192_65537
+usvp:111  dec:112   dual:113                      4_bkz_sieve_80_262144
+usvp:111  dec:112   dual:113                      4_bkz_sieve_80_65537
+usvp:153  dec:156   dual:157                      4_core_sieve_128_262144
+usvp:208  dec:213   dual:215                      4_core_sieve_192_65537
+usvp:148  dec:151   dual:152                      4_paranoid_sieve_128_65537
+usvp:274  dec:281   dual:282                      4_paranoid_sieve_256_262144
+usvp:274  dec:281   dual:282                      4_paranoid_sieve_256_65537
+usvp:109  dec:111   dual:112                      4_paranoid_sieve_80_262144
+usvp:139  dec:142   dual:143                      4_q_core_sieve_128_262144
+usvp:189  dec:193   dual:195                      4_q_core_sieve_192_65537
+usvp:113  dec:114   dual:114                      5_bkz_enum_80_262144
+usvp:113  dec:114   dual:114                      5_bkz_enum_80_65537
+usvp:188  dec:190   dual:192                      5_bkz_sieve_192_262144
+usvp:188  dec:190   dual:192                      5_bkz_sieve_192_65537
+dec:88    dual:88   usvp:88                       5_bkz_sieve_80_262144
+dec:88    dual:88   usvp:88                       5_bkz_sieve_80_65537
+usvp:153  dec:156   dual:157                      5_core_sieve_128_262144
+usvp:153  dec:156   dual:157                      5_core_sieve_128_65537
+usvp:305  dec:310   dual:312                      5_core_sieve_256_262144
+usvp:217  dec:221   dual:222                      5_paranoid_sieve_192_262144
+usvp:274  dec:281   dual:282                      5_paranoid_sieve_256_65537
+usvp:109  dec:111   dual:112                      5_paranoid_sieve_80_262144
+usvp:109  dec:111   dual:112                      5_paranoid_sieve_80_65537
+usvp:139  dec:142   dual:143                      5_q_core_sieve_128_262144
+usvp:139  dec:142   dual:143                      5_q_core_sieve_128_65537
+usvp:277  dec:282   dual:283                      5_q_core_sieve_256_262144
+usvp:286  dual:287  dec:288                       6_bkz_enum_256_262144
+usvp:286  dual:287  dec:288                       6_bkz_enum_256_65537
+dec:82    usvp:82   dual:83                       6_bkz_enum_80_262144
+dec:82    usvp:82   dual:83                       6_bkz_enum_80_65537
+usvp:153  dec:154   dual:154                      6_bkz_sieve_128_262144
+usvp:153  dec:154   dual:154                      6_bkz_sieve_128_65537
+usvp:305  dec:310   dual:312                      6_core_sieve_256_262144
+usvp:305  dec:310   dual:312                      6_core_sieve_256_65537
+usvp:118  dec:120   dual:121                      6_core_sieve_80_262144
+usvp:118  dec:120   dual:121                      6_core_sieve_80_65537
+usvp:217  dec:221   dual:222                      6_paranoid_sieve_192_262144
+usvp:217  dec:221   dual:222                      6_paranoid_sieve_192_65537
+usvp:84   dec:85    dual:86                       6_paranoid_sieve_80_262144
+usvp:84   dec:85    dual:86                       6_paranoid_sieve_80_65537
+usvp:277  dec:282   dual:283                      6_q_core_sieve_256_262144
+usvp:277  dec:282   dual:283                      6_q_core_sieve_256_65537
+usvp:107  dec:109   dual:110                      6_q_core_sieve_80_262144
+usvp:107  dec:109   dual:110                      6_q_core_sieve_80_65537
+usvp:218  dec:219   dual:222                      7_bkz_enum_192_262144
+usvp:218  dec:219   dual:222                      7_bkz_enum_192_65537
+usvp:129  dec:130   dual:131                      7_bkz_sieve_128_262144
+usvp:129  dec:130   dual:131                      7_bkz_sieve_128_65537
+usvp:284  dec:288   dual:289                      7_bkz_sieve_256_262144
+usvp:284  dec:288   dual:289                      7_bkz_sieve_256_65537
+usvp:249  dec:252   dual:254                      7_core_sieve_256_262144
+usvp:249  dec:252   dual:254                      7_core_sieve_256_65537
+usvp:95   dec:96    dual:96                       7_core_sieve_80_262144
+usvp:95   dec:96    dual:96                       7_core_sieve_80_65537
+usvp:177  dual:178  dec:180                       7_paranoid_sieve_128_262144
+usvp:177  dual:178  dec:180                       7_paranoid_sieve_128_65537
+usvp:226  dec:229   dual:230                      7_q_core_sieve_192_262144
+usvp:226  dec:229   dual:230                      7_q_core_sieve_192_65537
+usvp:86   dec:87    dual:88                       7_q_core_sieve_80_262144
+usvp:86   dec:87    dual:88                       7_q_core_sieve_80_65537
+usvp:170  dec:171   dual:174                      8_bkz_enum_128_262144
+usvp:170  dec:171   dual:174                      8_bkz_enum_128_65537
+usvp:243  dual:245  dec:246                       8_bkz_sieve_192_262144
+usvp:243  dual:245  dec:246                       8_bkz_sieve_192_65537
+dec:112   usvp:112  dual:113                      8_bkz_sieve_80_262144
+dec:112   usvp:112  dual:113                      8_bkz_sieve_80_65537
+usvp:208  dual:210  dec:211                       8_core_sieve_192_262144
+usvp:208  dual:210  dec:211                       8_core_sieve_192_65537
+usvp:148  dec:150   dual:153                      8_paranoid_sieve_128_262144
+usvp:148  dec:150   dual:153                      8_paranoid_sieve_128_65537
+usvp:189  dual:190  dec:191                       8_q_core_sieve_192_262144
+usvp:189  dual:190  dec:191                       8_q_core_sieve_192_65537
+dec:138   usvp:138  dual:140                      9_bkz_enum_128_262144
+usvp:170  dec:171   dual:174                      9_bkz_enum_128_65537
+usvp:212  dec:214   dual:214                      9_bkz_sieve_192_262144
+usvp:212  dec:214   dual:214                      9_bkz_sieve_192_65537
+dec:99    usvp:99   dual:100                      9_bkz_sieve_80_262144
+dec:112   usvp:112  dual:113                      9_bkz_sieve_80_65537
+usvp:177  dual:178  dec:179                       9_core_sieve_128_262144
+usvp:177  dual:178  dec:179                       9_core_sieve_128_65537
+usvp:126  dec:127   dual:130                      9_paranoid_sieve_128_262144
+usvp:126  dec:127   dual:130                      9_paranoid_sieve_128_65537
+usvp:161  dual:162  dec:163                       9_q_core_sieve_128_262144
+usvp:161  dual:162  dec:163                       9_q_core_sieve_128_65537
+dec:138   usvp:138  dual:140                      10_bkz_enum_128_65537
+usvp:114  dec:115   dual:115                      10_bkz_enum_80_262144
+dual:189  usvp:189  dec:190                       10_bkz_sieve_192_262144
+usvp:212  dec:214   dual:214                      10_bkz_sieve_192_65537
+usvp:88   dec:89    dual:89                       10_bkz_sieve_80_262144
+dec:99    usvp:99   dual:100                      10_bkz_sieve_80_65537
+usvp:153  dual:154  dec:155                       10_core_sieve_128_262144
+usvp:177  dual:178  dec:179                       10_core_sieve_128_65537
+usvp:126  dec:127   dual:130                      10_paranoid_sieve_128_65537
+usvp:275  dec:278   dual:283                      10_paranoid_sieve_256_262144
+usvp:275  dec:278   dual:283                      10_paranoid_sieve_256_65537
+usvp:109  dec:110   dual:112                      10_paranoid_sieve_80_262144
+usvp:139  dec:140   dual:143                      10_q_core_sieve_128_262144
+usvp:161  dual:162  dec:163                       10_q_core_sieve_128_65537
+usvp:114  dec:115   dual:115                      11_bkz_enum_80_262144
+usvp:114  dec:115   dual:115                      11_bkz_enum_80_65537
+dec:170   dual:170  usvp:170                      11_bkz_sieve_128_262144
+dual:189  usvp:189  dec:190                       11_bkz_sieve_192_65537
+usvp:88   dec:89    dual:89                       11_bkz_sieve_80_262144
+usvp:88   dec:89    dual:89                       11_bkz_sieve_80_65537
+usvp:134  dec:135   dual:137                      11_core_sieve_128_262144
+usvp:153  dual:154  dec:155                       11_core_sieve_128_65537
+usvp:243  dec:246   dual:249                      11_paranoid_sieve_192_262144
+usvp:243  dec:246   dual:249                      11_paranoid_sieve_192_65537
+usvp:95   dec:96    dual:97                       11_paranoid_sieve_80_262144
+usvp:109  dec:110   dual:112                      11_paranoid_sieve_80_65537
+usvp:122  dec:123   dual:124                      11_q_core_sieve_128_262144
+usvp:139  dec:140   dual:143                      11_q_core_sieve_128_65537
+usvp:311  dec:314   dual:315                      11_q_core_sieve_256_262144
+usvp:311  dec:314   dual:315                      11_q_core_sieve_256_65537
+usvp:287  dec:288   dual:291                      12_bkz_enum_256_262144
+dec:97    dual:97   usvp:97                       12_bkz_enum_80_262144
+dec:97    dual:97   usvp:97                       12_bkz_enum_80_65537
+dec:154   dual:154  usvp:154                      12_bkz_sieve_128_262144
+dec:170   dual:170  usvp:170                      12_bkz_sieve_128_65537
+dec:81    dual:81   usvp:81                       12_bkz_sieve_80_262144
+dec:81    dual:81   usvp:81                       12_bkz_sieve_80_65537
+usvp:134  dec:135   dual:137                      12_core_sieve_128_65537
+usvp:306  dec:308   dual:313                      12_core_sieve_256_262144
+usvp:306  dec:308   dual:313                      12_core_sieve_256_65537
+usvp:118  dec:119   dual:121                      12_core_sieve_80_262144
+usvp:217  dec:219   dual:222                      12_paranoid_sieve_192_262144
+usvp:217  dec:219   dual:222                      12_paranoid_sieve_192_65537
+usvp:84   dec:85    dual:86                       12_paranoid_sieve_80_262144
+usvp:95   dec:96    dual:97                       12_paranoid_sieve_80_65537
+usvp:122  dec:123   dual:124                      12_q_core_sieve_128_65537
+usvp:277  dec:280   dual:284                      12_q_core_sieve_256_262144
+usvp:277  dec:280   dual:284                      12_q_core_sieve_256_65537
+usvp:107  dec:108   dual:110                      12_q_core_sieve_80_262144
+usvp:287  dec:288   dual:291                      13_bkz_enum_256_262144
+usvp:287  dec:288   dual:291                      13_bkz_enum_256_65537
+dec:83    dual:83   usvp:83                       13_bkz_enum_80_262144
+dec:83    dual:83   usvp:83                       13_bkz_enum_80_65537
+dec:154   dual:154  usvp:154                      13_bkz_sieve_128_262144
+dec:154   dual:154  usvp:154                      13_bkz_sieve_128_65537
+usvp:275  dec:277   dual:281                      13_core_sieve_256_262144
+usvp:306  dec:308   dual:313                      13_core_sieve_256_65537
+usvp:118  dec:119   dual:121                      13_core_sieve_80_262144
+usvp:118  dec:119   dual:121                      13_core_sieve_80_65537
+usvp:195  dec:197   dual:199                      13_paranoid_sieve_192_262144
+usvp:217  dec:219   dual:222                      13_paranoid_sieve_192_65537
+usvp:84   dec:85    dual:86                       13_paranoid_sieve_80_262144
+usvp:84   dec:85    dual:86                       13_paranoid_sieve_80_65537
+usvp:250  dec:252   dual:255                      13_q_core_sieve_256_262144
+usvp:277  dec:280   dual:284                      13_q_core_sieve_256_65537
+usvp:107  dec:108   dual:110                      13_q_core_sieve_80_262144
+usvp:107  dec:108   dual:110                      13_q_core_sieve_80_65537
+dec:249   usvp:249  dual:251                      14_bkz_enum_256_262144
+dec:249   usvp:249  dual:251                      14_bkz_enum_256_65537
+dec:83    dual:83   usvp:83                       14_bkz_enum_80_65537
+dec:141   usvp:141  dual:143                      14_bkz_sieve_128_262144
+dec:141   usvp:141  dual:143                      14_bkz_sieve_128_65537
+usvp:286  dec:287   dual:291                      14_bkz_sieve_256_262144
+usvp:249  dec:251   dual:254                      14_core_sieve_256_262144
+usvp:275  dec:277   dual:281                      14_core_sieve_256_65537
+usvp:105  dec:106   dual:108                      14_core_sieve_80_262144
+usvp:105  dec:106   dual:108                      14_core_sieve_80_65537
+usvp:177  dec:178   dual:180                      14_paranoid_sieve_128_262144
+usvp:195  dec:197   dual:199                      14_paranoid_sieve_192_65537
+usvp:226  dec:228   dual:231                      14_q_core_sieve_192_262144
+usvp:250  dec:252   dual:255                      14_q_core_sieve_256_65537
+usvp:95   dec:96    dual:98                       14_q_core_sieve_80_262144
+usvp:95   dec:96    dual:98                       14_q_core_sieve_80_65537
+dec:219   dual:219  usvp:219                      15_bkz_enum_192_262144
+dec:219   dual:219  usvp:219                      15_bkz_enum_192_65537
+dec:130   usvp:130  dual:132                      15_bkz_sieve_128_262144
+dec:130   usvp:130  dual:132                      15_bkz_sieve_128_65537
+usvp:264  dec:265   dual:268                      15_bkz_sieve_256_262144
+usvp:286  dec:287   dual:291                      15_bkz_sieve_256_65537
+usvp:227  dec:229   dual:231                      15_core_sieve_192_262144
+usvp:249  dec:251   dual:254                      15_core_sieve_256_65537
+dec:95    usvp:95   dual:96                       15_core_sieve_80_262144
+dec:95    usvp:95   dual:96                       15_core_sieve_80_65537
+usvp:161  dec:163   dual:164                      15_paranoid_sieve_128_262144
+usvp:177  dec:178   dual:180                      15_paranoid_sieve_128_65537
+usvp:206  dec:208   dual:210                      15_q_core_sieve_192_262144
+usvp:226  dec:228   dual:231                      15_q_core_sieve_192_65537
+dec:86    usvp:86   dual:87                       15_q_core_sieve_80_262144
+dec:86    usvp:86   dual:87                       15_q_core_sieve_80_65537
+usvp:192  dual:193  16_bkz_enum_192_262144
 dual:219  usvp:219  16_bkz_enum_192_65537
-usvp:130  dual:132  16_bkz_sieve_128_40961
+usvp:120  dual:122  16_bkz_sieve_128_262144
 usvp:130  dual:132  16_bkz_sieve_128_65537
-usvp:264  dual:268  16_bkz_sieve_256_40961
+usvp:245  dual:248  16_bkz_sieve_192_262144
 usvp:264  dual:268  16_bkz_sieve_256_65537
-usvp:227  dual:231  16_core_sieve_192_40961
+usvp:209  dual:212  16_core_sieve_192_262144
 usvp:227  dual:231  16_core_sieve_192_65537
-usvp:95   dual:96   16_core_sieve_80_40961
+usvp:85   dual:87   16_core_sieve_80_262144
 usvp:95   dual:96   16_core_sieve_80_65537
-usvp:161  dual:164  16_paranoid_sieve_128_40961
+usvp:148  dual:150  16_paranoid_sieve_128_262144
 usvp:161  dual:164  16_paranoid_sieve_128_65537
-usvp:206  dual:210  16_q_core_sieve_192_40961
+usvp:189  dual:192  16_q_core_sieve_192_262144
 usvp:206  dual:210  16_q_core_sieve_192_65537
-usvp:86   dual:87   16_q_core_sieve_80_40961
 usvp:86   dual:87   16_q_core_sieve_80_65537
-usvp:192  dual:193  17_bkz_enum_192_40961
+dual:171  usvp:171  17_bkz_enum_128_262144
 usvp:192  dual:193  17_bkz_enum_192_65537
-usvp:120  dual:122  17_bkz_sieve_128_40961
 usvp:120  dual:122  17_bkz_sieve_128_65537
-usvp:245  dual:248  17_bkz_sieve_192_40961
+usvp:245  dual:248  17_bkz_sieve_192_262144
 usvp:245  dual:248  17_bkz_sieve_192_65537
-usvp:209  dual:212  17_core_sieve_192_40961
+usvp:112  dual:114  17_bkz_sieve_80_262144
+usvp:209  dual:212  17_core_sieve_192_262144
 usvp:209  dual:212  17_core_sieve_192_65537
-usvp:85   dual:87   17_core_sieve_80_40961
 usvp:85   dual:87   17_core_sieve_80_65537
-usvp:148  dual:150  17_paranoid_sieve_128_40961
+usvp:148  dual:150  17_paranoid_sieve_128_262144
 usvp:148  dual:150  17_paranoid_sieve_128_65537
-usvp:189  dual:192  17_q_core_sieve_192_40961
+usvp:189  dual:192  17_q_core_sieve_192_262144
 usvp:189  dual:192  17_q_core_sieve_192_65537
-dual:171  usvp:171  18_bkz_enum_128_40961
+dual:154  usvp:154  18_bkz_enum_128_262144
 dual:171  usvp:171  18_bkz_enum_128_65537
-usvp:228  dual:231  18_bkz_sieve_192_40961
+usvp:228  dual:231  18_bkz_sieve_192_262144
 usvp:228  dual:231  18_bkz_sieve_192_65537
-usvp:112  dual:114  18_bkz_sieve_80_40961
+usvp:106  dual:107  18_bkz_sieve_80_262144
 usvp:112  dual:114  18_bkz_sieve_80_65537
-usvp:192  dual:195  18_core_sieve_192_40961
+usvp:192  dual:195  18_core_sieve_192_262144
 usvp:192  dual:195  18_core_sieve_192_65537
-usvp:136  dual:138  18_paranoid_sieve_128_40961
+usvp:136  dual:138  18_paranoid_sieve_128_262144
 usvp:136  dual:138  18_paranoid_sieve_128_65537
-usvp:174  dual:177  18_q_core_sieve_128_40961
+usvp:174  dual:177  18_q_core_sieve_128_262144
 usvp:174  dual:177  18_q_core_sieve_128_65537
-dual:154  usvp:154  19_bkz_enum_128_40961
+usvp:139  dual:141  19_bkz_enum_128_262144
 dual:154  usvp:154  19_bkz_enum_128_65537
-usvp:228  dual:231  19_bkz_sieve_192_40961
+usvp:214  dual:216  19_bkz_sieve_192_262144
 usvp:214  dual:216  19_bkz_sieve_192_65537
-usvp:106  dual:107  19_bkz_sieve_80_40961
+dual:100  usvp:100  19_bkz_sieve_80_262144
 usvp:106  dual:107  19_bkz_sieve_80_65537
+usvp:177  dual:180  19_core_sieve_128_262144
 usvp:177  dual:180  19_core_sieve_128_65537
-usvp:192  dual:195  19_core_sieve_192_40961
-usvp:136  dual:138  19_paranoid_sieve_128_40961
+usvp:126  dual:128  19_paranoid_sieve_128_262144
 usvp:126  dual:128  19_paranoid_sieve_128_65537
-usvp:174  dual:177  19_q_core_sieve_128_40961
+usvp:294  dual:299  19_paranoid_sieve_256_262144
+usvp:161  dual:163  19_q_core_sieve_128_262144
 usvp:161  dual:163  19_q_core_sieve_128_65537
-usvp:139  dual:141  20_bkz_enum_128_40961
+usvp:139  dual:141  20_bkz_enum_128_262144
 usvp:139  dual:141  20_bkz_enum_128_65537
-usvp:214  dual:216  20_bkz_sieve_192_40961
+usvp:201  dual:203  20_bkz_sieve_192_262144
 usvp:214  dual:216  20_bkz_sieve_192_65537
-dual:100  usvp:100  20_bkz_sieve_80_40961
+dual:100  usvp:100  20_bkz_sieve_80_262144
 dual:100  usvp:100  20_bkz_sieve_80_65537
-usvp:177  dual:180  20_core_sieve_128_40961
+usvp:165  dual:167  20_core_sieve_128_262144
 usvp:177  dual:180  20_core_sieve_128_65537
-usvp:126  dual:128  20_paranoid_sieve_128_40961
 usvp:126  dual:128  20_paranoid_sieve_128_65537
-usvp:294  dual:299  20_paranoid_sieve_256_40961
+usvp:276  dual:279  20_paranoid_sieve_256_262144
 usvp:294  dual:299  20_paranoid_sieve_256_65537
-usvp:161  dual:163  20_q_core_sieve_128_40961
+usvp:117  dual:118  20_paranoid_sieve_80_262144
+usvp:149  dual:151  20_q_core_sieve_128_262144
 usvp:161  dual:163  20_q_core_sieve_128_65537

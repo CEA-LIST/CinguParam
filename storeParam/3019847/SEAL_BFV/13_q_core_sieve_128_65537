@@ -17,7 +17,7 @@
 	</ciphertext>
 	<linearization>
 		<version>1</version>
-		<decomposition_bit_count>60</decomposition_bit_count>
+		<decomposition_bit_count>32</decomposition_bit_count>
 	</linearization>
 	<secret_key>
 		<hamming_weight>-1</hamming_weight>
@@ -27,13 +27,15 @@
 		<security_reduction>no</security_reduction>
 		<prv_key_distr>(-1, 1)</prv_key_distr>
 		<n>32768</n>
-		<nr_samples>393216</nr_samples>
+		<nr_samples>688128</nr_samples>
 		<alpha>2.79809734367549e-192</alpha>
 		<q_CINGULATA_BFV>2**638</q_CINGULATA_BFV>
 		<q_bitsize_SEAL_BFV>{30,38,40,50,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
 		<t>65537</t>
 		<modulus_level>bytesize</modulus_level>
 		<method>min_modulus</method>
+		<politic>SEAL_BFV</politic>
+		<log2_advantage>-28</log2_advantage>
 		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.265*beta)</bkz_reduction_cost_model>
 	</extra>
 </fhe_params>

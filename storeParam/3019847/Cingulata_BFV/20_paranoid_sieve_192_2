@@ -37,7 +37,9 @@
 		<q_bitsize_SEAL_BFV>{30,34,40,50,60,60,60,60,60,60,60,60,60}</q_bitsize_SEAL_BFV>
 		<t>2</t>
 		<modulus_level>bytesize</modulus_level>
-		<method>min_degree</method>
+		<method>min_modulus</method>
+		<politic>Cingulata_BFV</politic>
+		<log2_advantage>-64</log2_advantage>
 		<bkz_reduction_cost_model>lambda beta, d, B: ZZ(2)**RR(0.2075*beta)</bkz_reduction_cost_model>
 	</extra>
 </fhe_params>
